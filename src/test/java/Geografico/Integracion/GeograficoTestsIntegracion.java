@@ -1,6 +1,6 @@
 package Geografico.Integracion;
 
-import Geografico.model.APILocalizador;
+import Geografico.model.API.APILocalizador;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
