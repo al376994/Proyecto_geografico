@@ -22,6 +22,9 @@ public class TestsAceptacion_E3 {
         //Arrange
         //Act
         Boolean valido = apiAirVisual.validarToponimo("Castellón");
+
+        //esto de aqui debajo lo hace valido si se descomenta y tecnicamente funciona como debería
+        //valido = apiAirVisual.validarToponimoExaustivo("Castello%20de%20la%20Plana", "Valencia", "Spain");
         //Assert
         assertEquals(true, valido);
     }
