@@ -1,4 +1,4 @@
-package Geografico;
+package Geografico.Integracion;
 
 import Geografico.model.APILocalizador;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-class GeograficoTests {
+class GeograficoTestsIntegracion {
 	@Mock
 	private APILocalizador localizadorMock;
 
