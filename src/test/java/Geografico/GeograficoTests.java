@@ -12,7 +12,7 @@ class GeograficoTests {
 	@Mock
 	private APILocalizador localizadorMock;
 
-	@Test
+	@Test /* Esto realmente no es un buen uso de mock porque no se prueba nada, pero es un ejemplo para ver como va */
 	void ExisteUbicacionPorToponimo_escValido_resTrue() {
 		//arrange
 		when(localizadorMock.existsUbicationByToponimo("España")).thenReturn(true);
