@@ -1,6 +1,8 @@
 package Geografico.model.API;
 
 public interface APIGeocodeInterface {
-    String getUbicacionToponimo();
-    String getUbicacionCoordenadas();
+    boolean validarToponimo(String toponimo);
+    boolean validarCoordenadas(double lat, double lon);
+    String getUbicacionToponimo(String toponimo);
+    String getUbicacionCoordenadas(double lat, double lon);
 }
