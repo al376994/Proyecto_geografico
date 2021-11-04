@@ -16,17 +16,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class TestsAceptacion_E1_2 {
-	APIGeocodeInterface apiGeocode;
-	ListaUsuario listaUsuario;
-	Usuario usuario;
+	private APIGeocodeInterface apiGeocode;
+	private ListaUsuario listaUsuario;
+	private Usuario usuario;
 
 	//mejorar nombre
 	@BeforeEach
 	private void iniciarVariables(){
 		apiGeocode = new APIGeocode();
 		listaUsuario = new ListaUsuario();
-		//usuario = listaUsuario.getUsuario("Nombre1"); para hacer tests al principio creamos un usuario a mano
-		usuario = new Usuario();
+		usuario = new Usuario();			//para hacer tests al principio creamos un usuario a mano
+		usuario.setNombre("Nombre1");
+		listaUsuario.addUsuario(usuario);	// No hace nada de momento, cuando la comunicacion con la base de
+											// datos este implmentada se usara y podremos descomentar el siguiente
+											// trozo de codigo también
+		//usuario = listaUsuario.getUsuario("Nombre1");	// esto es solo para mostrar como se conseguiria
+														// el usuario realmente
 	}
 
 	@Test
