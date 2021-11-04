@@ -32,16 +32,14 @@ public class Usuario {
 		listAPIGeocode.add(apiGeocode);
 	}
 
-	public Ubicacion altaUbicacionToponimo(String toponimo){
+	public void altaUbicacionToponimo(String toponimo){
 		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionToponimo(toponimo);
 		guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
-		return nuevaUbicacion;
 	}
 
-	public Ubicacion altaUbicacionCoordenadas(double lat, double lon ){
+	public void altaUbicacionCoordenadas(double lat, double lon ){
 		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionCoordenadas(lat, lon);
 		guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
-		return nuevaUbicacion;
 	}
 
 	private void guardarUbicacionEnBaseDeDatos(Ubicacion ubicacion) {
