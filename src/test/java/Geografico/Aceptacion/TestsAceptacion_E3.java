@@ -34,13 +34,31 @@ public class TestsAceptacion_E3 {
 	}
 
 	@Test
-	public void validarToponimo_E1_3_1_devuelveFalse(){
+	public void validarToponimo_E1_3_2_devuelveFalse(){
 		//Arrange
 		//Act
 		boolean valido = apiGeocode.validarToponimo(";");
 		//Boolean valido = apiAirVisual.validarToponimo(";");
 		//Assert
 		//salta excepcion
+		assertFalse(valido);
+	}
+
+	@Test
+	public void validarCoordenadas_E1_4_1_devuelveTrue(){
+		//Arrange
+		//Act
+		boolean valido = apiGeocode.validarCoordenadas(39.986, -0.0376709);
+		//Assert
+		assertTrue(valido);
+	}
+
+	@Test
+	public void validarCoordenadas_E1_4_2_devuelveFalse(){
+		//Arrange
+		//Act
+		boolean valido = apiGeocode.validarCoordenadas(100, -100);
+		//Assert
 		assertFalse(valido);
 	}
 }
