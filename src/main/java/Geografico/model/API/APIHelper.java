@@ -8,7 +8,7 @@ import java.net.http.HttpResponse;
 
 public class APIHelper {
 	public static final String airVisualKey = "bf324fc3-3c44-4f50-bd19-836179b019b8";
-	public static final String geoCodeKey = "";	//No hace falta
+	public static final String geoCodeKey = "136807723723026938676x50228";
 	private static final HttpClient client = HttpClient.newHttpClient();
 
 	public static String getBody(String givenURI) {

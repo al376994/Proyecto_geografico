@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class APIAirVisual implements APIAirVisualInterface{
 
-    String key = APIHelper.airVisualKey;
+    private final String key = APIHelper.airVisualKey;
 
     @Override
     public boolean validarToponimo(String toponimo) {

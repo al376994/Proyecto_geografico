@@ -5,10 +5,12 @@ import org.json.JSONObject;
 
 public class APIGeocode implements APIGeocodeInterface{
 
+    private final String key = APIHelper.geoCodeKey;
+
 	@Override
 	public boolean validarToponimo(String toponimo) {
 
-		String URI = String.format("https://geocode.xyz/%s?geoit=json&auth=136807723723026938676x50228", toponimo);
+		String URI = String.format("https://geocode.xyz/%s?geoit=json&auth=" + key, toponimo);
 		String raw = APIHelper.getBody(URI);
 
 		JSONObject jObject;
