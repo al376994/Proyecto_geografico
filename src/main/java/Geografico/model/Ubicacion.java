@@ -56,4 +56,9 @@ public class Ubicacion {
 	public Coordenadas getCoordenadas() {
 		return new Coordenadas(getLatitud(), getLongitud());
 	}
+
+	public void setCoordenadas(Coordenadas coordenadas) {
+		setLatitud(coordenadas.getLatitud());
+		setLongitud(coordenadas.getLongitud());
+	}
 }
