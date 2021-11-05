@@ -1,0 +1,28 @@
+package Geografico.Aceptacion;
+
+import Geografico.model.API.APIGeocode;
+import Geografico.model.API.APIGeocodeInterface;
+import Geografico.model.Coordenadas;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class TestsAceptacion_E6 {
+	private APIGeocodeInterface apiGeocode;
+
+	@BeforeEach
+	public void iniciarVariables(){
+		apiGeocode = new APIGeocode();
+	}
+
+	@Test
+	public void obtenerCoordenadasDeToponimo_E1_6_1_devuelveCoordenadasCastellon(){
+		//Arrange
+		Coordenadas coordenadasCastellon = new Coordenadas(39.97990, -0.03304);
+		//Act
+		Coordenadas coordenadasCastellonPorPeticion = apiGeocode.getCoordenadasDeToponimo("Castellón");
+		//Assert
+		assertEquals(coordenadasCastellon, coordenadasCastellonPorPeticion);
+	}
+}

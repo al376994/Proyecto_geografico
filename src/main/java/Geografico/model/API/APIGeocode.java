@@ -1,5 +1,6 @@
 package Geografico.model.API;
 
+import Geografico.model.Coordenadas;
 import Geografico.model.Ubicacion;
 import org.json.JSONObject;
 
@@ -45,9 +46,7 @@ public class APIGeocode implements APIGeocodeInterface{
 		try {
 			jObject = new JSONObject(raw);
 			if (!validarUbicacion(jObject)) return null; // TODO cambiar a un throws Excepcion concreta?
-			double lat = Double.parseDouble(jObject.getString("latt"));
-			double lon = Double.parseDouble(jObject.getString("longt"));
-			return getUbicacionCoordenadas(lat, lon);
+			return Ubicacion.crearUbicacionDesdeGeocode(jObject);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -66,6 +65,11 @@ public class APIGeocode implements APIGeocodeInterface{
 		// Si Geocode no es capaz de encontrar una ubicación devolvera un json con el elemento
 		// "error", por consiguiente si el json tiene este elemento es que la ubicación no existe
 		return !jsonObject.has("error");
+	}
+
+	@Override
+	public Coordenadas getCoordenadasDeToponimo(String toponimo) {
+		return getUbicacionToponimo(toponimo).getCoordenadas();
 	}
 
 	private String coordFormater(double lat, double lon) {

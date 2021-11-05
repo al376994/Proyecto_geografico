@@ -1,5 +1,6 @@
 package Geografico.model.API;
 
+import Geografico.model.Coordenadas;
 import Geografico.model.Ubicacion;
 
 public interface APIGeocodeInterface {
@@ -7,4 +8,5 @@ public interface APIGeocodeInterface {
 	boolean validarCoordenadas(double lat, double lon);
 	Ubicacion getUbicacionToponimo(String toponimo);
 	Ubicacion getUbicacionCoordenadas(double lat, double lon);
+	Coordenadas getCoordenadasDeToponimo(String toponimo);
 }
