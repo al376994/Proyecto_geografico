@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class TestsAceptacion_E1_2 {
 		apiGeocode = new APIGeocode();
 		listaUsuario = new ListaUsuario();
 		usuario = new Usuario();			//para hacer tests al principio creamos un usuario a mano
-		usuario.setNombre("Nombre1");
+		usuario.setNombre("usuario4");
 		listaUsuario.addUsuario(usuario);	// No hace nada de momento, cuando la comunicacion con la base de
 											// datos este implmentada se usara y podremos descomentar el siguiente
 											// trozo de codigo también
@@ -35,7 +36,7 @@ public class TestsAceptacion_E1_2 {
 	}
 
 	@Test
-	public void altaUbicacionToponimo_E1_1_1_seAñadeLista(){
+	public void altaUbicacionToponimo_E1_1_1_seAñadeLista() throws SQLException {
 		//Arrange
 		usuario.addAPIGeocode(apiGeocode);
 		//Act
@@ -46,7 +47,7 @@ public class TestsAceptacion_E1_2 {
 	}
 
 	@Test
-	public void altaUbicacionToponimo_E1_1_2_listaUbicacionesVacia(){
+	public void altaUbicacionToponimo_E1_1_2_listaUbicacionesVacia() throws SQLException {
 		//Arrange
 		usuario.addAPIGeocode(apiGeocode);
 		//Act
@@ -57,7 +58,7 @@ public class TestsAceptacion_E1_2 {
 	}
 
 	@Test
-	public void altaUbicacionCoordenadas_E1_2_1_seAñadeLista(){
+	public void altaUbicacionCoordenadas_E1_2_1_seAñadeLista() throws SQLException {
 		//Arrange
 		usuario.addAPIGeocode(apiGeocode);
 		//Act
@@ -68,7 +69,7 @@ public class TestsAceptacion_E1_2 {
 	}
 
 	@Test
-	public void altaUbicacionCoordenadas_E1_2_3_listaUbicacionesVacia(){
+	public void altaUbicacionCoordenadas_E1_2_3_listaUbicacionesVacia() throws SQLException {
 		//Arrange
 		usuario.addAPIGeocode(apiGeocode);
 		//Act
@@ -77,6 +78,4 @@ public class TestsAceptacion_E1_2 {
 		List<Ubicacion> listaUbicaciones = usuario.getUbicaciones();
 		assertEquals(0, listaUbicaciones.size());
 	}
-
-
 }

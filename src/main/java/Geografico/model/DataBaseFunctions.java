@@ -36,14 +36,33 @@ public class DataBaseFunctions {
 
 	public void añadirUbicacionUsuario(String usuario, double latitud,double longitud, String alias){
 		try{
-			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_ubicaciones values(?, ?, ?, ?)");
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_ubicaciones values(?, ?, ?, ?,?,?)");
 			statement.setString(1, usuario);
 			statement.setDouble(2, latitud);
 			statement.setDouble(3, longitud);
 			statement.setString(4, alias);
+			statement.setBoolean(5,false);
+			statement.setBoolean(6, false);
+			statement.executeUpdate();
+			PreparedStatement statement1 = conn.prepareStatement("INSERT INTO ubicaciones values(?, ?, ?)");
+			statement1.setDouble(1, latitud);
+			statement1.setDouble(2, longitud);
+			statement1.setString(3, alias);
+			statement1.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+
+	public void addUsuario(Usuario usuario){
+		try{
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario values(?,?)");
+			statement.setString(1, usuario.getNombre());
+			statement.setString(2, null);
 			statement.executeUpdate();
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
 	}
+
 }

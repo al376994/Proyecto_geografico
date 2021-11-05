@@ -2,6 +2,7 @@ package Geografico.model;
 
 import Geografico.model.API.APIGeocodeInterface;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,14 @@ public class Usuario {
 	private String email;
 	private List<APIGeocodeInterface> listAPIGeocode = new ArrayList<>();
 	private APIGeocodeInterface apiGeocode; // La API de geolocalización elegida actualmente por el usuario
+	private DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
+
+	public Usuario() {
+	}
+
+	public Usuario(String nombre) {
+		this.nombre = nombre;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -27,6 +36,10 @@ public class Usuario {
 		this.email = email;
 	}
 
+	public void setDataBaseFunctions(DataBaseFunctions dataBaseFunctions) {
+		this.dataBaseFunctions = dataBaseFunctions;
+	}
+
 	public void addAPIGeocode(APIGeocodeInterface apiGeocode){
 		if (listAPIGeocode.isEmpty()) this.apiGeocode = apiGeocode;
 		listAPIGeocode.add(apiGeocode);
@@ -34,21 +47,22 @@ public class Usuario {
 
 	public void altaUbicacionToponimo(String toponimo){
 		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionToponimo(toponimo);
-		guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
+		if (nuevaUbicacion != null)guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
 	}
 
 	public void altaUbicacionCoordenadas(double lat, double lon ){
 		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionCoordenadas(lat, lon);
-		guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
+		if (nuevaUbicacion != null)guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
 	}
 
 	private void guardarUbicacionEnBaseDeDatos(Ubicacion ubicacion) {
 		// TODO comunicar con la base de datos (guardar ubicación)
+		dataBaseFunctions.añadirUbicacionUsuario(this.nombre, ubicacion.getLatitud(),
+				ubicacion.getLongitud(), ubicacion.getAlias());
 	}
 
-	public List<Ubicacion> getUbicaciones(){
+	public List<Ubicacion> getUbicaciones() throws SQLException {
 		// TODO comunicar con la base de datos (recibir ubicaciones)
-		System.out.println("usuario.getUbicaciones() no implementado");
-		return null;
+		return dataBaseFunctions.listarUbicacionesUsuario(this.nombre);
 	}
 }
