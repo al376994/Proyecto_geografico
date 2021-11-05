@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestsAceptacion_E6 {
 	private APIGeocodeInterface apiGeocode;
@@ -24,5 +25,14 @@ public class TestsAceptacion_E6 {
 		Coordenadas coordenadasCastellonPorPeticion = apiGeocode.getCoordenadasDeToponimo("Castellón");
 		//Assert
 		assertEquals(coordenadasCastellon, coordenadasCastellonPorPeticion);
+	}
+
+	@Test
+	public void obtenerCoordenadasDeToponimo_E1_6_2_devuelveNull(){
+		//Arrange
+		//Act
+		Coordenadas coordenadasCastellonPorPeticion = apiGeocode.getCoordenadasDeToponimo(";");
+		//Assert
+		assertNull(coordenadasCastellonPorPeticion);
 	}
 }

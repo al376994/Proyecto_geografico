@@ -69,7 +69,9 @@ public class APIGeocode implements APIGeocodeInterface{
 
 	@Override
 	public Coordenadas getCoordenadasDeToponimo(String toponimo) {
-		return getUbicacionToponimo(toponimo).getCoordenadas();
+		Ubicacion ubicacion = getUbicacionToponimo(toponimo);
+		if (ubicacion == null) return null;
+		return ubicacion.getCoordenadas();
 	}
 
 	private String coordFormater(double lat, double lon) {
