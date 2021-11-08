@@ -65,4 +65,9 @@ public class Usuario {
 		// TODO comunicar con la base de datos (recibir ubicaciones)
 		return dataBaseFunctions.listarUbicacionesUsuario(this.nombre);
 	}
+
+	public boolean activarUbicacion(Ubicacion ubicacion) {
+		//TODO comprobar que la ubicación está en la base de datos y esta desactivada, entonces devolver true si se activa o false si no.
+		return true;
+	}
 }

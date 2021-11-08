@@ -9,6 +9,15 @@ public class Ubicacion {
 	private String nombre;
 	private String alias;
 
+	public Ubicacion(){
+	}
+
+	public Ubicacion(double latitud, double longitud, String nombre) {
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.nombre = nombre;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
