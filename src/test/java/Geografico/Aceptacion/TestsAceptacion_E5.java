@@ -14,8 +14,8 @@ public class TestsAceptacion_E5 {
 
     @BeforeEach
     public void setUp(){
-        Usuario usuario = new Usuario();
-        Ubicacion ubicacion = new Ubicacion(39.97990, -0.03304, "Castellón");
+        usuario = new Usuario();
+        ubicacion = new Ubicacion(39.97990, -0.03304, "Castellón");
         ubicacion.setAlias("Castellón");
     }
 
