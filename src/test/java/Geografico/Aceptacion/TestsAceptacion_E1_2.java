@@ -23,11 +23,11 @@ public class TestsAceptacion_E1_2 {
 
 	//mejorar nombre
 	@BeforeEach
-	private void iniciarVariables(){
+	private void iniciarVariables() throws SQLException {
 		apiGeocode = new APIGeocode();
 		listaUsuario = new ListaUsuario();
 		usuario = new Usuario();			//para hacer tests al principio creamos un usuario a mano
-		usuario.setNombre("usuario4");
+		usuario.setNombre("usuario5");
 		listaUsuario.addUsuario(usuario);	// No hace nada de momento, cuando la comunicacion con la base de
 											// datos este implmentada se usara y podremos descomentar el siguiente
 											// trozo de codigo también

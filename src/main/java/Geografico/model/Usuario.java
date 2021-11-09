@@ -58,7 +58,7 @@ public class Usuario {
 	private void guardarUbicacionEnBaseDeDatos(Ubicacion ubicacion) {
 		// TODO comunicar con la base de datos (guardar ubicación)
 		dataBaseFunctions.añadirUbicacionUsuario(this.nombre, ubicacion.getLatitud(),
-				ubicacion.getLongitud(), ubicacion.getAlias());
+				ubicacion.getLongitud(), ubicacion.getNombre());
 	}
 
 	public List<Ubicacion> getUbicaciones() throws SQLException {
