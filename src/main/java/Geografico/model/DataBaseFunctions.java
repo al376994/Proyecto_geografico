@@ -1,9 +1,8 @@
 package Geografico.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import org.postgresql.util.PSQLException;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,14 +53,14 @@ public class DataBaseFunctions {
 		}
 	}
 
-	public void addUsuario(Usuario usuario){
+	public void addUsuario(Usuario usuario) throws SQLException {
 		try{
 			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario values(?,?)");
 			statement.setString(1, usuario.getNombre());
 			statement.setString(2, null);
 			statement.executeUpdate();
-		}catch (SQLException e){
-			e.printStackTrace();
+		}catch (SQLException e2){
+			e2.printStackTrace();
 		}
 	}
 

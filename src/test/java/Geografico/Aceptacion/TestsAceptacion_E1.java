@@ -16,18 +16,18 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class TestsAceptacion_E1_2 {
+public class TestsAceptacion_E1 {
 	private APIGeocodeInterface apiGeocode;
 	private ListaUsuario listaUsuario;
 	private Usuario usuario;
 
 	//mejorar nombre
 	@BeforeEach
-	private void iniciarVariables(){
+	private void iniciarVariables() throws SQLException {
 		apiGeocode = new APIGeocode();
 		listaUsuario = new ListaUsuario();
 		usuario = new Usuario();			//para hacer tests al principio creamos un usuario a mano
-		usuario.setNombre("usuario4");
+		usuario.setNombre("usuario5");
 		listaUsuario.addUsuario(usuario);	// No hace nada de momento, cuando la comunicacion con la base de
 											// datos este implmentada se usara y podremos descomentar el siguiente
 											// trozo de codigo también
@@ -52,28 +52,6 @@ public class TestsAceptacion_E1_2 {
 		usuario.addAPIGeocode(apiGeocode);
 		//Act
 		usuario.altaUbicacionToponimo(";");
-		//Assert
-		List<Ubicacion> listaUbicaciones = usuario.getUbicaciones();
-		assertEquals(0, listaUbicaciones.size());
-	}
-
-	@Test
-	public void altaUbicacionCoordenadas_E1_2_1_seAñadeLista() throws SQLException {
-		//Arrange
-		usuario.addAPIGeocode(apiGeocode);
-		//Act
-		usuario.altaUbicacionCoordenadas(39.986,-0.0376709);
-		//Assert
-		List<Ubicacion> listaUbicaciones = usuario.getUbicaciones();
-		assertEquals(1, listaUbicaciones.size());
-	}
-
-	@Test
-	public void altaUbicacionCoordenadas_E1_2_3_listaUbicacionesVacia() throws SQLException {
-		//Arrange
-		usuario.addAPIGeocode(apiGeocode);
-		//Act
-		usuario.altaUbicacionCoordenadas(100, -100);
 		//Assert
 		List<Ubicacion> listaUbicaciones = usuario.getUbicaciones();
 		assertEquals(0, listaUbicaciones.size());
