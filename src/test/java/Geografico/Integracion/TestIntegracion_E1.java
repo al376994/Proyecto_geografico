@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
-public class TestIntegracion_E1_2 {
+public class TestIntegracion_E1 {
     private APIGeocodeInterface mockedApiGeocode;
     private ListaUsuario mockedListaUsuario;
     private Usuario usuario;
