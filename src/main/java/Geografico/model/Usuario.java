@@ -70,4 +70,14 @@ public class Usuario {
 		//TODO comprobar que la ubicación está en la base de datos y esta desactivada, entonces devolver true si se activa o false si no.
 		return true;
 	}
+
+	public boolean desactivarUbicacion(Ubicacion ubicacion) {
+		//TODO comprobar que la ubicacion está en la base de datos y esta activada, entonces devovler true si se desactiva o false si no.
+		return true;
+	}
+
+	public Boolean darDeBajaUbicacion(Ubicacion ubicacion) {
+		//TODO comprobar que existe esa ubicacion y eliminarla y devolver true o folse si se ha podido aliminar
+		return true;
+	}
 }
