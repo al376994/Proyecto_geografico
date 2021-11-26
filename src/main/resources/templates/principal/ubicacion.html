@@ -8,7 +8,7 @@
 </head>
 <body>
 <div th:replace="fragments/nav"></div>
-<form action="#" th:action="@{/Ubicaciones/añadir}" th:object="${Coordenadas}" method="post">
+<form id="añadirUbicacionForm" action="#" th:action="@{/Ubicaciones/añadir}" th:object="${Coordenadas}" method="post">
     <div class="text">
         <label>Introduce coordenades</label>
         <input type="text" class="form-control" id="latitud" placeholder="latitud" th:field="*{latitud}">
@@ -18,13 +18,15 @@
         <label>Introduce topónimo</label>
         <input type="text" class="form-control" id="toponimo" placeholder="toponimo">
     </div>
-    <form action="#" th:action="@{/Ubicaciones/validarCoordenadas}">
-        <input class="btn btn-primary" type="submit" value="validar coordenadas">
-    </form>
-    <form action="#" th:action="@{/validarToponimo}">
-        <input class="btn btn-primary" type="submit" value="validar topónimo">
-    </form>
-    <input class="btn btn-primary" type="submit" value="Añadir">
+    <button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="validarCoordenadas"
+            name="action">Validar coordenadas
+    </button>
+    <button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="validarToponimo"
+            name="action">Validar topónimo
+    </button>
+    <button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="añadir"
+            name="action">Añadir
+    </button>
 </form>
 </body>
 </html>

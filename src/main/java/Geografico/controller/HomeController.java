@@ -23,6 +23,7 @@ public class HomeController {
 	@RequestMapping(value="/Ubicaciones")
 	public String redirigirUbicacion(Model model){
 		model.addAttribute("Coordenadas", new Coordenadas(0,0));
+		System.out.println("A \"/Ubicaciones\"");
 		return "principal/ubicacion";
 	}
 

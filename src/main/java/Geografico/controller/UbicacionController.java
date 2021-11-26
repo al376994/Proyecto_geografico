@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class UbicacionController {
 
-    @RequestMapping(value = "/Ubicaciones/validarCoordenadas", method = RequestMethod.POST)
+    @RequestMapping(value = "/Ubicaciones/añadir", method = RequestMethod.POST, params = "action=validarCoordenadas")
     public String validarCoordenadas(Model model, @ModelAttribute("Coordenadas") Coordenadas coordenadas){
-        System.out.println(coordenadas.getLatitud());
-        return "";
+        System.out.println("VC: " + coordenadas.getLatitud());
+        return "redirect:/Ubicaciones";
     }
 
-    @RequestMapping(value = "/Ubicaciones/añadir", method = RequestMethod.POST)
+    @RequestMapping(value = "/Ubicaciones/añadir", method = RequestMethod.POST, params = "action=añadir")
     public String añadirUbicacion(Model model,@ModelAttribute("Coordenadas") Coordenadas coordenadas){
         System.out.println(coordenadas.getLatitud());
-        return "";
+        return "redirect:/Ubicaciones";
     }
 }
