@@ -53,9 +53,11 @@ public class Ubicacion {
 	public static Ubicacion crearUbicacionDesdeGeocode(JSONObject ubicacionSinProcesar) {
 		Ubicacion ubicacion = new Ubicacion();
 		try {
+			//org.json.JSONException: No value for standard
+			//ahora devuelvo city
 			ubicacion.setLatitud(ubicacionSinProcesar.getDouble("latt"));
 			ubicacion.setLongitud(ubicacionSinProcesar.getDouble("longt"));
-			ubicacion.setNombre(ubicacionSinProcesar.getJSONObject("standard").getString("city"));
+			ubicacion.setNombre(ubicacionSinProcesar.getString("city"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

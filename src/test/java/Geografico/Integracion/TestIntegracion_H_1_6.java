@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 
-public class TestIntegracion_E6 {
+public class TestIntegracion_H_1_6 {
 	private APIGeocodeInterface mockedApiGeocode;
 
 	@BeforeEach

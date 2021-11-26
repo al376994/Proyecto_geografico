@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container-fluid">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="javascript:window.history.back();">Enrere</a>
+            </li>
+            <a class="nav-link" href="/" th:href="@{/}">Inici</a>
+        </ul>
+    </div>
+    <div class="loggeduser" th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
+        <p th:unless="*{user == null}">
+            Autenticat com <span th:text="*{user.username}"></span> <a
+                href="/logout" th:href="@{/logout}">Eixir</a>
+        </p>
+        <p>
+            Configurar
+        </p>
+    </div>
+</nav>

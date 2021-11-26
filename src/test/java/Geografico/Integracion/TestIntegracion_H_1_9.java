@@ -10,34 +10,34 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-public class TestIntegracion_E5 {
+public class TestIntegracion_H_1_9 {
     private Usuario mockedUsuario;
     private Ubicacion ubicacion;
-    
+
     @BeforeEach
-    void setUp(){
+    public void setUp() {
         mockedUsuario = Mockito.mock(Usuario.class);
         ubicacion = new Ubicacion(39.97990, -0.03304, "Castellón");
         ubicacion.setAlias("Castellón");
     }
 
     @Test
-    public void activarUbicacionDisponible_E1_5_1_QuedaActiva() {
+    public void desactivarUbicacionActiva_E1_9_1_laUbicacionQuedaDesactivada() {
         //Arrange
         //Act
-        when(mockedUsuario.activarUbicacion(ubicacion)).thenReturn(true);
-        Boolean activada = mockedUsuario.activarUbicacion(ubicacion);
+        when(mockedUsuario.desactivarUbicacion(ubicacion)).thenReturn(true);
+        Boolean desactivada = mockedUsuario.desactivarUbicacion(ubicacion);
         //Assert
-        assertTrue(activada);
+        assertTrue(desactivada);
     }
 
     @Test
-    public void activarUbicacionNoDisponible_E1_5_2_NoSeActiva() {
+    public void desactivarUbicacionYaDesactivada_E1_9_2_laUbicacionPermaneceDesactivada() {
         //Arrange
         //Act
-        when(mockedUsuario.activarUbicacion(ubicacion)).thenReturn(false);
-        Boolean activada = mockedUsuario.activarUbicacion(ubicacion);
+        when(mockedUsuario.desactivarUbicacion(ubicacion)).thenReturn(false);
+        Boolean desactivada = mockedUsuario.desactivarUbicacion(ubicacion);
         //Assert
-        assertFalse(activada);
+        assertFalse(desactivada);
     }
 }

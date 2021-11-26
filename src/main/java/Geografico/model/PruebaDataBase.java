@@ -10,8 +10,8 @@ public class PruebaDataBase {
 	public static void main(String[] args) throws SQLException {
 		Connection connection = DataBaseConnector.getConnection();
 		DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(connection);
-		dataBaseFunctions.añadirUbicacionUsuario("usuario3", 0.00, 0.00, "centro");
-		List<Ubicacion> listaUbicaciones = dataBaseFunctions.listarUbicacionesUsuario("usuario3");
+		dataBaseFunctions.añadirUbicacionUsuario("usuario29", 0.00, 0.00, "centro");
+		List<Ubicacion> listaUbicaciones = dataBaseFunctions.listarUbicacionesUsuario("usuario29");
 		for (Ubicacion u: listaUbicaciones){
 			System.out.println("Alias: "+ u.getAlias());
 			System.out.println("Latitud: " + u.getLatitud());

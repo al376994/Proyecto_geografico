@@ -1,11 +1,20 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title Home</title>
+    <title>login</title>
+    <link rel="stylesheet" href="/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/estilos.css"/>
 </head>
 <body>
-BODY HOME
-<a th:href="@{/contact_us}">Contáctanos</a>
+<div>
+    <h1>Iniciar Sessió</h1>
+    <form action="#" th:action="@{/menuPrincipal}"
+          method="post">
+        <div class="boto">
+            <button type="submit" class="btn btn-primary">Accedir</button>
+        </div>
+    </form>
+</div>
 </body>
 </html>

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestsAceptacion_E4 {
+public class TestsAceptacion_H_1_4 {
     private APIGeocodeInterface apiGeocode;
 
     @BeforeEach

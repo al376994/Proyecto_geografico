@@ -8,32 +8,32 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestsAceptacion_H1_9 {
+public class TestsAceptacion_H_1_5 {
     private Usuario usuario;
     private Ubicacion ubicacion;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp(){
         usuario = new Usuario();
         ubicacion = new Ubicacion(39.97990, -0.03304, "Castellón");
         ubicacion.setAlias("Castellón");
     }
 
     @Test
-    public void desactivarUbicacionActiva_E1_9_1_laUbicacionQuedaDesactivada() {
+    public void activarUbicacionDisponible_E1_5_1_QuedaActiva(){
         //Arrange
         //Act
-        boolean desactivada = usuario.desactivarUbicacion(ubicacion);
+        Boolean activada = usuario.activarUbicacion(ubicacion);
         //Assert
-        assertTrue(desactivada);
+        assertTrue(activada);
     }
 
     @Test
-    public void desactivarUbicacionYaDesactivada_E1_9_2_laUbicacionPermaneceDesactivada() {
+    public void activarUbicacionNoDisponible_E1_5_2_NoSeActiva(){
         //Arrange
         //Act
-        boolean desactivada = usuario.desactivarUbicacion(ubicacion);
+        Boolean activada = usuario.activarUbicacion(ubicacion);
         //Assert
-        assertFalse(desactivada);
+        assertFalse(activada);
     }
 }

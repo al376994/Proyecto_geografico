@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class TestsAceptacion_E6 {
+public class TestsAceptacion_H_1_6 {
 	private APIGeocodeInterface apiGeocode;
 
 	@BeforeEach

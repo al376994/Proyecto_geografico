@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class TestsAceptacion_E3 {
+public class TestsAceptacion_H_1_3 {
 	//private APIAirVisualInterface apiAirVisual;
 	private APIGeocodeInterface apiGeocode;
 

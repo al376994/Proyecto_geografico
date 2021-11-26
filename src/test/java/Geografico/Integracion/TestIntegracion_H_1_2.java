@@ -5,6 +5,7 @@ import Geografico.model.DataBaseFunctions;
 import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
+import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,7 +17,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-public class TestIntegracion_E2 {
+public class TestIntegracion_H_1_2 {
 	private APIGeocodeInterface mockedApiGeocode;
 	private ListaUsuario mockedListaUsuario;
 	private Usuario usuario;
@@ -34,7 +35,7 @@ public class TestIntegracion_E2 {
 
 
 	@Test
-	public void altaUbicacionCoordenadas_E1_2_1_seAñadeLista() throws SQLException {
+	public void altaUbicacionCoordenadas_E1_2_1_seAñadeLista() throws SQLException, CoordenadasExcepcion {
 		//Arrange
 		usuario.addAPIGeocode(mockedApiGeocode);
 		//Act
@@ -49,7 +50,7 @@ public class TestIntegracion_E2 {
 	}
 
 	@Test
-	public void altaUbicacionToponimo_E1_2_2_listaUbicacionesVacia() throws SQLException {
+	public void altaUbicacionToponimo_E1_2_2_listaUbicacionesVacia() throws SQLException, CoordenadasExcepcion {
 		//Arrange
 		usuario.addAPIGeocode(mockedApiGeocode);
 		//Act

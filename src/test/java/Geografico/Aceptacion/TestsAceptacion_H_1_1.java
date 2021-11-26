@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class TestsAceptacion_E1 {
+public class TestsAceptacion_H_1_1 {
 	private APIGeocodeInterface apiGeocode;
 	private ListaUsuario listaUsuario;
 	private Usuario usuario;

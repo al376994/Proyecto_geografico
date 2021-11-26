@@ -2,6 +2,7 @@ package Geografico.model.API;
 
 import Geografico.model.Coordenadas;
 import Geografico.model.Ubicacion;
+import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.json.JSONObject;
 
 import java.util.Locale;
@@ -55,9 +56,22 @@ public class APIGeocode implements APIGeocodeInterface{
 	}
 
 	@Override
-	public Ubicacion getUbicacionCoordenadas(double lat, double lon) {
+	public Ubicacion getUbicacionCoordenadas(double lat, double lon) throws CoordenadasExcepcion{
 		// Para pedir una localización a Geocode por coords o por toponimo se usa el mismo formato
 		// pero para que lea las coordenadas como tales necesitan un formato especial.
+		try{
+			if ((lat > 90 || lat < -90) && (lon > 90 || lon < -90)){
+				throw new CoordenadasExcepcion(2);
+			}
+			if (lat > 90 || lat < -90){
+				throw new CoordenadasExcepcion(0);
+			}
+			if (lon > 90 || lon < -90){
+				throw new CoordenadasExcepcion(1);
+			}
+		}catch (CoordenadasExcepcion ex){
+			System.out.println(ex.getMessage());
+		}
 		return getUbicacionToponimo(coordFormater(lat, lon));
 	}
 

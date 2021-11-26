@@ -1,6 +1,7 @@
 package Geografico.model;
 
 import Geografico.model.API.APIGeocodeInterface;
+import Geografico.model.excepciones.CoordenadasExcepcion;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class Usuario {
 		if (nuevaUbicacion != null)guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
 	}
 
-	public void altaUbicacionCoordenadas(double lat, double lon ){
+	public void altaUbicacionCoordenadas(double lat, double lon ) throws CoordenadasExcepcion {
 		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionCoordenadas(lat, lon);
 		if (nuevaUbicacion != null)guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
 	}
@@ -80,4 +81,15 @@ public class Usuario {
 		//TODO comprobar que existe esa ubicacion y eliminarla y devolver true o folse si se ha podido aliminar
 		return true;
 	}
+
+	public Ubicacion obtenerToponimoCercanoCoordenadas(double lat, double lon) throws CoordenadasExcepcion {
+		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionCoordenadas(lat, lon);
+		return nuevaUbicacion;
+	}
+
+	public void asignarAliasUbicacion(String ubicacion, String alias){
+
+	}
+
+	//public String getAliasUbicacion(String )
 }

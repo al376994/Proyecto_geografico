@@ -1,22 +1,20 @@
-package Geografico.Integracion;
+package Geografico.Aceptacion;
 
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
 
-public class TestIntegracion_H1_9 {
-    private Usuario mockedUsuario;
+public class TestsAceptacion_H_1_9 {
+    private Usuario usuario;
     private Ubicacion ubicacion;
 
     @BeforeEach
     public void setUp() {
-        mockedUsuario = Mockito.mock(Usuario.class);
+        usuario = new Usuario();
         ubicacion = new Ubicacion(39.97990, -0.03304, "Castellón");
         ubicacion.setAlias("Castellón");
     }
@@ -25,8 +23,7 @@ public class TestIntegracion_H1_9 {
     public void desactivarUbicacionActiva_E1_9_1_laUbicacionQuedaDesactivada() {
         //Arrange
         //Act
-        when(mockedUsuario.desactivarUbicacion(ubicacion)).thenReturn(true);
-        Boolean desactivada = mockedUsuario.desactivarUbicacion(ubicacion);
+        boolean desactivada = usuario.desactivarUbicacion(ubicacion);
         //Assert
         assertTrue(desactivada);
     }
@@ -35,8 +32,7 @@ public class TestIntegracion_H1_9 {
     public void desactivarUbicacionYaDesactivada_E1_9_2_laUbicacionPermaneceDesactivada() {
         //Arrange
         //Act
-        when(mockedUsuario.desactivarUbicacion(ubicacion)).thenReturn(false);
-        Boolean desactivada = mockedUsuario.desactivarUbicacion(ubicacion);
+        boolean desactivada = usuario.desactivarUbicacion(ubicacion);
         //Assert
         assertFalse(desactivada);
     }
