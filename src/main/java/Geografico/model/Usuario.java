@@ -87,9 +87,9 @@ public class Usuario {
 		return nuevaUbicacion;
 	}
 
-	public List<Ubicacion> getUbicacionesActivas() {
+	public List<Ubicacion> getUbicacionesActivas() throws SQLException {
 		//TODO consulta que devuelva lista ubicaciones activas
-		return dataBaseFunctions.getUbicacionesActivas();
+		return dataBaseFunctions.getUbicacionesActivas(this.nombre);
 	}
 
 	public void asignarAliasUbicacion(String ubicacion, String alias){
