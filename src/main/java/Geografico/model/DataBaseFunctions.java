@@ -64,4 +64,55 @@ public class DataBaseFunctions {
 		}
 	}
 
+	public void altaAliasUbicacion(String usuario, String ubicacion, String alias){
+		try{
+			PreparedStatement statement = conn.prepareStatement("UPDATE usuario_ubicaciones" +
+					" set alias = ? where nombre = ? and ubicacion = ?");
+			statement.setString(1, alias);
+			statement.setString(2, usuario);
+			statement.setString(3, ubicacion);
+			statement.executeUpdate();
+		}catch (SQLException e2){
+			e2.printStackTrace();
+		}
+	}
+
+	public String getAliasUbicacion(String usuario, String ubicacion){
+		String alias = "";
+		try{
+			PreparedStatement statement = conn.prepareStatement("SELECT alias FROM usuario_ubicaciones " +
+					"where nombre = ? and ubicacion = ?");
+			statement.setString(1, usuario);
+			statement.setString(2, ubicacion);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				alias = resultSet.getString(1);
+			}
+		}catch (SQLException e2){
+			e2.printStackTrace();
+		}
+		return alias;
+	}
+
+
+	public List<Ubicacion> getUbicacionesActivas(String nombre) throws SQLException {
+		List<Ubicacion> ubicacionesActivas = new ArrayList<>();
+		try {
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones WHERE nombre = ? AND activo = 't';");
+			statement.setString(1, nombre);
+			ResultSet ubicaciones = statement.executeQuery();
+			while(ubicaciones.next()) {
+				Ubicacion ubicacion = new Ubicacion();
+				ubicacion.setAlias(ubicaciones.getString("nombre"));
+				ubicacion.setLongitud(ubicaciones.getDouble("longitud"));
+				ubicacion.setLatitud(ubicaciones.getDouble("latitud"));
+				ubicacion.setAlias(ubicaciones.getString("alias"));
+				ubicacionesActivas.add(ubicacion);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ubicacionesActivas;
+	}
+
 }
