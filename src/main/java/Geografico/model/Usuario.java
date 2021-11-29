@@ -87,6 +87,11 @@ public class Usuario {
 		return nuevaUbicacion;
 	}
 
+	public List<Ubicacion> getUbicacionesActivas() {
+		//TODO consulta que devuelva lista ubicaciones activas
+		return dataBaseFunctions.getUbicacionesActivas();
+	}
+
 	public void asignarAliasUbicacion(String ubicacion, String alias){
 		dataBaseFunctions.altaAliasUbicacion(nombre, ubicacion, alias);
 	}
