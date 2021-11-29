@@ -14,12 +14,16 @@ public class Usuario {
 	private APIGeocodeInterface apiGeocode; // La API de geolocalización elegida actualmente por el usuario
 	private DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
 
+	// FIN DE VARIABLES
+
 	public Usuario() {
 	}
 
 	public Usuario(String nombre) {
 		this.nombre = nombre;
 	}
+
+	// FIN DE CONSTRUCTORES
 
 	public String getNombre() {
 		return nombre;
@@ -36,6 +40,8 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	// FIN DE SETTERS Y GETTERS
 
 	public void setDataBaseFunctions(DataBaseFunctions dataBaseFunctions) {
 		this.dataBaseFunctions = dataBaseFunctions;

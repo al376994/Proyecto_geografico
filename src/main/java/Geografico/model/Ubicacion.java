@@ -72,4 +72,8 @@ public class Ubicacion {
 		setLatitud(coordenadas.getLatitud());
 		setLongitud(coordenadas.getLongitud());
 	}
+
+	public void getInformacion() {
+		//TODO cambiar para que devuelva String
+	}
 }
