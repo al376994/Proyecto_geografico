@@ -15,6 +15,7 @@ import java.net.CookieHandler;
 import java.sql.SQLException;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -48,12 +49,10 @@ public class TestsAceptacion_H_1_7 {
         //Arrange
         usuario.addAPIGeocode(apiGeocode);
         //Act
-        CoordenadasExcepcion coordenadasExcepcion = assertThrows(CoordenadasExcepcion.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                Ubicacion ubicacion = usuario.obtenerToponimoCercanoCoordenadas(100,-100);
-            }
+
+        assertThrows(CoordenadasExcepcion.class,
+                ()->{
+                    Ubicacion ubicacion = usuario.obtenerToponimoCercanoCoordenadas(100,-100);
         });
-        //Assert
     }
 }

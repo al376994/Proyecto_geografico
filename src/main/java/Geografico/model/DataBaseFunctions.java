@@ -6,6 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//No añadir nombres con carácteres extraños (accentos)
+//La base de datos no lo guarda correctamente
+
 public class DataBaseFunctions {
 	private Connection conn;
 
@@ -33,20 +36,22 @@ public class DataBaseFunctions {
 		return ubicaciones;
 	}
 
-	public void añadirUbicacionUsuario(String usuario, double latitud,double longitud, String alias){
+	public void añadirUbicacionUsuario(String usuario, double latitud,double longitud, String nombre, String alias){
 		try{
-			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_ubicaciones values(?, ?, ?, ?,?,?)");
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_ubicaciones values(?, ?, ?, ?,?,?,?)");
 			statement.setString(1, usuario);
 			statement.setDouble(2, latitud);
 			statement.setDouble(3, longitud);
-			statement.setString(4, alias);
+			statement.setString(4, nombre);
 			statement.setBoolean(5,false);
 			statement.setBoolean(6, false);
+			statement.setString(7, alias);
+
 			statement.executeUpdate();
 			PreparedStatement statement1 = conn.prepareStatement("INSERT INTO ubicaciones values(?, ?, ?)");
 			statement1.setDouble(1, latitud);
 			statement1.setDouble(2, longitud);
-			statement1.setString(3, alias);
+			statement1.setString(3, nombre);
 			statement1.executeUpdate();
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -62,6 +67,36 @@ public class DataBaseFunctions {
 		}catch (SQLException e2){
 			e2.printStackTrace();
 		}
+	}
+
+	public void altaAliasUbicacion(String usuario, String ubicacion, String alias){
+		try{
+			PreparedStatement statement = conn.prepareStatement("UPDATE usuario_ubicaciones" +
+					" set alias = ? where nombre = ? and ubicacion = ?");
+			statement.setString(1, alias);
+			statement.setString(2, usuario);
+			statement.setString(3, ubicacion);
+			statement.executeUpdate();
+		}catch (SQLException e2){
+			e2.printStackTrace();
+		}
+	}
+
+	public String getAliasUbicacion(String usuario, String ubicacion){
+		String alias = "";
+		try{
+			PreparedStatement statement = conn.prepareStatement("SELECT alias FROM usuario_ubicaciones " +
+					"where nombre = ? and ubicacion = ?");
+			statement.setString(1, usuario);
+			statement.setString(2, ubicacion);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				alias = resultSet.getString(1);
+			}
+		}catch (SQLException e2){
+			e2.printStackTrace();
+		}
+		return alias;
 	}
 
 }

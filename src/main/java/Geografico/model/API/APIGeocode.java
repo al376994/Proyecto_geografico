@@ -59,18 +59,14 @@ public class APIGeocode implements APIGeocodeInterface{
 	public Ubicacion getUbicacionCoordenadas(double lat, double lon) throws CoordenadasExcepcion{
 		// Para pedir una localización a Geocode por coords o por toponimo se usa el mismo formato
 		// pero para que lea las coordenadas como tales necesitan un formato especial.
-		try{
-			if ((lat > 90 || lat < -90) && (lon > 90 || lon < -90)){
+		if ((lat > 90 || lat < -90) && (lon > 90 || lon < -90)) {
 				throw new CoordenadasExcepcion(2);
-			}
-			if (lat > 90 || lat < -90){
-				throw new CoordenadasExcepcion(0);
-			}
-			if (lon > 90 || lon < -90){
-				throw new CoordenadasExcepcion(1);
-			}
-		}catch (CoordenadasExcepcion ex){
-			System.out.println(ex.getMessage());
+		}
+		if (lat > 90 || lat < -90) {
+			throw new  CoordenadasExcepcion(0);
+		}
+		if (lon > 90 || lon < -90) {
+			throw new  CoordenadasExcepcion(1);
 		}
 		return getUbicacionToponimo(coordFormater(lat, lon));
 	}

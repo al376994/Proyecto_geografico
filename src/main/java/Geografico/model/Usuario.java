@@ -59,7 +59,7 @@ public class Usuario {
 	private void guardarUbicacionEnBaseDeDatos(Ubicacion ubicacion) {
 		// TODO comunicar con la base de datos (guardar ubicación)
 		dataBaseFunctions.añadirUbicacionUsuario(this.nombre, ubicacion.getLatitud(),
-				ubicacion.getLongitud(), ubicacion.getNombre());
+				ubicacion.getLongitud(), ubicacion.getNombre(), ubicacion.getAlias());
 	}
 
 	public List<Ubicacion> getUbicaciones() throws SQLException {
@@ -88,8 +88,10 @@ public class Usuario {
 	}
 
 	public void asignarAliasUbicacion(String ubicacion, String alias){
-
+		dataBaseFunctions.altaAliasUbicacion(nombre, ubicacion, alias);
 	}
 
-	//public String getAliasUbicacion(String )
+	public String getAliasUbicacion(String ubicacion){
+		return dataBaseFunctions.getAliasUbicacion(nombre, ubicacion);
+	}
 }

@@ -28,13 +28,23 @@ public class TestsAceptacion_H_1_8 {
     }
 
     @Test
-    public void asignarAliasUbicacion_E1_8_1_devuelveToponimo() throws SQLException, CoordenadasExcepcion {
+    public void asignarAliasUbicacion_E1_8_1_devuelveAliasCorrecto() throws SQLException, CoordenadasExcepcion {
         //Arrange
         usuario.addAPIGeocode(apiGeocode);
         usuario.altaUbicacionCoordenadas(39.986,-0.0376709);
         //Act
-        usuario.asignarAliasUbicacion("Castellón de la Plana", "casa");
+        usuario.asignarAliasUbicacion("Castellon de la Plana", "casa");
         //Assert
-        //assertEquals(usuario.getAliasUbicacion("Castellón de la Plana"), "casa");
+        assertEquals(usuario.getAliasUbicacion("Castellon de la Plana"), "casa");
+    }
+    @Test
+    public void asignarAliasUbicacion_E1_8_2_devuelveAliasIncorrecto() throws SQLException, CoordenadasExcepcion {
+        //Arrange
+        usuario.addAPIGeocode(apiGeocode);
+        usuario.altaUbicacionCoordenadas(39.986,-0.0376709);
+        //Act
+        usuario.asignarAliasUbicacion("Castellon de la Plana", "casa");
+        //Assert
+        assertEquals(usuario.getAliasUbicacion("Castellon de la Plana"), "casa");
     }
 }
