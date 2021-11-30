@@ -68,7 +68,14 @@ public class APIGeocode implements APIGeocodeInterface{
 		if (lon > 180 || lon < -180) {
 			throw new  CoordenadasExcepcion(1);
 		}
-		return getUbicacionToponimo(coordFormater(lat, lon));
+		// Hacemos esto porque al buscar por coordenadas y darte una ubicacion, las coordenadas que de la API son las
+		// más cercanas a las coordenadas dadas dentro del área de la ubicacion en vez de las coordenadas centrales de
+		// la ubicacion, que es lo que da buscar por toponimo, por lo tanto para evitar tener una ubicacion con
+		// multiples coordenadas en la base de datos (podria causar algun problema) sacamos el toponimo de la busqueda
+		// por coordenada y luego hacemos una busqueda por toponimo. Esta API no puede encontrar lugares que no tienen
+		// toponimop así que no causa problemas en ese apartado este arreglo.
+		String toponimo = getUbicacionToponimo(coordFormater(lat, lon)).getNombre();
+		return getUbicacionToponimo(toponimo);
 	}
 
 	private boolean validarUbicacion(JSONObject jsonObject) {
