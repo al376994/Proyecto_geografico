@@ -88,9 +88,9 @@ public class Usuario {
 		return true;
 	}
 
-	public Ubicacion obtenerToponimoCercanoCoordenadas(double lat, double lon) throws CoordenadasExcepcion {
-		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionCoordenadas(lat, lon);
-		return nuevaUbicacion;
+	public String obtenerToponimoCercanoCoordenadas(double lat, double lon) throws CoordenadasExcepcion {
+		String toponimo = apiGeocode.getUbicacionCoordenadas(lat, lon).getNombre();
+		return toponimo;
 	}
 
 	public List<Ubicacion> getUbicacionesActivas() throws SQLException {
