@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class TestIntegracion_H_2_3 {
 
 
     @Test
-    public void consultarListaUbicacionesActivas_E2_3_1_seMuestraLaLista() {
+    public void consultarListaUbicacionesActivas_E2_3_1_seMuestraLaLista() throws SQLException {
         //Arrange
         Ubicacion ubicacion = new Ubicacion(39.97990, -0.03304, "Castellón");
         ubicacion.setAlias("Castellón");
@@ -37,7 +38,7 @@ public class TestIntegracion_H_2_3 {
     }
 
     @Test
-    public void consultarListaUbicacionesActivas_E2_3_2_noHayUbicacionesEnLaLista() {
+    public void consultarListaUbicacionesActivas_E2_3_2_noHayUbicacionesEnLaLista() throws SQLException {
         //Arrange
         //Act
         when(mockedUsuario.getUbicacionesActivas()).thenReturn(ubicacionesActivas);

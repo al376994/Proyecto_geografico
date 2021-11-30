@@ -197,4 +197,26 @@ public class DataBaseFunctions {
 		}
 		return null;
 	}
+
+	public void activarUbicacion(String nombre, Ubicacion ubicacion) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("UPDATE usuario_ubicaciones SET activo = 't' WHERE nombre = ? AND ubicacion = ?;");
+			statement.setString(1, nombre);
+			statement.setString(2, ubicacion.getNombre());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void desactivarUbicacion(String nombre, Ubicacion ubicacion) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("UPDATE usuario_ubicaciones SET activo = 'f' WHERE nombre = ? AND ubicacion = ?;");
+			statement.setString(1, nombre);
+			statement.setString(2, ubicacion.getNombre());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
