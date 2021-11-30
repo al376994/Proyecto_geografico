@@ -5,6 +5,8 @@ import Geografico.model.API.APIGeocodeInterface;
 import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,13 +28,19 @@ public class TestsAceptacion_H_1_1 {
 	private void iniciarVariables() throws SQLException {
 		apiGeocode = new APIGeocode();
 		listaUsuario = new ListaUsuario();
-		usuario = new Usuario();			//para hacer tests al principio creamos un usuario a mano
-		usuario.setNombre("usuario5");
-		listaUsuario.addUsuario(usuario);	// No hace nada de momento, cuando la comunicacion con la base de
-											// datos este implmentada se usara y podremos descomentar el siguiente
-											// trozo de codigo también
-		//usuario = listaUsuario.getUsuario("Nombre1");	// esto es solo para mostrar como se conseguiria
-														// el usuario realmente
+		usuario = new Usuario();
+		usuario.setNombre("usuarioPruebas");
+		limpiarBaseDeDatos();
+		listaUsuario.addUsuario(usuario);
+		// Esto, aunque redundante, sirve para simular el comportamiento completo del programa
+		usuario = listaUsuario.getUsuario(usuario.getNombre(), null);
+	}
+
+	@AfterEach
+	private void limpiarBaseDeDatos() throws SQLException {
+		if (listaUsuario.getUsuario(usuario.getNombre(), null) != null) {
+			listaUsuario.deleteUsuario(usuario.getNombre(), null);
+		}
 	}
 
 	@Test

@@ -6,6 +6,7 @@ import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
 import Geografico.model.excepciones.CoordenadasExcepcion;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class TestsAceptacion_H_1_2 {
@@ -26,14 +28,21 @@ public class TestsAceptacion_H_1_2 {
     private void iniciarVariables() throws SQLException {
         apiGeocode = new APIGeocode();
         listaUsuario = new ListaUsuario();
-        usuario = new Usuario();			//para hacer tests al principio creamos un usuario a mano
-        usuario.setNombre("usuario6");
-        listaUsuario.addUsuario(usuario);	// No hace nada de momento, cuando la comunicacion con la base de
-        // datos este implmentada se usara y podremos descomentar el siguiente
-        // trozo de codigo también
-        //usuario = listaUsuario.getUsuario("Nombre1");	// esto es solo para mostrar como se conseguiria
-        // el usuario realmente
+        usuario = new Usuario();
+        usuario.setNombre("usuarioPruebas");
+        limpiarBaseDeDatos();
+        listaUsuario.addUsuario(usuario);
+        // Esto, aunque redundante, sirve para simular el comportamiento completo del programa
+        usuario = listaUsuario.getUsuario(usuario.getNombre(), null);
     }
+
+    @AfterEach
+    private void limpiarBaseDeDatos() throws SQLException {
+        if (listaUsuario.getUsuario(usuario.getNombre(), null) != null) {
+            listaUsuario.deleteUsuario(usuario.getNombre(), null);
+        }
+    }
+
     @Test
     public void altaUbicacionCoordenadas_E1_2_1_seAñadeLista() throws SQLException, CoordenadasExcepcion {
         //Arrange
@@ -49,9 +58,9 @@ public class TestsAceptacion_H_1_2 {
     public void altaUbicacionCoordenadas_E1_2_3_listaUbicacionesVacia() throws SQLException, CoordenadasExcepcion {
         //Arrange
         usuario.addAPIGeocode(apiGeocode);
-        //Act
-        usuario.altaUbicacionCoordenadas(100, -100);
-        //Assert
+
+        //Assert                                        //Act
+        assertThrows(CoordenadasExcepcion.class, () ->  usuario.altaUbicacionCoordenadas(100, -100));
         List<Ubicacion> listaUbicaciones = usuario.getUbicaciones();
         assertEquals(0, listaUbicaciones.size());
     }
