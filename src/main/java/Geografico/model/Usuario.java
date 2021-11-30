@@ -53,8 +53,14 @@ public class Usuario {
 	}
 
 	public void altaUbicacionToponimo(String toponimo){
-		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionToponimo(toponimo);
-		if (nuevaUbicacion != null)guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
+		Ubicacion nuevaUbicacion = dataBaseFunctions.getAddedUbicacionPorToponimo(toponimo);
+
+		// Primero comprobamos si ya hemos registrado esta ubicacion anteriormente, si es el caso la sacamos de la
+		// base de datos, si no la buscamos mediante la API.
+		if ( nuevaUbicacion == null ) nuevaUbicacion = apiGeocode.getUbicacionToponimo(toponimo);
+
+		// Si no encuentra la ubicacion ni en la base de datos ni mediante la api entonces no se podrá guardar
+		if ( nuevaUbicacion != null ) guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
 	}
 
 	public void altaUbicacionCoordenadas(double lat, double lon ) throws CoordenadasExcepcion {

@@ -160,4 +160,21 @@ public class DataBaseFunctions {
 		return ubicacionesActivas;
 	}
 
+	public Ubicacion getAddedUbicacionPorToponimo(String toponimo) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM ubicaciones WHERE nombre = ?;");
+			statement.setString(1, toponimo);
+			ResultSet ubicacion = statement.executeQuery();
+			if (!ubicacion.next()) return null;
+			Ubicacion ubicacionProcesada = new Ubicacion();
+			ubicacionProcesada.setNombre(ubicacion.getString("nombre"));
+			ubicacionProcesada.setLongitud(ubicacion.getDouble("longitud"));
+			ubicacionProcesada.setLatitud(ubicacion.getDouble("latitud"));
+			ubicacionProcesada.setAlias(ubicacion.getString("alias"));
+			return ubicacionProcesada;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
