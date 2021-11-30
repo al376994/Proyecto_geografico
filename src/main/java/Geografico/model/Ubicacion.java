@@ -62,10 +62,7 @@ public class Ubicacion {
 			} else {//Si viene por coordenadas el nombre esta en la raiz
 				ubicacion.setNombre(ubicacionSinProcesar.getString("city"));
 			}
-
-			System.out.println("\n\n\n" + ubicacionSinProcesar.toString() + "\n\n\n");
 		} catch (JSONException e) {
-			System.out.println("\n\n\n" + ubicacionSinProcesar.toString() + "\n\n\n");
 			e.printStackTrace();
 		}
 		return ubicacion;
