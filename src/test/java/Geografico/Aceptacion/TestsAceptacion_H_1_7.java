@@ -21,34 +21,37 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class TestsAceptacion_H_1_7 {
-	private APIGeocodeInterface apiGeocode;
-	private Usuario usuario;
+    private APIGeocodeInterface apiGeocode;
+    private Usuario usuario;
 
 
-	@BeforeEach
-	private void iniciarVariables() throws SQLException {
-		apiGeocode = new APIGeocode();
-		usuario = new Usuario();			//para hacer tests al principio creamos un usuario a mano
-		usuario.setNombre("usuario5");
-	}
+    @BeforeEach
+    private void iniciarVariables() throws SQLException {
+        apiGeocode = new APIGeocode();
+        usuario = new Usuario();			//para hacer tests al principio creamos un usuario a mano
+        usuario.setNombre("usuario5");
+    }
 
-	@Test
-	public void obtenerToponimoCercanoCoordenadas_E1_7_1_devuelveToponimo() throws SQLException, CoordenadasExcepcion {
-		//Arrange
-		usuario.addAPIGeocode(apiGeocode);
-		//Act
-		String toponimo = usuario.obtenerToponimoCercanoCoordenadas(39.986,-0.0376709);
-		System.out.println(toponimo);
-		//Assert
-		assertEquals("Castellón de la Plana", toponimo);
-	}
+    @Test
+    public void obtenerToponimoCercanoCoordenadas_E1_7_1_devuelveToponimo() throws SQLException, CoordenadasExcepcion {
+        //Arrange
+        usuario.addAPIGeocode(apiGeocode);
+        //Act
+        Ubicacion ubicacion = apiGeocode.getUbicacionCoordenadas(39.986,-0.0376709);
+        //Assert
+        assertEquals("Castellón de la Plana", ubicacion.getNombre());
+    }
 
-	@Test
-	public void obtenerToponimoCercanoCoordenadas_E1_7_2_toponimoInvalido(){
-		//https://stackoverflow.com/questions/40268446/junit-5-how-to-assert-an-exception-is-thrown
-		//Arrange
-		usuario.addAPIGeocode(apiGeocode);
-		//Assert										//Act
-		assertThrows(CoordenadasExcepcion.class,() ->	usuario.obtenerToponimoCercanoCoordenadas(100,-100) );
-	}
+    @Test
+    public void obtenerToponimoCercanoCoordenadas_E1_7_2_toponimoInvalido(){
+        //https://stackoverflow.com/questions/40268446/junit-5-how-to-assert-an-exception-is-thrown
+        //Arrange
+        usuario.addAPIGeocode(apiGeocode);
+        //Act
+
+        assertThrows(CoordenadasExcepcion.class,
+                ()->{
+                    Ubicacion ubicacion = apiGeocode.getUbicacionCoordenadas(100,-100);
+        });
+    }
 }

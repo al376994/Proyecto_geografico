@@ -129,7 +129,7 @@ public class DataBaseFunctions {
 		}
 	}
 
-	public void altaAliasUbicacion(String usuario, String ubicacion, String alias){
+	public boolean altaAliasUbicacion(String usuario, String ubicacion, String alias){
 		try{
 			PreparedStatement statement = conn.prepareStatement("UPDATE usuario_ubicaciones" +
 					" set alias = ? where nombre = ? and ubicacion = ?");
@@ -137,8 +137,10 @@ public class DataBaseFunctions {
 			statement.setString(2, usuario);
 			statement.setString(3, ubicacion);
 			statement.executeUpdate();
+			return true;
 		}catch (SQLException e2){
 			e2.printStackTrace();
+			return false;
 		}
 	}
 

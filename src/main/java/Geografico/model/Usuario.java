@@ -103,8 +103,11 @@ public class Usuario {
 		return dataBaseFunctions.getUbicacionesActivas(this.nombre);
 	}
 
-	public void asignarAliasUbicacion(String ubicacion, String alias){
-		dataBaseFunctions.altaAliasUbicacion(nombre, ubicacion, alias);
+	public boolean asignarAliasUbicacion(String ubicacion, String alias){
+		if (alias.equals("")){
+			throw new IllegalArgumentException();
+		}
+		return dataBaseFunctions.altaAliasUbicacion(nombre, ubicacion, alias);
 	}
 
 	public String getAliasUbicacion(String ubicacion){
