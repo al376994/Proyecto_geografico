@@ -81,22 +81,14 @@ public class Usuario {
 
 	public boolean activarUbicacion(Ubicacion ubicacion) {
 		//TODO comprobar que la ubicación está en la base de datos y esta desactivada, entonces devolver true si se activa o false si no.
-		try {
-			dataBaseFunctions.activarUbicacion(this.nombre, ubicacion);
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
+		dataBaseFunctions.activarUbicacion(this.nombre, ubicacion);
+		return dataBaseFunctions.isLocationActive(this.nombre, ubicacion);
 	}
 
 	public boolean desactivarUbicacion(Ubicacion ubicacion) {
 		//TODO comprobar que la ubicacion está en la base de datos y esta activada, entonces devovler true si se desactiva o false si no.
-		try {
-			dataBaseFunctions.desactivarUbicacion(this.nombre, ubicacion);
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
+		dataBaseFunctions.desactivarUbicacion(this.nombre, ubicacion);
+		return dataBaseFunctions.isLocationActive(this.nombre, ubicacion);
 	}
 
 	public Boolean darDeBajaUbicacion(Ubicacion ubicacion) {

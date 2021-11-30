@@ -19,11 +19,15 @@ public class PruebaDataBase {
 			System.out.println("Latitud: " + u.getLatitud());
 			System.out.println("Longitud: " + u.getLongitud());
 		}*/
+		Ubicacion ubicacion = new Ubicacion();
+		ubicacion.setNombre("Castellón");
 		String alias = dataBaseFunctions.getAliasUbicacion("usuario29","Valencia");
 		System.out.println(alias);
 		List<Ubicacion> ubicacionesUser = dataBaseFunctions.listarUbicacionesUsuario("usuario29");
 		System.out.println(ubicacionesUser);
 		List<Ubicacion> activas = dataBaseFunctions.getUbicacionesActivas("usuario1");
 		System.out.println(activas);
+		Boolean active = dataBaseFunctions.isLocationActive("usuario1", ubicacion);
+		System.out.println(active);
 	}
 }

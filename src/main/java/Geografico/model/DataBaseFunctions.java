@@ -220,4 +220,19 @@ public class DataBaseFunctions {
 			e.printStackTrace();
 		}
 	}
+
+	public Boolean isLocationActive(String nombre, Ubicacion ubicacion) {
+		//FIXME
+		Boolean active = true;
+		try {
+			PreparedStatement statement = conn.prepareStatement("SELECT activo FROM usuario_ubicaciones WHERE nombre = ? AND ubicacion = ?;");
+			statement.setString(1, nombre);
+			statement.setString(2, ubicacion.getNombre());
+			ResultSet result = statement.executeQuery();
+			if(result.next()) active = result.getBoolean("activo");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return active;
+	}
 }
