@@ -24,12 +24,12 @@ public class TestIntegracion_H_1_2 {
 	private DataBaseFunctions mockedDataBaseFunctions;
 
 	@BeforeEach
-	void setUp(){
+	void setUp() throws SQLException {
 		mockedApiGeocode = Mockito.mock(APIGeocodeInterface.class);
 		mockedListaUsuario = Mockito.mock(ListaUsuario.class);
 		mockedDataBaseFunctions = Mockito.mock((DataBaseFunctions.class));
-		when(mockedListaUsuario.getUsuario("Nombre1")).thenReturn(new Usuario("Nombre1"));
-		usuario = mockedListaUsuario.getUsuario("Nombre1");
+		when(mockedListaUsuario.getUsuario("Nombre1", null)).thenReturn(new Usuario("Nombre1"));
+		usuario = mockedListaUsuario.getUsuario("Nombre1", null);
 		usuario.setDataBaseFunctions(mockedDataBaseFunctions);
 	}
 
