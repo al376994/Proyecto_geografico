@@ -40,6 +40,7 @@ public class APIGeocode implements APIGeocodeInterface{
 	@Override
 	public Ubicacion getUbicacionToponimo(String toponimo) {
 
+		toponimo = normalizarToponimo(toponimo);
 		toponimo = toponimo.replace(" ", "%20");
 
 		String URI = String.format("https://geocode.xyz/%s?geoit=json&auth=136807723723026938676x50228", toponimo);
@@ -55,6 +56,20 @@ public class APIGeocode implements APIGeocodeInterface{
 		}
 
 		return null;
+	}
+
+	private String normalizarToponimo(String toponimo) {
+		toponimo = toponimo.replace("á", "a");
+		toponimo = toponimo.replace("à", "a");
+		toponimo = toponimo.replace("é", "e");
+		toponimo = toponimo.replace("è", "e");
+		toponimo = toponimo.replace("í", "i");
+		toponimo = toponimo.replace("ì", "i");
+		toponimo = toponimo.replace("ó", "o");
+		toponimo = toponimo.replace("ò", "o");
+		toponimo = toponimo.replace("ú", "u");
+		toponimo = toponimo.replace("ù", "u");
+		return toponimo;
 	}
 
 	@Override
