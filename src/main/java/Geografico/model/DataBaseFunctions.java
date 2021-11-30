@@ -69,10 +69,13 @@ public class DataBaseFunctions {
 	}
 
 	public void addUsuario(Usuario usuario) throws SQLException {
+		if (usuario.getContrasena().equals("")){
+			throw new IllegalArgumentException();
+		}
 		try{
 			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario values(?,?)");
 			statement.setString(1, usuario.getNombre());
-			statement.setString(2, null);
+			statement.setString(2, usuario.getContrasena());
 			statement.executeUpdate();
 		}catch (SQLException e2){
 			e2.printStackTrace();
@@ -236,5 +239,19 @@ public class DataBaseFunctions {
 			e.printStackTrace();
 		}
 		return active;
+	}
+
+	public List<String> listarUsuarios(){
+		ArrayList<String> aux = new ArrayList<>();
+		try{
+			PreparedStatement statement = conn.prepareStatement("SELECT nombre FROM usuario");
+			ResultSet result = statement.executeQuery();
+			while(result.next()){
+				aux.add(result.getString("nombre"));
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return aux;
 	}
 }

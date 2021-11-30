@@ -10,6 +10,8 @@ import java.util.List;
 public class Usuario {
 	private String nombre;
 	private String email;
+	private String contrasena;
+
 	private List<APIGeocodeInterface> listAPIGeocode = new ArrayList<>();
 	private APIGeocodeInterface apiGeocode; // La API de geolocalización elegida actualmente por el usuario
 	private DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
@@ -39,6 +41,14 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	// FIN DE SETTERS Y GETTERS
