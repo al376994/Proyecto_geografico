@@ -19,12 +19,13 @@ public class DataBaseFunctions {
 	public List<Ubicacion> listarUbicacionesUsuario(String usuario) throws SQLException {
 		List<Ubicacion> ubicaciones = new ArrayList<>();
 		try{
-			PreparedStatement statement = conn.prepareStatement("SELECT latitud, longitud, alias FROM usuario_ubicaciones " +
+			PreparedStatement statement = conn.prepareStatement("SELECT ubicacion, latitud, longitud, alias FROM usuario_ubicaciones " +
 					"where nombre = ?");
 			statement.setString(1, usuario);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				Ubicacion ubicacion = new Ubicacion();
+				ubicacion.setNombre(resultSet.getString("ubicacion"));
 				ubicacion.setAlias(resultSet.getString("alias"));
 				ubicacion.setLatitud(resultSet.getDouble("latitud"));
 				ubicacion.setLongitud(resultSet.getDouble("longitud"));
@@ -167,7 +168,7 @@ public class DataBaseFunctions {
 			ResultSet ubicaciones = statement.executeQuery();
 			while(ubicaciones.next()) {
 				Ubicacion ubicacion = new Ubicacion();
-				ubicacion.setAlias(ubicaciones.getString("nombre"));
+				ubicacion.setNombre(ubicaciones.getString("ubicacion"));
 				ubicacion.setLongitud(ubicaciones.getDouble("longitud"));
 				ubicacion.setLatitud(ubicaciones.getDouble("latitud"));
 				ubicacion.setAlias(ubicaciones.getString("alias"));

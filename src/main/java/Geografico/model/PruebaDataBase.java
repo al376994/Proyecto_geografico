@@ -21,5 +21,9 @@ public class PruebaDataBase {
 		}*/
 		String alias = dataBaseFunctions.getAliasUbicacion("usuario29","Valencia");
 		System.out.println(alias);
+		List<Ubicacion> ubicacionesUser = dataBaseFunctions.listarUbicacionesUsuario("usuario29");
+		System.out.println(ubicacionesUser);
+		List<Ubicacion> activas = dataBaseFunctions.getUbicacionesActivas("usuario1");
+		System.out.println(activas);
 	}
 }

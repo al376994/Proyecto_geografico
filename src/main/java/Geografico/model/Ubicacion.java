@@ -80,4 +80,14 @@ public class Ubicacion {
 	public void getInformacion() {
 		//TODO cambiar para que devuelva String
 	}
+
+	@Override
+	public String toString() {
+		return "Ubicacion{" +
+				"latitud=" + latitud +
+				", longitud=" + longitud +
+				", nombre='" + nombre + '\'' +
+				", alias='" + alias + '\'' +
+				'}';
+	}
 }
