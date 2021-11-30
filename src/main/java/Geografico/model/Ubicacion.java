@@ -12,6 +12,10 @@ public class Ubicacion {
 	public Ubicacion(){
 	}
 
+	public Ubicacion(String nombre){
+		this.nombre = nombre;
+	}
+
 	public Ubicacion(double latitud, double longitud, String nombre) {
 		this.latitud = latitud;
 		this.longitud = longitud;

@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 public class TestsAceptacion_H_1_8 {
@@ -43,8 +44,12 @@ public class TestsAceptacion_H_1_8 {
         usuario.addAPIGeocode(apiGeocode);
         usuario.altaUbicacionCoordenadas(39.986,-0.0376709);
         //Act
-        usuario.asignarAliasUbicacion("Castellon de la Plana", "casa");
+
+        assertThrows(IllegalArgumentException.class,
+                ()->{
+                    usuario.asignarAliasUbicacion("Castellon de la Plana", "");
+        });
         //Assert
-        assertEquals(usuario.getAliasUbicacion("Castellon de la Plana"), "casa");
+//        assertEquals(usuario.getAliasUbicacion("Castellon de la Plana"), "casa");
     }
 }
