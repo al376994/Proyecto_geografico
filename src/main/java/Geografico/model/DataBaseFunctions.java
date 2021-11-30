@@ -48,11 +48,20 @@ public class DataBaseFunctions {
 			statement.setString(7, alias);
 
 			statement.executeUpdate();
-			PreparedStatement statement1 = conn.prepareStatement("INSERT INTO ubicaciones values(?, ?, ?)");
-			statement1.setDouble(1, latitud);
-			statement1.setDouble(2, longitud);
-			statement1.setString(3, nombre);
-			statement1.executeUpdate();
+
+			// Esto comprueba si la ubicación ya ha sido registrada antes en la base da datos en general.
+			// Si es el caso no la vuelve a registrar
+			statement = conn.prepareStatement("SELECT * FROM ubicaciones WHERE nombre=? AND latitud=? AND longitud=?");
+			statement.setString(1, nombre);
+			statement.setDouble(2, latitud);
+			statement.setDouble(3, longitud);
+			if(!statement.executeQuery().next()) {
+				PreparedStatement statement1 = conn.prepareStatement("INSERT INTO ubicaciones values(?, ?, ?)");
+				statement1.setDouble(1, latitud);
+				statement1.setDouble(2, longitud);
+				statement1.setString(3, nombre);
+				statement1.executeUpdate();
+			}
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
@@ -63,6 +72,37 @@ public class DataBaseFunctions {
 			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario values(?,?)");
 			statement.setString(1, usuario.getNombre());
 			statement.setString(2, null);
+			statement.executeUpdate();
+		}catch (SQLException e2){
+			e2.printStackTrace();
+		}
+	}
+
+	public Usuario getUsuario(String nombre, String contraseña) throws SQLException {
+		try{
+			PreparedStatement statement = conn.prepareStatement("SELECT nombre FROM usuario WHERE nombre=?");
+			statement.setString(1, nombre);
+			ResultSet resultSet = statement.executeQuery();
+			if (!resultSet.next()) return null;
+			Usuario usuario = new Usuario(resultSet.getString(1));
+			// Aqui se añadiran todos los otros datos que falten en usuario (ej: usuario.setEmail("email")),
+			// de momento la BBDD solo guarda nombre y contraseña
+			// Tambien falta la comprovación de la contraseña
+			// (ej: if( !contraseña.equals(resultSet.getString(2)) ) throw new ContraseñaIncorrectaException(); )
+			return usuario;
+		}catch (SQLException e2){
+			e2.printStackTrace();
+		}
+		return null;
+	}
+
+	public void deleteUsuario(String nombre, String contraseña) throws SQLException {
+		try{
+			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario WHERE nombre=?");
+			statement.setString(1, nombre);
+			statement.executeUpdate();
+			statement = conn.prepareStatement("DELETE FROM usuario_ubicaciones WHERE nombre=?");
+			statement.setString(1, nombre);
 			statement.executeUpdate();
 		}catch (SQLException e2){
 			e2.printStackTrace();
