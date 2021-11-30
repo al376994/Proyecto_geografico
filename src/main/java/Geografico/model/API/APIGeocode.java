@@ -40,6 +40,8 @@ public class APIGeocode implements APIGeocodeInterface{
 	@Override
 	public Ubicacion getUbicacionToponimo(String toponimo) {
 
+		toponimo = toponimo.replace(" ", "%20");
+
 		String URI = String.format("https://geocode.xyz/%s?geoit=json&auth=136807723723026938676x50228", toponimo);
 		String raw = APIHelper.getBody(URI);
 
