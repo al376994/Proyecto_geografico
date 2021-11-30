@@ -170,7 +170,8 @@ public class DataBaseFunctions {
 			ubicacionProcesada.setNombre(ubicacion.getString("nombre"));
 			ubicacionProcesada.setLongitud(ubicacion.getDouble("longitud"));
 			ubicacionProcesada.setLatitud(ubicacion.getDouble("latitud"));
-			ubicacionProcesada.setAlias(ubicacion.getString("alias"));
+			ubicacionProcesada.setAlias(ubicacion.getString("nombre"));
+
 			return ubicacionProcesada;
 		} catch (SQLException e) {
 			e.printStackTrace();
