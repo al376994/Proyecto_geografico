@@ -57,8 +57,15 @@ public class Ubicacion {
 			//ahora devuelvo city
 			ubicacion.setLatitud(ubicacionSinProcesar.getDouble("latt"));
 			ubicacion.setLongitud(ubicacionSinProcesar.getDouble("longt"));
-			ubicacion.setNombre(ubicacionSinProcesar.getString("city"));
+			if(ubicacionSinProcesar.has("standard")) {//Si viene por toponimo el nombre esta dentro de standard
+				ubicacion.setNombre(ubicacionSinProcesar.getJSONObject("standard").getString("city"));
+			} else {//Si viene por coordenadas el nombre esta en la raiz
+				ubicacion.setNombre(ubicacionSinProcesar.getString("city"));
+			}
+
+			System.out.println("\n\n\n" + ubicacionSinProcesar.toString() + "\n\n\n");
 		} catch (JSONException e) {
+			System.out.println("\n\n\n" + ubicacionSinProcesar.toString() + "\n\n\n");
 			e.printStackTrace();
 		}
 		return ubicacion;
