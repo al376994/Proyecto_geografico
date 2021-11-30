@@ -109,6 +109,25 @@ public class DataBaseFunctions {
 		}
 	}
 
+	public void deleteUbicacion(String nombre) {
+		/*
+		try{
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM ubicaciones");
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) System.out.println(resultSet.getString(1) + ": :" + resultSet.getString(2) + ": :" + resultSet.getString(3));
+		}catch (SQLException e2){
+			e2.printStackTrace();
+		}
+		*/
+		try{
+			PreparedStatement statement = conn.prepareStatement("DELETE FROM ubicaciones WHERE nombre=?");
+			statement.setString(1, nombre);
+			statement.executeUpdate();
+		}catch (SQLException e2){
+			e2.printStackTrace();
+		}
+	}
+
 	public void altaAliasUbicacion(String usuario, String ubicacion, String alias){
 		try{
 			PreparedStatement statement = conn.prepareStatement("UPDATE usuario_ubicaciones" +
