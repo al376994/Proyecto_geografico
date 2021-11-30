@@ -44,7 +44,7 @@ public class DataBaseFunctions {
 			statement.setDouble(2, latitud);
 			statement.setDouble(3, longitud);
 			statement.setString(4, nombre);
-			statement.setBoolean(5,false);
+			statement.setBoolean(5,true);
 			statement.setBoolean(6, false);
 			statement.setString(7, alias);
 

@@ -65,7 +65,7 @@ public class Usuario {
 
 	public void altaUbicacionCoordenadas(double lat, double lon ) throws CoordenadasExcepcion {
 		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionCoordenadas(lat, lon);
-		if (nuevaUbicacion != null)guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
+		if (nuevaUbicacion != null) guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
 	}
 
 	private void guardarUbicacionEnBaseDeDatos(Ubicacion ubicacion) {
@@ -80,13 +80,11 @@ public class Usuario {
 	}
 
 	public boolean activarUbicacion(Ubicacion ubicacion) {
-		//TODO comprobar que la ubicación está en la base de datos y esta desactivada, entonces devolver true si se activa o false si no.
 		dataBaseFunctions.activarUbicacion(this.nombre, ubicacion);
 		return dataBaseFunctions.isLocationActive(this.nombre, ubicacion);
 	}
 
 	public boolean desactivarUbicacion(Ubicacion ubicacion) {
-		//TODO comprobar que la ubicacion está en la base de datos y esta activada, entonces devovler true si se desactiva o false si no.
 		dataBaseFunctions.desactivarUbicacion(this.nombre, ubicacion);
 		return dataBaseFunctions.isLocationActive(this.nombre, ubicacion);
 	}
