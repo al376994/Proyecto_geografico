@@ -10,6 +10,7 @@ public class PruebaDataBase {
 	public static void main(String[] args) throws SQLException {
 		Connection connection = DataBaseConnector.getConnection();
 		DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(connection);
+		dataBaseFunctions.listarUsuarios();
 		//dataBaseFunctions.añadirUbicacionUsuario("usuario29", 0.00, 0.00, "Castellón", "centro");
 		//dataBaseFunctions.añadirUbicacionUsuario("usuario29", 30.00, 0.00, "Valencia", "centro");
 		//dataBaseFunctions.altaAliasUbicacion("usuario29", "Castellón","capital");
@@ -19,15 +20,15 @@ public class PruebaDataBase {
 			System.out.println("Latitud: " + u.getLatitud());
 			System.out.println("Longitud: " + u.getLongitud());
 		}*/
-		Ubicacion ubicacion = new Ubicacion();
-		ubicacion.setNombre("Castellón");
-		String alias = dataBaseFunctions.getAliasUbicacion("usuario29","Valencia");
-		System.out.println(alias);
-		List<Ubicacion> ubicacionesUser = dataBaseFunctions.listarUbicacionesUsuario("usuario29");
-		System.out.println(ubicacionesUser);
-		List<Ubicacion> activas = dataBaseFunctions.getUbicacionesActivas("usuario1");
-		System.out.println(activas);
-		Boolean active = dataBaseFunctions.isLocationActive("usuario1", ubicacion);
-		System.out.println(active);
+//		Ubicacion ubicacion = new Ubicacion();
+//		ubicacion.setNombre("Castellón");
+//		String alias = dataBaseFunctions.getAliasUbicacion("usuario29","Valencia");
+//		System.out.println(alias);
+//		List<Ubicacion> ubicacionesUser = dataBaseFunctions.listarUbicacionesUsuario("usuario29");
+//		System.out.println(ubicacionesUser);
+//		List<Ubicacion> activas = dataBaseFunctions.getUbicacionesActivas("usuario1");
+//		System.out.println(activas);
+//		Boolean active = dataBaseFunctions.isLocationActive("usuario1", ubicacion);
+//		System.out.println(active);
 	}
 }
