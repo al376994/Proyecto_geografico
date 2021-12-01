@@ -254,4 +254,74 @@ public class DataBaseFunctions {
 		}
 		return aux;
 	}
+
+	//Devuelve 0 si no está registrado
+	//Devuelve 1 si la contrasena es incorrecta
+	//Devuelve 2 si todo es correcto
+	//Devuelve 3 por defecto
+	public int iniciarSesion(String usuario, String contrasena){
+		List<String> usuarios = listarUsuarios();
+		if (!usuarios.contains(usuario)){
+			return 0;
+		}
+		String pwd = "";
+		try{
+			PreparedStatement statement = conn.prepareStatement("SELECT contrase¤a FROM usuario where nombre" +
+					"= ?");
+			statement.setString(1, usuario);
+			ResultSet result = statement.executeQuery();
+			while(result.next()){
+				pwd = result.getString(1);
+			}
+			if (!pwd.equals(contrasena)){
+				return 1;
+			}
+			else{
+//				PreparedStatement statement1 = conn.prepareStatement("UPDATE usuario SET contrase¤a = ? WHERE " +
+//						"nombre = ?");
+//				statement1.setString(1, nuevaContrasena);
+//				statement1.setString(2, usuario);
+//				statement1.executeUpdate();
+				return 2;
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return 3;
+	}
+
+
+	//0 si la vieja contraseña no es correcta
+	//1 si se cambia la contraseña
+	//2 por defecto
+	//3 si la nueva contraseña no es válida
+	public int actualizarContraseña(String usuario, String viejaContraseña, String nuevaContraseña){
+		if (nuevaContraseña.equals("")){
+			return 3;
+		}
+		String pwd = "";
+		try{
+			PreparedStatement statement = conn.prepareStatement("SELECT contrase¤a FROM usuario where nombre" +
+					"= ?");
+			statement.setString(1, usuario);
+			ResultSet result = statement.executeQuery();
+			while(result.next()){
+				pwd = result.getString(1);
+			}
+			if (!pwd.equals(viejaContraseña)){
+				return 0;
+			}
+			else{
+				PreparedStatement statement1 = conn.prepareStatement("UPDATE usuario SET contrase¤a = ? WHERE " +
+						"nombre = ?");
+				statement1.setString(1, nuevaContraseña);
+				statement1.setString(2, usuario);
+				statement1.executeUpdate();
+				return 1;
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return 2;
+	}
 }
