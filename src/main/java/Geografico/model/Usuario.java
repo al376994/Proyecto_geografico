@@ -123,4 +123,15 @@ public class Usuario {
 	public String getAliasUbicacion(String ubicacion){
 		return dataBaseFunctions.getAliasUbicacion(nombre, ubicacion);
 	}
+
+    public List<Ubicacion> getHistorialUbicaciones() {
+		//TODO
+		List<Ubicacion> historialUbicaciones = new ArrayList<>();
+		return historialUbicaciones;
+    }
+
+	public boolean reactivarUbicacionDelHistorial(Ubicacion ubicacion) {
+		//TODO
+		return true;
+	}
 }
