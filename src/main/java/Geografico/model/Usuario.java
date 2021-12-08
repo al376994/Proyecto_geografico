@@ -25,6 +25,11 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
+	public Usuario(String nombre, String pwd){
+		this.nombre = nombre;
+		this.contrasena = pwd;
+	}
+
 	// FIN DE CONSTRUCTORES
 
 	public String getNombre() {

@@ -374,4 +374,18 @@ public class DataBaseFunctions {
 			return false;
 		}
 	}
+
+	public boolean anadirLigaUsuario(String usuario, String liga){
+		try{
+			PreparedStatement statement = conn.prepareStatement("insert into usuario_liga " +
+					"values(?,?");
+			statement.setString(1, usuario);
+			statement.setString(2, liga);
+			statement.executeQuery();
+			return true;
+		}catch (SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
