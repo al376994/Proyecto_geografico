@@ -277,11 +277,6 @@ public class DataBaseFunctions {
 				return 1;
 			}
 			else{
-//				PreparedStatement statement1 = conn.prepareStatement("UPDATE usuario SET contrase¤a = ? WHERE " +
-//						"nombre = ?");
-//				statement1.setString(1, nuevaContrasena);
-//				statement1.setString(2, usuario);
-//				statement1.executeUpdate();
 				return 2;
 			}
 		}catch (SQLException e){
@@ -323,5 +318,60 @@ public class DataBaseFunctions {
 			e.printStackTrace();
 		}
 		return 2;
+	}
+
+	public boolean anadirUbicacionFavorita(String usuario, String ubicacion) throws SQLException {
+		if (!listarUbicacionesUsuario(usuario).contains(ubicacion)){
+			return false;
+		}
+		try{
+			PreparedStatement statement = conn.prepareStatement("update usuario_ubicaciones set favorito = true " +
+					"where nombre = ? and ubicacion = ?");
+			statement.setString(1, usuario);
+			statement.setString(2, ubicacion);
+			statement.executeUpdate();
+			return true;
+		}catch (SQLException e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public List<String> getUbicacionesFavoritas(String usuario){
+		List<String> ubicacionesFavoritas = new ArrayList<>();
+		try{
+			PreparedStatement statement = conn.prepareStatement("select ubicacion from usuario_ubicaciones " +
+					"where nombre = ? and favorito=true");
+			statement.setString(1, usuario);
+			ResultSet result = statement.executeQuery();
+			while(result.next()){
+				ubicacionesFavoritas.add(result.getString(1));
+			}
+
+		}catch (SQLException e){
+			e.printStackTrace();
+
+		}
+		return ubicacionesFavoritas;
+	}
+
+	public boolean desactivarUbicacionFavorita(String usuario, String ubicacion) throws SQLException {
+		if (!getUbicacionesFavoritas(usuario).contains(ubicacion)){
+			return false;
+		}
+		if (!listarUbicacionesUsuario(usuario).get(0).getNombre().equals(ubicacion)){
+			return false;
+		}
+		try{
+			PreparedStatement statement = conn.prepareStatement("update usuario_ubicaciones set favorito = false " +
+					"where nombre = ? and ubicacion = ?");
+			statement.setString(1, usuario);
+			statement.setString(2, ubicacion);
+			statement.executeUpdate();
+			return true;
+		}catch (SQLException e){
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

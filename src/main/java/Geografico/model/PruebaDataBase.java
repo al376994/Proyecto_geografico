@@ -10,7 +10,6 @@ public class PruebaDataBase {
 	public static void main(String[] args) throws SQLException {
 		Connection connection = DataBaseConnector.getConnection();
 		DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(connection);
-
 		//dataBaseFunctions.añadirUbicacionUsuario("usuario29", 0.00, 0.00, "Castellón", "centro");
 		//dataBaseFunctions.añadirUbicacionUsuario("usuario29", 30.00, 0.00, "Valencia", "centro");
 		//dataBaseFunctions.altaAliasUbicacion("usuario29", "Castellón","capital");
