@@ -434,4 +434,14 @@ public class DataBaseFunctions {
 	}
 
 
+	public void activarServicioAPI(String nombre, String servicio) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_servicios VALUES(?,?);");
+			statement.setString(1, nombre);
+			statement.setString(2, servicio);
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
