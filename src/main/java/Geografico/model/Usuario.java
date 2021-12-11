@@ -139,4 +139,9 @@ public class Usuario {
 		//TODO para reactivar eliminas la ubicacion del historial y la agregas a la tabla de usuario_ubicaciones de nuevo
 		return true;
 	}
+
+	public List<String> getServiciosAPIDisponibles() {
+		List<String> APIsDisponibles = dataBaseFunctions.getAPIsDisponibles();
+		return APIsDisponibles;
+	}
 }

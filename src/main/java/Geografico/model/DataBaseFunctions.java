@@ -244,7 +244,7 @@ public class DataBaseFunctions {
 	public List<String> listarUsuarios(){
 		ArrayList<String> aux = new ArrayList<>();
 		try{
-			PreparedStatement statement = conn.prepareStatement("SELECT nombre FROM usuario");
+			PreparedStatement statement = conn.prepareStatement("SELECT nombre FROM usuario;");
 			ResultSet result = statement.executeQuery();
 			while(result.next()){
 				aux.add(result.getString("nombre"));
@@ -267,7 +267,7 @@ public class DataBaseFunctions {
 		String pwd = "";
 		try{
 			PreparedStatement statement = conn.prepareStatement("SELECT contrase¤a FROM usuario where nombre" +
-					"= ?");
+					"= ?;");
 			statement.setString(1, usuario);
 			ResultSet result = statement.executeQuery();
 			while(result.next()){
@@ -297,7 +297,7 @@ public class DataBaseFunctions {
 		String pwd = "";
 		try{
 			PreparedStatement statement = conn.prepareStatement("SELECT contrase¤a FROM usuario where nombre" +
-					"= ?");
+					"= ?;");
 			statement.setString(1, usuario);
 			ResultSet result = statement.executeQuery();
 			while(result.next()){
@@ -308,7 +308,7 @@ public class DataBaseFunctions {
 			}
 			else{
 				PreparedStatement statement1 = conn.prepareStatement("UPDATE usuario SET contrase¤a = ? WHERE " +
-						"nombre = ?");
+						"nombre = ?;");
 				statement1.setString(1, nuevaContraseña);
 				statement1.setString(2, usuario);
 				statement1.executeUpdate();
@@ -326,7 +326,7 @@ public class DataBaseFunctions {
 		}
 		try{
 			PreparedStatement statement = conn.prepareStatement("update usuario_ubicaciones set favorito = true " +
-					"where nombre = ? and ubicacion = ?");
+					"where nombre = ? and ubicacion = ?;");
 			statement.setString(1, usuario);
 			statement.setString(2, ubicacion);
 			statement.executeUpdate();
@@ -341,7 +341,7 @@ public class DataBaseFunctions {
 		List<String> ubicacionesFavoritas = new ArrayList<>();
 		try{
 			PreparedStatement statement = conn.prepareStatement("select ubicacion from usuario_ubicaciones " +
-					"where nombre = ? and favorito=true");
+					"where nombre = ? and favorito=true;");
 			statement.setString(1, usuario);
 			ResultSet result = statement.executeQuery();
 			while(result.next()){
@@ -364,7 +364,7 @@ public class DataBaseFunctions {
 		}
 		try{
 			PreparedStatement statement = conn.prepareStatement("update usuario_ubicaciones set favorito = false " +
-					"where nombre = ? and ubicacion = ?");
+					"where nombre = ? and ubicacion = ?;");
 			statement.setString(1, usuario);
 			statement.setString(2, ubicacion);
 			statement.executeUpdate();
@@ -378,7 +378,7 @@ public class DataBaseFunctions {
 	public boolean anadirLigaUsuario(String usuario, String liga){
 		try{
 			PreparedStatement statement = conn.prepareStatement("insert into usuario_liga " +
-					"values(?,?");
+					"values(?,?);");
 			statement.setString(1, usuario);
 			statement.setString(2, liga);
 			statement.executeQuery();
@@ -388,4 +388,30 @@ public class DataBaseFunctions {
 			return false;
 		}
 	}
+
+	public void añadirServicioAPIDisponible(String servicio) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO servicios_api VALUES(?);");
+			statement.setString(1, servicio);
+			statement.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<String> getAPIsDisponibles() {
+		List<String> APIsDisponibles = new ArrayList<String>();
+		try {
+			PreparedStatement statement = conn.prepareCall("SELECT * FROM servicios_api;");
+			ResultSet result = statement.executeQuery();
+			while(result.next()){
+				APIsDisponibles.add(result.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return APIsDisponibles;
+	}
+
+
 }
