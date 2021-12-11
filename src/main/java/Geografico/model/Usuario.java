@@ -130,13 +130,13 @@ public class Usuario {
 	}
 
     public List<Ubicacion> getHistorialUbicaciones() {
-		//TODO
+		//TODO devolver listado de ubiaciones en el historial de un usuario
 		List<Ubicacion> historialUbicaciones = new ArrayList<>();
 		return historialUbicaciones;
     }
 
 	public boolean reactivarUbicacionDelHistorial(Ubicacion ubicacion) {
-		//TODO
+		//TODO para reactivar eliminas la ubicacion del historial y la agregas a la tabla de usuario_ubicaciones de nuevo
 		return true;
 	}
 }
