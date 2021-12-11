@@ -389,11 +389,21 @@ public class DataBaseFunctions {
 		}
 	}
 
-	public void añadirServicioAPIDisponible(String servicio) {
+	public void addServicioAPIDisponible(String servicio) {
 		try {
 			PreparedStatement statement = conn.prepareStatement("INSERT INTO servicios_api VALUES(?);");
 			statement.setString(1, servicio);
-			statement.executeQuery();
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteServicioAPIDisponible(String servicio) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("DELETE FROM servicios_api WHERE nombre=?;");
+			statement.setString(1, servicio);
+			statement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
