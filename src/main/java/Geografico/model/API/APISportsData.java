@@ -11,7 +11,7 @@ import java.util.List;
 
 /*
 Documentación-> https://app.sportdataapi.com/documentation
-ApiKey-> https://app.sportdataapi.com/api/v1/status?apikey=98b16990-2851-11ec-9a49-09d919d0ef27
+ApiKey-> https://app.sportdataapi.com/api/v1/status?apikey=5aa5db70-5b72-11ec-9e41-f38ffd713460
 Spain-> country_id:113
 Liga española-> id:538-> season_id:2029
 Champions League-> id:281-> season_id:1959
@@ -21,7 +21,7 @@ Team_id example:6402
 public class APISportsData implements APISportsDataInterface{
     private List<String> ligas = new ArrayList<>();
     private DataBaseFunctions dataBaseFunctions;
-    private String apiKey = "https://app.sportdataapi.com/api/v1/status?apikey=98b16990-2851-11ec-9a49-09d919d0ef27";
+    private String apiKey = "https://app.sportdataapi.com/api/v1/status?apikey=5aa5db70-5b72-11ec-9e41-f38ffd713460";
 
     public APISportsData(){
         ligas.add("La Liga Española");
@@ -44,7 +44,7 @@ public class APISportsData implements APISportsDataInterface{
     //Le proporcionas el id del equipo y te devuelve un objeto Equipo con todo sus atributos
     @Override
     public Equipo getEquipo(String id) throws JSONException {
-        String raw = APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/teams/"+id+"?apikey=98b16990-2851-11ec-9a49-09d919d0ef27");
+        String raw = APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/teams/"+id+"?apikey=5aa5db70-5b72-11ec-9e41-f38ffd713460");
 
         JSONObject jsonObject = new JSONObject(raw);
         JSONObject data = new JSONObject(jsonObject.getString("data"));
@@ -94,7 +94,7 @@ public class APISportsData implements APISportsDataInterface{
     @Override
     public List<EquipoClasificacion> getClasificacionLaLiga(String id) throws JSONException {
         List<EquipoClasificacion> clasificacion = new ArrayList<>();
-        String raw = APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/standings?apikey=98b16990-2851-11ec-9a49-09d919d0ef27&season_id="+id);
+        String raw = APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/standings?apikey=5aa5db70-5b72-11ec-9e41-f38ffd713460&season_id="+id);
         JSONObject jsonObject = new JSONObject(raw);
         JSONObject data = new JSONObject(jsonObject.getString("data"));
         JSONArray standings = new JSONArray(data.getString("standings"));
@@ -119,12 +119,13 @@ public class APISportsData implements APISportsDataInterface{
 
     //Proporcionando el id de la temporada, nos devuelve una lista con los partidos de esta
     //Se puede configurar la fecha de inicio y de fin
+    //Como la API está restriginda si no pagamos-> solo vamos a visualizar los partidos de la última jornada
     //Partido(equipoCasa, equipoVisitante, estadio, resultado, fecha)
     @Override
     public List<Partido> getPartidosLiga(String id) throws JSONException {
         List<Partido> partidos = new ArrayList<>();
-        String raw = APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/matches?apikey=98b16990-2851-11ec-9a49-09d919d0ef27&season_id="+id+"&date_from=2021-11-11");
-        System.out.println(raw);
+        String raw = APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/matches?apikey=5aa5db70-5b72-11ec-9e41-f38ffd713460&season_id="+id+"&date_from=2021-12-10");
+//        System.out.println(raw);
         JSONObject obj = new JSONObject(raw);
         JSONArray data = new JSONArray(obj.getString("data"));
         int i = 0;
@@ -148,6 +149,6 @@ public class APISportsData implements APISportsDataInterface{
 
     //Proporcionando el id de la liga, devuelve los id's de las temporadas registradas.
     public String getSeason(String id){
-        return APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/seasons?apikey=98b16990-2851-11ec-9a49-09d919d0ef27&league_id="+id);
+        return APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/seasons?apikey=5aa5db70-5b72-11ec-9e41-f38ffd713460&league_id="+id);
     }
 }
