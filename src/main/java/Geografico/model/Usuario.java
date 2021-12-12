@@ -144,4 +144,14 @@ public class Usuario {
 		List<String> APIsDisponibles = dataBaseFunctions.getAPIsDisponibles();
 		return APIsDisponibles;
 	}
+
+	public boolean activarServicioAPI(String servicio) {
+		try {
+			dataBaseFunctions.activarServicioAPI(this.nombre, servicio);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }

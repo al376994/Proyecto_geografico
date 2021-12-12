@@ -4,11 +4,22 @@ public class Equipo {
     private String nombre;
     private String pais;
     private String id;
+    private String logo;
 
-    public Equipo(String nombre, String pais, String id) {
+    public Equipo(){}
+    public Equipo(String nombre, String pais, String id, String logo) {
         this.nombre = nombre;
         this.pais = pais;
         this.id = id;
+        this.logo = logo;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
     public String getNombre() {
@@ -33,5 +44,9 @@ public class Equipo {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String toString(){
+        return "Equipo con nombre " + nombre + " del pais " + pais;
     }
 }

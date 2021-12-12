@@ -1,12 +1,10 @@
 package Geografico.Aceptacion;
 
+import Geografico.model.*;
 import Geografico.model.API.APISportsData;
 import Geografico.model.API.APISportsDataInterface;
-import Geografico.model.DataBaseConnector;
-import Geografico.model.DataBaseFunctions;
-import Geografico.model.Ubicacion;
-import Geografico.model.Usuario;
 import Geografico.model.excepciones.CoordenadasExcepcion;
+import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,27 +26,29 @@ public class TestsAceptacion_H_8_1 {
     }
 
     @Test
-    public void seleccionarLiga_E8_2_1_seleccionCorrecta() throws SQLException, CoordenadasExcepcion {
+    public void seleccionarLiga_E8_1_1_seleccionCorrecta() throws SQLException, CoordenadasExcepcion, JSONException {
         //Arrange
         List<String> ligasDisponibles = APISportsData.getLigas();
         System.out.println(ligasDisponibles);
         //Act
         Boolean elegida = APISportsData.elegirLiga(usuario.getNombre(),ligasDisponibles.get(0));
-        List<String> partidos = APISportsData.getPartidosLiga(ligasDisponibles.get(0));
+        List<Partido> partidos = APISportsData.getPartidosUsuario(ligasDisponibles.get(0));
         //Assert
-        assertEquals(true, elegida);
+        assertEquals(true, partidos.size()>1);
     }
 
     @Test
-    public void seleccionarLiga_E8_2_2_seleccionIncorrecta() throws SQLException {
+    public void seleccionarLiga_E8_1_2_seleccionIncorrecta() throws SQLException, JSONException {
+        //simulamos que no hay conexión con la API
+        APISportsData = null;
         //Arrange
         List<String> ligasDisponibles = APISportsData.getLigas();
         System.out.println(ligasDisponibles);
         //Act
         Boolean elegida = APISportsData.elegirLiga(usuario.getNombre(),ligasDisponibles.get(0));
-        List<String> partidos = APISportsData.getPartidosLiga(ligasDisponibles.get(0));
+        List<Partido> partidos = APISportsData.getPartidosLiga(ligasDisponibles.get(0));
         //Assert
         //cortamos la conexión con la API
-        assertEquals(false, elegida);
+        assertEquals(null, partidos);
     }
 }

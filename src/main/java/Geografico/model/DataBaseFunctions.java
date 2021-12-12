@@ -378,14 +378,24 @@ public class DataBaseFunctions {
 	public boolean anadirLigaUsuario(String usuario, String liga){
 		try{
 			PreparedStatement statement = conn.prepareStatement("insert into usuario_liga " +
-					"values(?,?);");
+					"values(?,?)");
 			statement.setString(1, usuario);
 			statement.setString(2, liga);
 			statement.executeQuery();
 			return true;
 		}catch (SQLException e){
 			e.printStackTrace();
-			return false;
+			try{
+				PreparedStatement statement = conn.prepareStatement("update usuario_liga " +
+						"set liga = ? where usuario = ?");
+				statement.setString(1, liga);
+				statement.setString(2, usuario);
+				statement.executeUpdate();
+				return true;
+			}catch (SQLException e1){
+				e1.printStackTrace();
+				return false;
+			}
 		}
 	}
 
@@ -424,4 +434,14 @@ public class DataBaseFunctions {
 	}
 
 
+	public void activarServicioAPI(String nombre, String servicio) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_servicios VALUES(?,?);");
+			statement.setString(1, nombre);
+			statement.setString(2, servicio);
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }
