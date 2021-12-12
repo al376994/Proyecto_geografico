@@ -5,15 +5,14 @@ import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
 
+import Geografico.model.excepciones.NotFoundPlaceException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TestsAceptacion_H_2_2 {
@@ -41,19 +40,24 @@ public class TestsAceptacion_H_2_2 {
 	}
 
 	@Test
-	public void elegirAPIEspecificaParaUbicacion_E2_2_1_UbicacionTieneLaAPIEspecificada() throws SQLException {
+	public void elegirAPIEspecificaParaUbicacion_E2_2_1_UbicacionTieneLaAPIEspecificada() throws SQLException, NotFoundPlaceException {
 		//Arrange
-		usuario.altaUbicacionToponimo("Castellón");
+		Ubicacion castellon = usuario.altaUbicacionToponimo("Castellón");
+		usuario.activarServicioAPI("AirVisual");
 		//Act
-		List<Ubicacion> ubicaciones = usuario.getUbicaciones();
+		usuario.altaServicioUbicacion(castellon.getNombre(), "AirVisual");
 		//Assert
-		assertTrue(true);
+		assertEquals(1, usuario.getServiciosAPIUbicacion(castellon).size());
 	}
 
 	@Test
-	public void consultarInformacionUbicacionesActivas_E2_1_2_noSeMuestraNingunaInformacion() throws SQLException {
+	public void consultarInformacionUbicacionesActivas_E2_2_3_noSeMuestraNingunaInformacion() throws SQLException, NotFoundPlaceException {
 		//Arrange
-		//Act
-		//Assert
+		Ubicacion castellon = usuario.altaUbicacionToponimo("Castellón");
+		usuario.activarServicioAPI("AirVisual");
+		usuario.bajaUbicacionToponimo("Castellón");
+		//Assert										 //Act
+		assertThrows(NotFoundPlaceException.class, () -> usuario.altaServicioUbicacion(castellon.getNombre(), "AirVisual"));
+		assertTrue(usuario.getServiciosAPIUbicacion(castellon).isEmpty());
 	}
 }
