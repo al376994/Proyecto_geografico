@@ -1,6 +1,6 @@
 package Geografico.model;
 
-import org.postgresql.util.PSQLException;
+import Geografico.model.excepciones.NotFoundPlaceException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +10,7 @@ import java.util.List;
 //La base de datos no lo guarda correctamente
 
 public class DataBaseFunctions {
+	public static final String FOREIGN_KEY_VALUE_INVALID = "23503";
 	private Connection conn;
 
 	public DataBaseFunctions(Connection connection){
@@ -68,6 +69,19 @@ public class DataBaseFunctions {
 		}
 	}
 
+	public boolean quitarUbicacionUsuario(String usuario, String ubicacion) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario_ubicaciones " +
+					"WHERE nombre=? AND ubicacion=?");
+			statement.setString(1, usuario);
+			statement.setString(2, ubicacion);
+			return statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	public void addUsuario(Usuario usuario) throws SQLException {
 		if (usuario.getContrasena().equals("")){
 			throw new IllegalArgumentException();
@@ -102,10 +116,13 @@ public class DataBaseFunctions {
 
 	public void deleteUsuario(String nombre, String contraseña) throws SQLException {
 		try{
-			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario WHERE nombre=?");
+			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario_ubicaciones WHERE nombre=?");
 			statement.setString(1, nombre);
 			statement.executeUpdate();
-			statement = conn.prepareStatement("DELETE FROM usuario_ubicaciones WHERE nombre=?");
+			statement = conn.prepareStatement("DELETE FROM usuario_servicios WHERE usuario=?");
+			statement.setString(1, nombre);
+			statement.executeUpdate();
+			statement = conn.prepareStatement("DELETE FROM usuario WHERE nombre=?");
 			statement.setString(1, nombre);
 			statement.executeUpdate();
 		}catch (SQLException e2){
@@ -114,15 +131,6 @@ public class DataBaseFunctions {
 	}
 
 	public void deleteUbicacion(String nombre) {
-		/*
-		try{
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM ubicaciones");
-			ResultSet resultSet = statement.executeQuery();
-			while (resultSet.next()) System.out.println(resultSet.getString(1) + ": :" + resultSet.getString(2) + ": :" + resultSet.getString(3));
-		}catch (SQLException e2){
-			e2.printStackTrace();
-		}
-		*/
 		try{
 			PreparedStatement statement = conn.prepareStatement("DELETE FROM ubicaciones WHERE nombre=?");
 			statement.setString(1, nombre);
@@ -145,6 +153,42 @@ public class DataBaseFunctions {
 			e2.printStackTrace();
 			return false;
 		}
+	}
+
+	public Ubicacion getUbicacionUsuario(String usuario, String ubicacion){
+		try{
+			PreparedStatement statement = conn.prepareStatement("SELECT latitud, longitud, ubicacion FROM usuario_ubicaciones r " +
+					"JOIN ubicaciones u ON r.ubicacion=u.nombre" +
+					"WHERE u.nombre = ? AND u.ubicacion = ?");
+			statement.setString(1, usuario);
+			statement.setString(2, ubicacion);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				return buildUbicacionFromResultSet(resultSet);
+			}
+		}catch (SQLException e2){
+			e2.printStackTrace();
+		}
+		return null;
+	}
+
+	public Ubicacion getUbicacion(String ubicacion){
+		try{
+			PreparedStatement statement = conn.prepareStatement("SELECT latitud, longitud, nombre AS ubicacion FROM ubicaciones " +
+					"where nombre = ?");
+			statement.setString(1, ubicacion);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				return buildUbicacionFromResultSet(resultSet);
+			}
+		}catch (SQLException e2){
+			e2.printStackTrace();
+		}
+		return null;
+	}
+
+	private Ubicacion buildUbicacionFromResultSet(ResultSet resultSet) throws SQLException {
+		return new Ubicacion(resultSet.getDouble("latitud"), resultSet.getDouble("longitud"), resultSet.getString("ubicacion"));
 	}
 
 	public String getAliasUbicacion(String usuario, String ubicacion){
@@ -413,7 +457,7 @@ public class DataBaseFunctions {
 		try {
 			PreparedStatement statement = conn.prepareStatement("DELETE FROM servicios_api WHERE nombre=?;");
 			statement.setString(1, servicio);
-			statement.execute();
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -443,5 +487,50 @@ public class DataBaseFunctions {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean altaServicioUbicacion(String usuario, String ubicacion, String servicio) throws NotFoundPlaceException {
+		try {
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_ubicaciones_servicios VALUES(?,?,?);");
+			statement.setString(1, usuario);
+			statement.setString(2, ubicacion);
+			statement.setString(3, servicio);
+			return statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			if (e.getSQLState().equals(FOREIGN_KEY_VALUE_INVALID)) throw new NotFoundPlaceException(ubicacion);
+			e.getErrorCode();
+		}
+		return false;
+	}
+
+	public void bajaServicioUbicacion(String usuario, String ubicacion, String servicio) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario_ubicaciones_servicios " +
+					"WHERE usuario=? AND ubicacion=? AND servicioapi=?);");
+			statement.setString(1, usuario);
+			statement.setString(2, ubicacion);
+			statement.setString(3, servicio);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<String> getServiciosAPIUbicacionUsuario(String usuario, String ubicacion) {
+		 try {
+			PreparedStatement statement = conn.prepareStatement("SELECT servicioapi FROM usuario_ubicaciones_servicios " +
+					"WHERE usuario=? AND ubicacion=?");
+			statement.setString(1, usuario);
+			statement.setString(2, ubicacion);
+			ResultSet result = statement.executeQuery();
+			List<String> servicions = new ArrayList<>();
+			while(result.next()) {
+				servicions.add(result.getString(1));
+			}
+			return servicions;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
