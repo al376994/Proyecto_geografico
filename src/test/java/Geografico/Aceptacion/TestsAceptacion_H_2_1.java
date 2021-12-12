@@ -1,7 +1,6 @@
 package Geografico.Aceptacion;
 
 import Geografico.model.API.APIGeocode;
-import Geografico.model.API.APIGeocodeInterface;
 import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
@@ -25,18 +24,19 @@ public class TestsAceptacion_H_2_1 {
 	public void setUp() throws SQLException {
 		listaUsuario = new ListaUsuario();
 		usuario = new Usuario();
-		usuario.setNombre("usuarioPruebas");
+		usuario.setNombre("userP");
+		usuario.setContrasena("passP");
 		limpiarBaseDeDatos();
 		listaUsuario.addUsuario(usuario);
 		// Esto, aunque redundante, sirve para simular el comportamiento completo del programa
-		usuario = listaUsuario.getUsuario(usuario.getNombre(), null);
+		usuario = listaUsuario.getUsuario(usuario.getNombre(), usuario.getContrasena());
 		usuario.addAPIGeocode(new APIGeocode());
 	}
 
 	@AfterEach
 	private void limpiarBaseDeDatos() throws SQLException {
-		if (listaUsuario.getUsuario(usuario.getNombre(), null) != null) {
-			listaUsuario.deleteUsuario(usuario.getNombre(), null);
+		if (listaUsuario.getUsuario(usuario.getNombre(), usuario.getContrasena()) != null) {
+			listaUsuario.deleteUsuario(usuario.getNombre(), usuario.getContrasena());
 		}
 	}
 
