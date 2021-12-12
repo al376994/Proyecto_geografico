@@ -1,0 +1,264 @@
+﻿{
+    "Sheet": [
+        {
+            "CCAA": "Castilla y Leon",
+            "Provincia": "Avila",
+            "Texto": "Avila"
+        },
+        {
+            "CCAA": "Andalucia",
+            "Provincia": "Cadiz",
+            "Texto": "Cadiz"
+        },
+        {
+            "CCAA": "Comunitat Valenciana",
+            "Provincia": "Valencia",
+            "Texto": "Valencia"
+        },
+        {
+            "CCAA": "Comunidad de Madrid",
+            "Provincia": "Madrid",
+            "Texto": "Madrid"
+        },
+        {
+            "CCAA": "Cantabria",
+            "Provincia": "Cantabria",
+            "Texto": "Cantabria"
+        },
+        {
+            "CCAA": "Pais Vasco",
+            "Provincia": "Bizkaia",
+            "Texto": "Vizcaya"
+        },
+        {
+            "CCAA": "Asturias, Principado de",
+            "Provincia": "Asturias",
+            "Texto": "Asturias"
+        },
+        {
+            "CCAA": "Canarias",
+            "Provincia": "Las Palmas",
+            "Texto": "Las Palmas"
+        },
+        {
+            "CCAA": "Galicia",
+            "Provincia": "Pontevedra",
+            "Texto": "Pontevedra"
+        },
+        {
+            "CCAA": "Andalucia",
+            "Provincia": "Jaen",
+            "Texto": "Jaen"
+        },
+        {
+            "CCAA": "Castilla - La Mancha",
+            "Provincia": "Guadalajara",
+            "Texto": "Guadalajara"
+        },
+        {
+            "CCAA": "Illes Balears",
+            "Provincia": "Illes Balears",
+            "Texto": "Palma de Mallorca"
+        },
+        {
+            "CCAA": "Comunidad Foral de Navarra",
+            "Provincia": "Navarra",
+            "Texto": "Navarra"
+        },
+        {
+            "CCAA": "Andalucia",
+            "Provincia": "Granada",
+            "Texto": "Granada"
+        },
+        {
+            "CCAA": "Rioja, La",
+            "Provincia": "La Rioja",
+            "Texto": "La Rioja"
+        },
+        {
+            "CCAA": "Galicia",
+            "Provincia": "A Coruna",
+            "Texto": "A Coruna"
+        },
+        {
+            "CCAA": "Aragon",
+            "Provincia": "Teruel",
+            "Texto": "Teruel"
+        },
+        {
+            "CCAA": "Aragon",
+            "Provincia": "Zaragoza",
+            "Texto": "Zaragoza"
+        },
+        {
+            "CCAA": "Extremadura",
+            "Provincia": "Badajoz",
+            "Texto": "Badajoz"
+        },
+        {
+            "CCAA": "Aragon",
+            "Provincia": "Huesca",
+            "Texto": "Huesca"
+        },
+        {
+            "CCAA": "Pais Vasco",
+            "Provincia": "Araba",
+            "Texto": "Alava"
+        },
+        {
+            "CCAA": "Cataluna",
+            "Provincia": "Girona",
+            "Texto": "Gerona"
+        },
+        {
+            "CCAA": "Comunitat Valenciana",
+            "Provincia": "Alacant",
+            "Texto": "Alicante"
+        },
+        {
+            "CCAA": "Region de Murcia",
+            "Provincia": "Murcia",
+            "Texto": "Murcia"
+        },
+        {
+            "CCAA": "Castilla y Leon",
+            "Provincia": "Segovia",
+            "Texto": "Segovia"
+        },
+        {
+            "CCAA": "Castilla y Leon",
+            "Provincia": "Zamora",
+            "Texto": "Zamora"
+        },
+        {
+            "CCAA": "Castilla - La Mancha",
+            "Provincia": "Albacete",
+            "Texto": "Albacete"
+        },
+        {
+            "CCAA": "Extremadura",
+            "Provincia": "Caceres",
+            "Texto": "Caceres"
+        },
+        {
+            "CCAA": "Castilla - La Mancha",
+            "Provincia": "Ciudad Real",
+            "Texto": "Ciudad Real"
+        },
+        {
+            "CCAA": "Cataluna",
+            "Provincia": "Lleida",
+            "Texto": "Lleida"
+        },
+        {
+            "CCAA": "Castilla y Leon",
+            "Provincia": "Palencia",
+            "Texto": "Palencia"
+        },
+        {
+            "CCAA": "Andalucia",
+            "Provincia": "Malaga",
+            "Texto": "Malaga"
+        },
+        {
+            "CCAA": "Comunitat Valenciana",
+            "Provincia": "Castellon",
+            "Texto": "Castellon"
+        },
+        {
+            "CCAA": "Andalucia",
+            "Provincia": "Huelva",
+            "Texto": "Huelva"
+        },
+        {
+            "CCAA": "Canarias",
+            "Provincia": "Santa Cruz de Tenerife",
+            "Texto": "Santa Cruz de Tenerife"
+        },
+        {
+            "CCAA": "Castilla y Leon",
+            "Provincia": "Soria",
+            "Texto": "Soria"
+        },
+        {
+            "CCAA": "Castilla - La Mancha",
+            "Provincia": "Toledo",
+            "Texto": "Toledo"
+        },
+        {
+            "CCAA": "Galicia",
+            "Provincia": "Lugo",
+            "Texto": "Lugo"
+        },
+        {
+            "CCAA": "Cataluna",
+            "Provincia": "Barcelona",
+            "Texto": "Barcelona"
+        },
+        {
+            "CCAA": "Castilla - La Mancha",
+            "Provincia": "Cuenca",
+            "Texto": "Cuenca"
+        },
+        {
+            "CCAA": "Castilla y Leon",
+            "Provincia": "Burgos",
+            "Texto": "Burgos"
+        },
+        {
+            "CCAA": "Pais Vasco",
+            "Provincia": "Gipuzcoa",
+            "Texto": "San sebastian"
+        },
+        {
+            "CCAA": "Castilla y Leon",
+            "Provincia": "Salamanca",
+            "Texto": "Salamanca"
+        },
+        {
+            "CCAA": "Melilla",
+            "Provincia": "Melilla",
+            "Texto": "Melilla"
+        },
+        {
+            "CCAA": "Andalucia",
+            "Provincia": "Almeria",
+            "Texto": "Almeria"
+        },
+        {
+            "CCAA": "Galicia",
+            "Provincia": "Ourense",
+            "Texto": "Orense"
+        },
+        {
+            "CCAA": "Cataluna",
+            "Provincia": "Tarragona",
+            "Texto": "Tarragona"
+        },
+        {
+            "CCAA": "Andalucia",
+            "Provincia": "Cordoba",
+            "Texto": "Cordoba"
+        },
+        {
+            "CCAA": "Castilla y Leon",
+            "Provincia": "Leon",
+            "Texto": "Leon"
+        },
+        {
+            "CCAA": "Andalucia",
+            "Provincia": "Sevilla",
+            "Texto": "Sevilla"
+        },
+        {
+            "CCAA": "Castilla y Leon",
+            "Provincia": "Valladolid",
+            "Texto": "Valladolid"
+        },
+        {
+            "CCAA": "Ceuta",
+            "Provincia": "Ceuta",
+            "Texto": "Ceuta"
+        }
+    ]
+}
