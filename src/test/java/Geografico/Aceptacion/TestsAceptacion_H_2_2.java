@@ -45,7 +45,7 @@ public class TestsAceptacion_H_2_2 {
 		Ubicacion castellon = usuario.altaUbicacionToponimo("Castellón");
 		usuario.activarServicioAPI("AirVisual");
 		//Act
-		usuario.altaServicioUbicacion(castellon.getNombre(), "AirVisual");
+		usuario.altaServicioUbicacion(castellon, "AirVisual");
 		//Assert
 		assertEquals(1, usuario.getServiciosAPIUbicacion(castellon).size());
 	}
@@ -57,7 +57,7 @@ public class TestsAceptacion_H_2_2 {
 		usuario.activarServicioAPI("AirVisual");
 		usuario.bajaUbicacionToponimo("Castellón");
 		//Assert										 //Act
-		assertThrows(NotFoundPlaceException.class, () -> usuario.altaServicioUbicacion(castellon.getNombre(), "AirVisual"));
+		assertThrows(NotFoundPlaceException.class, () -> usuario.altaServicioUbicacion(castellon, "AirVisual"));
 		assertTrue(usuario.getServiciosAPIUbicacion(castellon).isEmpty());
 	}
 }
