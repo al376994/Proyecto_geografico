@@ -181,12 +181,14 @@ public class Usuario {
 		return true;
 	}
 
-	public void altaServicioUbicacion(String ubicacion, String servicio) throws NotFoundPlaceException {
-		dataBaseFunctions.altaServicioUbicacion(getNombre(), ubicacion, servicio);
+	public List<String> altaServicioUbicacion(Ubicacion ubicacion, String servicio) throws NotFoundPlaceException {
+		dataBaseFunctions.altaServicioUbicacion(getNombre(), ubicacion.getNombre(), servicio);
+		return getServiciosAPIUbicacion(ubicacion);
 	}
 
-	public void bajaServicioUbicacion(String ubicacion, String servicio) {
-		dataBaseFunctions.bajaServicioUbicacion(getNombre(), ubicacion, servicio);
+	public List<String> bajaServicioUbicacion(Ubicacion ubicacion, String servicio) {
+		dataBaseFunctions.bajaServicioUbicacion(getNombre(), ubicacion.getNombre(), servicio);
+		return getServiciosAPIUbicacion(ubicacion);
 	}
 
 	public List<String> getServiciosAPIUbicacion(Ubicacion ubicacion) {
