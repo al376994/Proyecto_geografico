@@ -10,15 +10,16 @@ import java.util.List;
 
 public class PruebaSportsAPI {
     public static void main(String[] args) throws JSONException, FileNotFoundException {
-        APISportsData apiSportsData = new APISportsData();
+//        DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
+//        APISportsData apiSportsData = new APISportsData();
         APIOpenWeather apiOpenWeather = new APIOpenWeather();
         APIOpenDataSoft apiOpenDataSoft = new APIOpenDataSoft();
         apiOpenWeather.getPrevisionDiaria(new Ciudad("Valencia","Valencia",
                 "Valencia","Valencia"));
-//        List<Ciudad> ciudades = apiOpenDataSoft.getCapitales();
-//        for (Ciudad c: ciudades){
-//            apiOpenWeather.getTiempoActual(c);
-//        }
+        List<Ciudad> ciudades = apiOpenDataSoft.getCapitalesCV();
+        for (Ciudad c: ciudades){
+            apiOpenWeather.getTiempoActual(c);
+        }
 //        System.out.println(apiSportsData.getEquipo("6402").toString());
 //        apiSportsData.getClasificacion("2029");
 //        apiSportsData.getPartidosLiga("2029");
