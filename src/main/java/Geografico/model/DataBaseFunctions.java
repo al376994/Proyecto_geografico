@@ -489,6 +489,17 @@ public class DataBaseFunctions {
 		}
 	}
 
+	public void desactivarServicioAPI(String nombre, String servicio) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario_servicios WHERE usuario =? AND servicioapi=?;");
+			statement.setString(1, nombre);
+			statement.setString(2, servicio);
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public boolean altaServicioUbicacion(String usuario, String ubicacion, String servicio) throws NotFoundPlaceException {
 		try {
 			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_ubicaciones_servicios VALUES(?,?,?);");
@@ -560,7 +571,7 @@ public class DataBaseFunctions {
 			ResultSet result = statement.executeQuery();
 			while(result.next()) {
 				EquipoClasificacion e = new EquipoClasificacion(result.getString(1),result.getString(2)
-				,result.getString(4),result.getString(3),result.getInt(5),result.getInt(6)
+						,result.getString(4),result.getString(3),result.getInt(5),result.getInt(6)
 						,result.getInt(7),result.getInt(8));
 				clasificacion.add(e);
 			}
@@ -596,7 +607,7 @@ public class DataBaseFunctions {
 				Equipo equipo2 = new Equipo();
 				equipo2.setNombre(result.getString(2));
 				Partido p = new Partido(equipo1,equipo2,result.getString(3)
-				,result.getString(4),result.getString(5));
+						,result.getString(4),result.getString(5));
 				partidos.add(p);
 			}
 		} catch (SQLException e) {
