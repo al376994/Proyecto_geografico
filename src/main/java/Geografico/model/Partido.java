@@ -7,8 +7,6 @@ public class Partido {
     private String resultado;
     private String fecha;
 
-
-
     public Partido(Equipo equipoCasa, Equipo equipoFuera, String estadio, String resultado, String fecha) {
         this.equipoCasa = equipoCasa;
         this.equipoFuera = equipoFuera;
