@@ -171,6 +171,16 @@ public class Usuario {
 		return true;
 	}
 
+	public boolean desactivarServicioAPI(String servicio) {
+		try {
+			dataBaseFunctions.desactivarServicioAPI(this.nombre, servicio);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
 	public List<String> altaServicioUbicacion(Ubicacion ubicacion, String servicio) throws NotFoundPlaceException {
 		dataBaseFunctions.altaServicioUbicacion(getNombre(), ubicacion.getNombre(), servicio);
 		return getServiciosAPIUbicacion(ubicacion);

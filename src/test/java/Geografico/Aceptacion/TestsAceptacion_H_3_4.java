@@ -1,52 +1,46 @@
 package Geografico.Aceptacion;
 
-import Geografico.model.API.APIGeocode;
 import Geografico.model.DataBaseConnector;
 import Geografico.model.DataBaseFunctions;
+import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.Assert.assertTrue;
 
-public class TestsAceptacion_H_3_2 {
-
-    private void cleanDataBase() {
-
-    }
+public class TestsAceptacion_H_3_4 {
 
     @Test
-    public void activarServicioAPIDisponible_E3_2_1_SeActivaElServicio(){
+    public void desactivarAPIQueYaNoInteresaAlUsuario_E3_4_1_SeDesactivaLaAPIParaEsteUsuario() throws SQLException {
         //Arrange
         Connection conn = DataBaseConnector.getConnection();
         DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(conn);
 
-        dataBaseFunctions.addServicioAPIDisponible("AirVisual");
-        dataBaseFunctions.addServicioAPIDisponible("Currents");
+        dataBaseFunctions.addServicioAPIDisponible("AirVisual1");
+        dataBaseFunctions.addServicioAPIDisponible("Currents1");
 
         Usuario usuario = new Usuario("nuevoUsuario");
         List<String> APIsDisponibles= usuario.getServiciosAPIDisponibles();
-
-        //Act
         boolean activado = usuario.activarServicioAPI(APIsDisponibles.get(0));
 
-        //Lo siguiente se debe ejecutar para dejar la base de datos igual que antes del test.
-        //##################################################################################
+        //Act
         boolean desactivado = usuario.desactivarServicioAPI(APIsDisponibles.get(0));
-        dataBaseFunctions.deleteServicioAPIDisponible("AirVisual");
-        dataBaseFunctions.deleteServicioAPIDisponible("Currents");
+
+        dataBaseFunctions.deleteServicioAPIDisponible("AirVisual1");
+        dataBaseFunctions.deleteServicioAPIDisponible("Currents1");
 
         //Assert
-        assertTrue(activado);
+        assertTrue(desactivado);
     }
 
     @Test
-    public void activarServicioAPIDisponible_E3_2_3_NoHayServiciosParaActivar(){
+    public void desactivarAPIQueYaNoInteresaAlUsuario_E3_4_2_NoTieneAPIsActivasNoSeDesactivaNada() throws SQLException {
         //Arrange
         Usuario usuario = new Usuario("nuevoUsuario");
         List<String> APIsDisponibles= usuario.getServiciosAPIDisponibles();
