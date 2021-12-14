@@ -33,4 +33,10 @@ public class HomeController {
 		if (ControllerFunctions.checkIsLogged(model, session, "/menuPrincipal")) return "redirect:/login";
 		return "principal/menuPrincipal";
 	}
+
+	@RequestMapping(value = "/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "redirect:/";
+	}
 }

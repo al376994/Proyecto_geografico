@@ -44,9 +44,11 @@ public class LoginController {
 	}
 
 	@RequestMapping(value="/register")
-	public String registrarUsuario( @ModelAttribute("user1") UserDetails user) throws SQLException {
+	public String registrarUsuario( @ModelAttribute("user1") UserDetails user, HttpSession session) throws SQLException {
 		dataBaseFunctions.addUsuario(new Usuario(user.getUsername(), user.getPassword()));
-		return "home";
+		session.setAttribute("user", dataBaseFunctions.getUsuario(user.getUsername(), user.getPassword()));
+		if (session.getAttribute("nextPage") == null) session.setAttribute("nextPage", "/");
+		return "redirect:" + session.getAttribute("nextPage");
 	}
 
 }
