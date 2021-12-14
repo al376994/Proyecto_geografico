@@ -35,9 +35,18 @@
 							<div class="col-md-2">
 								<input class="form-control" id="longitud" placeholder="longitud" th:field="*{longitud}">
 							</div>
-							<div class="col-md-2"></div>
-							<div class="col-md-6">
-								<input class="form-control" id="nombre" placeholder="nombre" th:field="*{nombre}">
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="añadirPorCoordenadas"
+										name="action">Añadir
+								</button>
+							</div>
+							<div class="col-md-4">
+								<input class="form-control" id="nombre" placeholder="topónimo" th:field="*{nombre}">
+							</div>
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="añadirPorToponimo"
+										name="action">Añadir
+								</button>
 							</div>
 						</div>
 						<div class="row py-1">
@@ -46,22 +55,27 @@
 										name="action">Validar coordenadas
 								</button>
 							</div>
-							<div class="col-md-1" th:text="${coordenadasValidas}"></div>
 							<div class="col-md-3">
-								<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="añadir"
-										name="action">Añadir
-								</button>
+								<input class="form-control" disabled="disabled"
+									   th:classappend="${coordenadasValidas==null ? '' : coordenadasValidas ? 'is-valid' : 'is-invalid'}"
+									   th:placeholder="${coordenadasValidas==null ? 'Coordenadas sin validar' : coordenadasValidas ?
+									   'Coords. ( ' + Ubicacion.getLatitud() + ', ' + Ubicacion.getLongitud() + ' ) son validas' :
+									   'Coords. ( ' + Ubicacion.getLatitud() + ', ' + Ubicacion.getLongitud() + ' ) son invalidas'}">
 							</div>
+							<div class="col-md-1"></div>
 							<div class="col-md-2">
 								<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="validarToponimo"
 										name="action">Validar topónimo
 								</button>
 							</div>
-							<div class="col-md-4">
-								<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="añadir"
-										name="action">Añadir
-								</button>
+							<div class="col-md-3">
+								<input class="form-control" disabled="disabled"
+									   th:classappend="${toponimoValido==null ? '' : toponimoValido ? 'is-valid' : 'is-invalid'}"
+									   th:placeholder="${toponimoValido==null ? 'Topónimo sin validar' : toponimoValido ?
+									   'Topónimo ( ' + Ubicacion.getNombre() + ' ) valido' :
+									   'Topónimo ( ' + Ubicacion.getNombre() + ' ) invalido'}">
 							</div>
+							<div class="col-md-1"></div>
 						</div>
 					</div>
 				</form>
