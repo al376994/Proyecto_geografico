@@ -15,7 +15,7 @@ public class TestsAceptacion_H_1_9 {
     @BeforeEach
     public void setUp() {
         usuario = new Usuario();
-        ubicacion = new Ubicacion(39.97990, -0.03304, "Castellón");
+        ubicacion = new Ubicacion(39.97990, -0.03304, "Castello De La Plana");
         ubicacion.setAlias("Castellón");
     }
 

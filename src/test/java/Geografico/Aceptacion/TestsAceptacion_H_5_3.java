@@ -37,7 +37,7 @@ public class TestsAceptacion_H_5_3 {
         String nombreUbicacion1 = ubicacionesActivas.get(0).getNombre();
         dataBaseFunctions = null;
         //Assert
-        assertEquals("Castellon", nombreUbicacion1);
+        assertEquals("Castello De La Plana", nombreUbicacion1);
     }
 
     @Test
