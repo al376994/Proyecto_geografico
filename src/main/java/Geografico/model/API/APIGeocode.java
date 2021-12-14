@@ -3,6 +3,7 @@ package Geografico.model.API;
 import Geografico.model.Coordenadas;
 import Geografico.model.Ubicacion;
 import Geografico.model.excepciones.CoordenadasExcepcion;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Locale;
@@ -23,7 +24,10 @@ public class APIGeocode implements APIGeocodeInterface{
 			jObject = new JSONObject(raw);
 			System.out.println(jObject);
 			return validarUbicacion(jObject);
-		} catch (Exception e) {
+		} catch (JSONException e) {
+			// Cuando la api geocode no encuentra una ubicacion para unas coordenadas validas no devuelve json,
+			// por lo saltara la excepcion JSONException, como el funcionmiento final es el esperado (return false)
+			// y no es trivial distinguir si JSONException a saltado por esta razón hemos decidido dejarlo como esta
 			e.printStackTrace();
 		}
 		return false;

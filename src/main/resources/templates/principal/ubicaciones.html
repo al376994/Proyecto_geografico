@@ -18,7 +18,7 @@
 				<h2>Añadir nueva ubicación</h2>
 			</button>
 			<div class="accordion-collapse collapse" id="accordion-item-content-1">
-				<form id="añadirUbicacionForm" action="#" th:action="@{/Ubicaciones/añadir}" th:object="${Ubicacion}" method="post">
+				<form id="añadirUbicacionForm" action="#" th:action="@{/ubicaciones/añadir}" th:object="${Ubicacion}" method="post">
 					<div class="text">
 						<div class="row py-1">
 							<div class="col-md-6">
@@ -46,7 +46,8 @@
 										name="action">Validar coordenadas
 								</button>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-1" th:text="${coordenadasValidas}"></div>
+							<div class="col-md-3">
 								<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="añadir"
 										name="action">Añadir
 								</button>

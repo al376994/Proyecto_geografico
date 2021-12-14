@@ -1,5 +1,6 @@
 package Geografico.controller;
 
+import Geografico.model.API.APIGeocode;
 import Geografico.model.DataBaseConnector;
 import Geografico.model.DataBaseFunctions;
 import Geografico.model.Ubicacion;
@@ -18,30 +19,40 @@ import java.util.List;
 @RequestMapping(value="/ubicaciones")
 public class UbicacionController {
 
+    private final DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
+    private final APIGeocode apiGeocode = new APIGeocode();
+
     @RequestMapping(value="/lista")
     public String redirigirUbicacion(Model model, HttpSession session) throws SQLException {
         if(ControllerFunctions.checkIsLogged(model, session, "/ubicaciones/lista")) return "redirect:/login";
-        model.addAttribute("Ubicacion", new Ubicacion(0,0, ""));
+        if (session.getAttribute("lastUbicacion") == null)
+            session.setAttribute("lastUbicacion", new Ubicacion(0,0, ""));
+        model.addAttribute("Ubicacion", session.getAttribute("lastUbicacion"));
         List<Ubicacion> ubicaciones = ((Usuario)session.getAttribute("user")).getUbicaciones();
         model.addAttribute("ubicaciones", ubicaciones);
+        model.addAttribute("coordenadasValidas", session.getAttribute("coordenadasValidas"));
         return "principal/ubicaciones";
     }
 
-    @RequestMapping(value = "/Ubicaciones/añadir", method = RequestMethod.POST, params = "action=validarCoordenadas")
-    public String validarCoordenadas(Model model, @ModelAttribute("Ubicacion") Ubicacion ubicacion){
-        System.out.println("Validar Coordenadas: " + ubicacion.getLatitud());
-        return "redirect:/Ubicaciones";
+    @RequestMapping(value = "/añadir", method = RequestMethod.POST, params = "action=validarCoordenadas")
+    public String validarCoordenadas(Model model, HttpSession session, @ModelAttribute("Ubicacion") Ubicacion ubicacion){
+        Usuario usuario = (Usuario) session.getAttribute("user");
+        boolean coordenadasValidas = apiGeocode.validarCoordenadas(ubicacion.getLatitud(), ubicacion.getLongitud());
+        System.out.println("Validar Coordenadas: " + coordenadasValidas);
+        session.setAttribute("coordenadasValidas", coordenadasValidas);
+        session.setAttribute("lastUbicacion", ubicacion);
+        return "redirect:/ubicaciones/lista";
     }
 
-    @RequestMapping(value = "/Ubicaciones/añadir", method = RequestMethod.POST, params = "action=validarToponimo")
+    @RequestMapping(value = "/añadir", method = RequestMethod.POST, params = "action=validarToponimo")
     public String validarToponimo(Model model, @ModelAttribute("Ubicacion") Ubicacion ubicacion){
-        System.out.println("Validar Toponimo: " + ubicacion.getNombre());
-        return "redirect:/Ubicaciones";
+        System.out.println("Validar Toponimo: " + apiGeocode.validarToponimo(ubicacion.getNombre()));
+        return "";
     }
 
-    @RequestMapping(value = "/Ubicaciones/añadir", method = RequestMethod.POST, params = "action=añadir")
-    public String añadirUbicacion(Model model,@ModelAttribute("Ubicacion") Ubicacion ubicacion){
-        System.out.println(ubicacion.getLatitud());
-        return "redirect:/Ubicaciones";
+    @RequestMapping(value = "/añadir", method = RequestMethod.POST, params = "action=añadir")
+    public String addUbicacion(Model model,@ModelAttribute("Ubicacion") Ubicacion ubicacion){
+        System.out.println(ubicacion.getNombre());
+        return "";
     }
 }
