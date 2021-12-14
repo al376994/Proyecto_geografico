@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Menu principal</title>
-    <link rel="stylesheet" href="/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/estilos.css"/>
+	<meta charset="UTF-8">
+	<title>Menu principal</title>
+	<link rel="stylesheet" href="/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/estilos.css"/>
 </head>
 <body>
 <div th:replace="fragments/nav"></div>
 <div class="row">
-    <div class="col-md-3">
-        <div class="btn btn-primary">
-            <a th:href="@{/Ubicaciones}" role="button">Ubicaciones</a>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <button type="submit" class="btn btn-primary">Servicios</button>
-    </div>
-    <div class="col-md-2">
-        <button type="submit" class="btn btn-primary">Tiempo provincias</button>
-    </div>
-    <div class="col-md-2">
-        <button type="submit" class="btn btn-primary">Deportes</button>
-    </div>
-    <div class="col-md-2">
-        <button type="submit" class="btn btn-primary">Ubicación actual</button>
-    </div>
+	<div class="col-md-3 type-button">
+		<a th:href="@{/ubicaciones/lista}" role="button" class="btn btn-primary">Ubicaciones</a>
+	</div>
+	<div class="col-md-3">
+		<button type="submit" class="btn btn-primary">Servicios</button>
+	</div>
+	<div class="col-md-2">
+		<button type="submit" class="btn btn-primary">Tiempo provincias</button>
+	</div>
+	<div class="col-md-2">
+		<button type="submit" class="btn btn-primary">Deportes</button>
+	</div>
+	<div class="col-md-2">
+		<button type="submit" class="btn btn-primary">Ubicación actual</button>
+	</div>
 </div>
 </body>
 </html>
