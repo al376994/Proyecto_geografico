@@ -1,16 +1,24 @@
 package Geografico.controller;
 
-import Geografico.model.Coordenadas;
 import Geografico.model.Ubicacion;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
+@RequestMapping(value="/ubicaciones")
 public class UbicacionController {
+
+    @RequestMapping(value="/lista")
+    public String redirigirUbicacion(Model model, HttpSession session){
+        if(ControllerFunctions.checkIsLogged(model, session, "/ubicaciones/lista")) return "redirect:/login";
+        model.addAttribute("Ubicacion", new Ubicacion(0,0, ""));
+        return "principal/ubicaciones";
+    }
 
     @RequestMapping(value = "/Ubicaciones/añadir", method = RequestMethod.POST, params = "action=validarCoordenadas")
     public String validarCoordenadas(Model model, @ModelAttribute("Ubicacion") Ubicacion ubicacion){
