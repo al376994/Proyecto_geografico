@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Ubicaciones</title>
+    <link rel="stylesheet" href="/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/estilos.css"/>
+</head>
+<body class="bg-secondary">
+<div th:replace="fragments/nav"></div>
+<div class="text-center py-2">
+	<h1>Tus Ubicaciones</h1>
+</div>
+<div class="container pt-4 card bg-light">
+    <form id="añadirUbicacionForm" action="#" th:action="@{/Ubicaciones/añadir}" th:object="${Ubicacion}" method="post">
+        <div class="text">
+			<div class="row py-1">
+				<div class="col-md-6">
+					<label>Introduce coordenades: </label>
+				</div>
+				<div class="col-md-6">
+					<label>Introduce topónimo</label>
+				</div>
+			</div>
+			<div class="row py-1">
+				<div class="col-md-2">
+					<input class="form-control" id="latitud" placeholder="latitud" th:field="*{latitud}">
+				</div>
+				<div class="col-md-2">
+					<input class="form-control" id="longitud" placeholder="longitud" th:field="*{longitud}">
+				</div>
+				<div class="col-md-2"></div>
+				<div class="col-md-6">
+					<input class="form-control" id="nombre" placeholder="nombre" th:field="*{nombre}">
+				</div>
+			</div>
+			<div class="row py-1">
+				<div class="col-md-2">
+					<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="validarCoordenadas"
+							name="action">Validar coordenadas
+					</button>
+				</div>
+				<div class="col-md-4">
+					<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="añadir"
+							name="action">Añadir
+					</button>
+				</div>
+				<div class="col-md-2">
+					<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="validarToponimo"
+							name="action">Validar topónimo
+					</button>
+				</div>
+				<div class="col-md-4">
+					<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="añadir"
+							name="action">Añadir
+					</button>
+				</div>
+			</div>
+		</div>
+    </form>
+
+</div>
+</body>
+</html>
