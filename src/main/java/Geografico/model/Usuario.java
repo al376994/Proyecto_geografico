@@ -1,5 +1,6 @@
 package Geografico.model;
 
+import Geografico.model.API.APIGeocode;
 import Geografico.model.API.APIGeocodeInterface;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import Geografico.model.excepciones.NotFoundPlaceException;
@@ -70,10 +71,11 @@ public class Usuario {
 
 	public Ubicacion altaUbicacionToponimo(String toponimo){
 		Ubicacion nuevaUbicacion = dataBaseFunctions.getAddedUbicacionPorToponimo(toponimo);
-
+		if (apiGeocode == null) addAPIGeocode(new APIGeocode());
 		// Primero comprobamos si ya hemos registrado esta ubicacion anteriormente, si es el caso la sacamos de la
 		// base de datos, si no la buscamos mediante la API.
-		if ( nuevaUbicacion == null )nuevaUbicacion = apiGeocode.getUbicacionToponimo(toponimo);
+		if ( nuevaUbicacion == null )nuevaUbicacion =
+				apiGeocode.getUbicacionToponimo(toponimo);
 
 		// Si no encuentra la ubicacion ni en la base de datos ni mediante la api entonces no se podrá guardar
 		if ( nuevaUbicacion != null ) guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
@@ -82,6 +84,7 @@ public class Usuario {
 	}
 
 	public Ubicacion altaUbicacionCoordenadas(double lat, double lon ) throws CoordenadasExcepcion {
+		if (apiGeocode == null) addAPIGeocode(new APIGeocode());
 		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionCoordenadas(lat, lon);
 		if (nuevaUbicacion != null) guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
 		return nuevaUbicacion;

@@ -58,9 +58,13 @@ public class UbicacionController {
     }
 
     @RequestMapping(value = "/añadir", method = RequestMethod.POST, params = "action=añadirPorCoordenadas")
-    public String addUbicacionPorCoordenadas(HttpSession session, @ModelAttribute("Ubicacion") Ubicacion ubicacion) throws CoordenadasExcepcion {
+    public String addUbicacionPorCoordenadas(HttpSession session, @ModelAttribute("Ubicacion") Ubicacion ubicacion) {
         Usuario usuario = (Usuario) session.getAttribute("user");
-        usuario.altaUbicacionCoordenadas(ubicacion.getLatitud(), ubicacion.getLongitud());
+        try {
+            usuario.altaUbicacionCoordenadas(ubicacion.getLatitud(), ubicacion.getLongitud());
+        } catch (CoordenadasExcepcion e) {
+            e.printStackTrace();
+        }
         return "redirect:/ubicaciones/lista";
     }
 

@@ -21,8 +21,14 @@ public class CoordenadasExcepcion extends Exception {
             case 1:
                 msg = "La longitud es errónea";
                 break;
-            default:
+            case 2:
                 msg = "La latitud y longitud son erróneas";
+                break;
+            case 3:
+                msg = "La latitud y longitud no apuntan a una ubicación";
+                break;
+            default:
+                msg = "Error inesperado en las coordenadas";
                 break;
         }
 
