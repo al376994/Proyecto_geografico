@@ -15,6 +15,9 @@ public class APIGeocode implements APIGeocodeInterface{
 	@Override
 	public boolean validarToponimo(String toponimo) {
 
+		toponimo = normalizarToponimo(toponimo);
+		toponimo = toponimo.replace(" ", "%20");
+
 		String URI = String.format("https://geocode.xyz/%s?geoit=json&auth=" + key, toponimo);
 		System.out.println("Peticon: " + URI);
 		String raw = APIHelper.getBody(URI);
@@ -47,7 +50,7 @@ public class APIGeocode implements APIGeocodeInterface{
 		toponimo = normalizarToponimo(toponimo);
 		toponimo = toponimo.replace(" ", "%20");
 
-		String URI = String.format("https://geocode.xyz/%s?geoit=json&auth=136807723723026938676x50228", toponimo);
+		String URI = String.format("https://geocode.xyz/%s?geoit=json&auth=" + key, toponimo);
 		String raw = APIHelper.getBody(URI);
 
 		JSONObject jObject;
