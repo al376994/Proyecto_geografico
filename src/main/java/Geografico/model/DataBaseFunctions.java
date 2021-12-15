@@ -98,11 +98,11 @@ public class DataBaseFunctions {
 
 	public Usuario getUsuario(String nombre, String contraseña) throws SQLException {
 		try{
-			PreparedStatement statement = conn.prepareStatement("SELECT nombre FROM usuario WHERE nombre=?");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario WHERE nombre=?");
 			statement.setString(1, nombre);
 			ResultSet resultSet = statement.executeQuery();
 			if (!resultSet.next()) return null;
-			Usuario usuario = new Usuario(resultSet.getString(1));
+			Usuario usuario = new Usuario(resultSet.getString(1), resultSet.getString(2));
 			// Aqui se añadiran todos los otros datos que falten en usuario (ej: usuario.setEmail("email")),
 			// de momento la BBDD solo guarda nombre y contraseña
 			// Tambien falta la comprovación de la contraseña
@@ -231,7 +231,7 @@ public class DataBaseFunctions {
 
 	public Ubicacion getAddedUbicacionPorToponimo(String toponimo) {
 		try {
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM ubicaciones WHERE nombre = ?;");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM ubicaciones WHERE UPPER(nombre) = UPPER(?);");
 			statement.setString(1, toponimo);
 			ResultSet ubicacion = statement.executeQuery();
 			if (!ubicacion.next()) return null;

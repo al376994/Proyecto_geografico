@@ -26,8 +26,11 @@ public class UbicacionController {
     @RequestMapping(value="/lista")
     public String redirigirUbicacion(Model model, HttpSession session) throws SQLException {
         if(ControllerFunctions.checkIsLogged(model, session, "/ubicaciones/lista")) return "redirect:/login";
-        if (session.getAttribute("lastUbicacion") == null)
+        if (session.getAttribute("lastUbicacion") == null){
             session.setAttribute("lastUbicacion", new Ubicacion(0,0, ""));
+            session.removeAttribute("coordenadasValidas");
+            session.removeAttribute("toponimoValido");
+        }
         model.addAttribute("Ubicacion", session.getAttribute("lastUbicacion"));
         List<Ubicacion> ubicaciones = ((Usuario)session.getAttribute("user")).getUbicaciones();
         model.addAttribute("ubicaciones", ubicaciones);
