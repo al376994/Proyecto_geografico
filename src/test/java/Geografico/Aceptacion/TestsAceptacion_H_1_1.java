@@ -29,17 +29,18 @@ public class TestsAceptacion_H_1_1 {
 		apiGeocode = new APIGeocode();
 		listaUsuario = new ListaUsuario();
 		usuario = new Usuario();
-		usuario.setNombre("usuarioPruebas");
+		usuario.setNombre("usuarioP");
+		usuario.setContrasena("usuarioP");
 		limpiarBaseDeDatos();
 		listaUsuario.addUsuario(usuario);
 		// Esto, aunque redundante, sirve para simular el comportamiento completo del programa
-		usuario = listaUsuario.getUsuario(usuario.getNombre(), null);
+		usuario = listaUsuario.getUsuario(usuario.getNombre(), usuario.getContrasena());
 	}
 
 	@AfterEach
 	private void limpiarBaseDeDatos() throws SQLException {
-		if (listaUsuario.getUsuario(usuario.getNombre(), null) != null) {
-			listaUsuario.deleteUsuario(usuario.getNombre(), null);
+		if (listaUsuario.getUsuario(usuario.getNombre(), usuario.getContrasena()) != null) {
+			listaUsuario.deleteUsuario(usuario.getNombre(), usuario.getContrasena());
 		}
 	}
 
