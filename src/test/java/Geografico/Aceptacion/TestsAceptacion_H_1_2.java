@@ -5,6 +5,7 @@ import Geografico.model.API.APIGeocodeInterface;
 import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +45,7 @@ public class TestsAceptacion_H_1_2 {
     }
 
     @Test
-    public void altaUbicacionCoordenadas_E1_2_1_seAñadeLista() throws SQLException, CoordenadasExcepcion {
+    public void altaUbicacionCoordenadas_E1_2_1_seAñadeLista() throws SQLException, CoordenadasExcepcion, AlreadyHasPlaceException {
         //Arrange
         usuario.addAPIGeocode(apiGeocode);
         //Act

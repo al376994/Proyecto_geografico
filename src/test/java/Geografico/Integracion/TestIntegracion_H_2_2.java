@@ -4,6 +4,7 @@ import Geografico.model.API.APIAirVisual;
 import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.NotFoundPlaceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,7 +32,7 @@ public class TestIntegracion_H_2_2 {
 	}
 
 	@Test
-	public void elegirAPIEspecificaParaUbicacion_E2_2_1_UbicacionTieneLaAPIEspecificada() throws SQLException, NotFoundPlaceException {
+	public void elegirAPIEspecificaParaUbicacion_E2_2_1_UbicacionTieneLaAPIEspecificada() throws SQLException, NotFoundPlaceException, AlreadyHasPlaceException {
 		//Arrange
 		when(mockedUsuario.altaUbicacionToponimo("Castellón")).thenReturn(new Ubicacion("Castellón"));
 		Ubicacion castellon = mockedUsuario.altaUbicacionToponimo("Castellón");
@@ -44,7 +45,7 @@ public class TestIntegracion_H_2_2 {
 	}
 
 	@Test
-	public void consultarInformacionUbicacionesActivas_E2_2_3_noSeMuestraNingunaInformacion() throws SQLException, NotFoundPlaceException {
+	public void consultarInformacionUbicacionesActivas_E2_2_3_noSeMuestraNingunaInformacion() throws SQLException, NotFoundPlaceException, AlreadyHasPlaceException {
 		//Arrange
 		when(mockedUsuario.altaUbicacionToponimo("Castellón")).thenReturn(new Ubicacion("Castellón"));
 		Ubicacion castellon = mockedUsuario.altaUbicacionToponimo("Castellón");

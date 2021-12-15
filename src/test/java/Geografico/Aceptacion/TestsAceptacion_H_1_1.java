@@ -5,6 +5,7 @@ import Geografico.model.API.APIGeocodeInterface;
 import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +46,7 @@ public class TestsAceptacion_H_1_1 {
 	}
 
 	@Test
-	public void altaUbicacionToponimo_E1_1_1_seAñadeLista() throws SQLException {
+	public void altaUbicacionToponimo_E1_1_1_seAñadeLista() throws SQLException, AlreadyHasPlaceException {
 		//Arrange
 		usuario.addAPIGeocode(apiGeocode);
 		//Act
@@ -56,7 +57,7 @@ public class TestsAceptacion_H_1_1 {
 	}
 
 	@Test
-	public void altaUbicacionToponimo_E1_1_2_listaUbicacionesVacia() throws SQLException {
+	public void altaUbicacionToponimo_E1_1_2_listaUbicacionesVacia() throws SQLException, AlreadyHasPlaceException {
 		//Arrange
 		usuario.addAPIGeocode(apiGeocode);
 		//Act

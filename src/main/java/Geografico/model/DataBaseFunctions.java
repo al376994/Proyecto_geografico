@@ -1,5 +1,6 @@
 package Geografico.model;
 
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.NotFoundPlaceException;
 
 import java.sql.*;
@@ -38,7 +39,10 @@ public class DataBaseFunctions {
 		return ubicaciones;
 	}
 
-	public void añadirUbicacionUsuario(String usuario, double latitud,double longitud, String nombre, String alias){
+	public void añadirUbicacionUsuario(String usuario, double latitud,double longitud, String nombre, String alias) throws AlreadyHasPlaceException {
+
+		if (getUbicacionUsuario(usuario, nombre) != null) throw new AlreadyHasPlaceException(nombre);
+
 		try{
 			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_ubicaciones values(?, ?, ?, ?,?,?,?)");
 			statement.setString(1, usuario);
@@ -157,9 +161,9 @@ public class DataBaseFunctions {
 
 	public Ubicacion getUbicacionUsuario(String usuario, String ubicacion){
 		try{
-			PreparedStatement statement = conn.prepareStatement("SELECT latitud, longitud, ubicacion FROM usuario_ubicaciones r " +
-					"JOIN ubicaciones u ON r.ubicacion=u.nombre" +
-					"WHERE u.nombre = ? AND u.ubicacion = ?");
+			PreparedStatement statement = conn.prepareStatement("SELECT u.latitud, u.longitud, r.ubicacion FROM usuario_ubicaciones r " +
+					"JOIN ubicaciones u ON r.ubicacion=u.nombre " +
+					"WHERE r.nombre = ? AND r.ubicacion = ?");
 			statement.setString(1, usuario);
 			statement.setString(2, ubicacion);
 			ResultSet resultSet = statement.executeQuery();

@@ -5,6 +5,7 @@ import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
 
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,7 +42,7 @@ public class TestsAceptacion_H_2_1 {
 	}
 
 	@Test
-	public void consultarInformacionUbicacionesActivas_E2_1_1_seMuestraLaInformacion() throws SQLException {
+	public void consultarInformacionUbicacionesActivas_E2_1_1_seMuestraLaInformacion() throws SQLException, AlreadyHasPlaceException {
 		//Arrange
 		int vecesInfoConsultada = 0;
 		usuario.altaUbicacionToponimo("Castellón");

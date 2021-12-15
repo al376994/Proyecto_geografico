@@ -2,6 +2,7 @@ package Geografico.model;
 
 import Geografico.model.API.APIGeocode;
 import Geografico.model.API.APIGeocodeInterface;
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import Geografico.model.excepciones.NotFoundPlaceException;
 
@@ -69,7 +70,7 @@ public class Usuario {
 		listAPIGeocode.add(apiGeocode);
 	}
 
-	public Ubicacion altaUbicacionToponimo(String toponimo){
+	public Ubicacion altaUbicacionToponimo(String toponimo) throws AlreadyHasPlaceException {
 		Ubicacion nuevaUbicacion = dataBaseFunctions.getAddedUbicacionPorToponimo(toponimo);
 		if (apiGeocode == null) addAPIGeocode(new APIGeocode());
 		// Primero comprobamos si ya hemos registrado esta ubicacion anteriormente, si es el caso la sacamos de la
@@ -83,7 +84,7 @@ public class Usuario {
 		return nuevaUbicacion;
 	}
 
-	public Ubicacion altaUbicacionCoordenadas(double lat, double lon ) throws CoordenadasExcepcion {
+	public Ubicacion altaUbicacionCoordenadas(double lat, double lon ) throws CoordenadasExcepcion, AlreadyHasPlaceException {
 		if (apiGeocode == null) addAPIGeocode(new APIGeocode());
 		Ubicacion nuevaUbicacion = apiGeocode.getUbicacionCoordenadas(lat, lon);
 		if (nuevaUbicacion != null) guardarUbicacionEnBaseDeDatos(nuevaUbicacion);
@@ -98,7 +99,7 @@ public class Usuario {
 		return nuevaUbicacion;
 	}
 
-	private void guardarUbicacionEnBaseDeDatos(Ubicacion ubicacion) {
+	private void guardarUbicacionEnBaseDeDatos(Ubicacion ubicacion) throws AlreadyHasPlaceException {
 		// TODO comunicar con la base de datos (guardar ubicación)
 		dataBaseFunctions.añadirUbicacionUsuario(this.nombre, ubicacion.getLatitud(),
 				ubicacion.getLongitud(), ubicacion.getNombre(), ubicacion.getAlias());

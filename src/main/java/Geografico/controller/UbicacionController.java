@@ -5,6 +5,7 @@ import Geografico.model.DataBaseConnector;
 import Geografico.model.DataBaseFunctions;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,6 +68,8 @@ public class UbicacionController {
             usuario.altaUbicacionCoordenadas(ubicacion.getLatitud(), ubicacion.getLongitud());
         } catch (CoordenadasExcepcion e) {
             e.printStackTrace();
+        } catch (AlreadyHasPlaceException e) {
+            e.printStackTrace();
         }
         return "redirect:/ubicaciones/lista";
     }
@@ -74,7 +77,13 @@ public class UbicacionController {
     @RequestMapping(value = "/añadir", method = RequestMethod.POST, params = "action=añadirPorToponimo")
     public String addUbicacionPorToponimo(HttpSession session, @ModelAttribute("Ubicacion") Ubicacion ubicacion){
         Usuario usuario = (Usuario) session.getAttribute("user");
-        usuario.altaUbicacionToponimo(ubicacion.getNombre());
+        try {
+            usuario.altaUbicacionToponimo(ubicacion.getNombre());
+        } catch (AlreadyHasPlaceException e) {
+            e.printStackTrace();
+        }
         return "redirect:/ubicaciones/lista";
     }
+
+
 }

@@ -5,6 +5,7 @@ import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
 
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.NotFoundPlaceException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +41,7 @@ public class TestsAceptacion_H_2_2 {
 	}
 
 	@Test
-	public void elegirAPIEspecificaParaUbicacion_E2_2_1_UbicacionTieneLaAPIEspecificada() throws SQLException, NotFoundPlaceException {
+	public void elegirAPIEspecificaParaUbicacion_E2_2_1_UbicacionTieneLaAPIEspecificada() throws SQLException, NotFoundPlaceException, AlreadyHasPlaceException {
 		//Arrange
 		Ubicacion castellon = usuario.altaUbicacionToponimo("Castellón");
 		usuario.activarServicioAPI("AirVisual");
@@ -51,7 +52,7 @@ public class TestsAceptacion_H_2_2 {
 	}
 
 	@Test
-	public void consultarInformacionUbicacionesActivas_E2_2_3_noSeMuestraNingunaInformacion() throws SQLException, NotFoundPlaceException {
+	public void consultarInformacionUbicacionesActivas_E2_2_3_noSeMuestraNingunaInformacion() throws SQLException, NotFoundPlaceException, AlreadyHasPlaceException {
 		//Arrange
 		Ubicacion castellon = usuario.altaUbicacionToponimo("Castellón");
 		usuario.activarServicioAPI("AirVisual");

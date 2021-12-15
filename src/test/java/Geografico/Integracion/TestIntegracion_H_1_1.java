@@ -2,6 +2,7 @@ package Geografico.Integracion;
 
 import Geografico.model.*;
 import Geografico.model.API.APIGeocodeInterface;
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -33,7 +34,7 @@ public class TestIntegracion_H_1_1 {
 
 
     @Test
-    public void altaUbicacionToponimo_E1_1_1_seAñadeLista() throws SQLException {
+    public void altaUbicacionToponimo_E1_1_1_seAñadeLista() throws SQLException, AlreadyHasPlaceException {
         //Arrange
         usuario.addAPIGeocode(mockedApiGeocode);
         //Act
@@ -48,7 +49,7 @@ public class TestIntegracion_H_1_1 {
     }
 
     @Test
-    public void altaUbicacionToponimo_E1_1_2_listaUbicacionesVacia() throws SQLException {
+    public void altaUbicacionToponimo_E1_1_2_listaUbicacionesVacia() throws SQLException, AlreadyHasPlaceException {
         //Arrange
         usuario.addAPIGeocode(mockedApiGeocode);
         //Act

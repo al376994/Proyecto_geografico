@@ -4,6 +4,7 @@ import Geografico.model.API.APIGeocode;
 import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +37,7 @@ public class TestsAceptacion_H_2_4 {
 
     //TODO CREO QUE ESTO NO ES EXACTAMENTE ASÍ. FALTA REVISAR
     @Test
-    public void consultarInformacionUbicacionesActivasPorSeparado_E2_4_1_SeMuestraLaInfoDeLaUbicacionSelecionada() throws SQLException {
+    public void consultarInformacionUbicacionesActivasPorSeparado_E2_4_1_SeMuestraLaInfoDeLaUbicacionSelecionada() throws SQLException, AlreadyHasPlaceException {
         //Arrange
         usuario.altaUbicacionToponimo("Castellón");
         usuario.altaUbicacionToponimo("Valencia");

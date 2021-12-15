@@ -4,6 +4,7 @@ import Geografico.model.API.APIGeocode;
 import Geografico.model.API.APIGeocodeInterface;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +30,7 @@ public class TestsAceptacion_H_1_8 {
     }
 
     @Test
-    public void asignarAliasUbicacion_E1_8_1_devuelveAliasCorrecto() throws SQLException, CoordenadasExcepcion {
+    public void asignarAliasUbicacion_E1_8_1_devuelveAliasCorrecto() throws SQLException, CoordenadasExcepcion, AlreadyHasPlaceException {
         //Arrange
         usuario.addAPIGeocode(apiGeocode);
         usuario.altaUbicacionCoordenadas(39.986,-0.0376709);
@@ -39,7 +40,7 @@ public class TestsAceptacion_H_1_8 {
         assertEquals(usuario.getAliasUbicacion("Castellon de la Plana"), "casa");
     }
     @Test
-    public void asignarAliasUbicacion_E1_8_2_devuelveAliasIncorrecto() throws SQLException, CoordenadasExcepcion {
+    public void asignarAliasUbicacion_E1_8_2_devuelveAliasIncorrecto() throws SQLException, CoordenadasExcepcion, AlreadyHasPlaceException {
         //Arrange
         usuario.addAPIGeocode(apiGeocode);
         usuario.altaUbicacionCoordenadas(39.986,-0.0376709);

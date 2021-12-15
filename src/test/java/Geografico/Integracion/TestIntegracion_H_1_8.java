@@ -4,6 +4,7 @@ import Geografico.model.API.APIGeocode;
 import Geografico.model.API.APIGeocodeInterface;
 import Geografico.model.DataBaseFunctions;
 import Geografico.model.Usuario;
+import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ public class TestIntegracion_H_1_8 {
     }
 
     @Test
-    public void asignarAliasUbicacion_E1_8_1_devuelveAliasCorrecto() throws SQLException, CoordenadasExcepcion {
+    public void asignarAliasUbicacion_E1_8_1_devuelveAliasCorrecto() throws SQLException, CoordenadasExcepcion, AlreadyHasPlaceException {
         //Arrange
         usuario.addAPIGeocode(mockedApiGeocode);
         
@@ -47,7 +48,7 @@ public class TestIntegracion_H_1_8 {
         assertEquals(true, aceptada);
     }
     @Test
-    public void asignarAliasUbicacion_E1_8_2_devuelveAliasIncorrecto() throws SQLException, CoordenadasExcepcion {
+    public void asignarAliasUbicacion_E1_8_2_devuelveAliasIncorrecto() throws SQLException, CoordenadasExcepcion, AlreadyHasPlaceException {
         //Arrange
         usuario.addAPIGeocode(mockedApiGeocode);
         usuario.altaUbicacionCoordenadas(39.986,-0.0376709);
