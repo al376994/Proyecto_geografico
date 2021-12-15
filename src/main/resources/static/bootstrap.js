@@ -5,3 +5,7 @@ for (i=0; i<acordion.length; i++) {
 	document.getElementById(this.attributes['accordion-target'].value).classList.toggle('collapse');
   })
 }
+
+function mySubmitButtonOnEnter(button) {
+  if(event.keyCode==13) document.getElementById(button).click();
+}

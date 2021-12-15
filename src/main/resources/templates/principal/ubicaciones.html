@@ -18,16 +18,18 @@
 				<h2>Añadir nueva ubicación</h2>
 			</button>
 			<div class="accordion-collapse" id="accordion-item-content-1">
-				<form id="añadirUbicacionForm" action="#" th:action="@{/ubicaciones/añadir}" th:object="${Ubicacion}" method="post">
+				<form id="añadirUbicacionForm" action="#" th:action="@{/ubicaciones/añadir}" th:object="${Ubicacion}"
+					  method="post" onkeydown="return event.keyCode != 13;">
 					<div class="text">
 						<div class="row py-1">
+							<!-- LABEL SUPERIOR + BOTON AÑADIR -->
 							<!-- COORDENADAS -->
-							<div class="col-md-5">
+							<div class="col-md-4">
 								<label>Introduce coordenades: </label>
 							</div>
-							<div class="col-md-1">
-								<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="añadirPorCoordenadas"
-										name="action">Añadir
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-primary w-100" form="añadirUbicacionForm" value="añadirPorCoordenadas"
+										name="action" id="añadirPorCoordenadasButton">Añadir
 								</button>
 							</div>
 							<div class="col-md-1"></div>
@@ -36,41 +38,43 @@
 							<div class="col-md-3">
 								<label>Introduce topónimo: </label>
 							</div>
-							<div class="col-md-1"></div>
-							<div class="col-md-1">
-								<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="añadirPorToponimo"
-										name="action">Añadir
+							<div class="col-md-2">
+								<button type="submit" class="btn btn-primary w-100" form="añadirUbicacionForm" value="añadirPorToponimo"
+										name="action" id="añadirPorToponimoButton">Añadir
 								</button>
 							</div>
 						</div>
 						<div class="row py-1">
-
+							<!-- INTRODUCCION DE DATOS -->
 							<!-- COORDENADAS -->
 							<div class="col-md-1">
 								<label>Latitud: </label>
 							</div>
 							<div class="col-md-2">
-								<input class="form-control" id="latitud" placeholder="latitud" th:field="*{latitud}">
+								<input class="form-control" id="latitud" placeholder="latitud" th:field="*{latitud}"
+									   onkeydown="mySubmitButtonOnEnter('validarCoordenadasButton')" maxlength="9">
 							</div>
 							<div class="col-md-1">
 								<label>Longitud: </label>
 							</div>
 							<div class="col-md-2">
-								<input class="form-control" id="longitud" placeholder="longitud" th:field="*{longitud}">
+								<input class="form-control" id="longitud" placeholder="longitud" th:field="*{longitud}"
+									   onkeydown="mySubmitButtonOnEnter('validarCoordenadasButton')" maxlength="10">
 							</div>
 							<div class="col-md-1"></div>
 
 							<!-- TOPONIMO -->
 							<div class="col-md-5">
-								<input class="form-control" id="nombre" placeholder="topónimo" th:field="*{nombre}">
+								<input class="form-control" id="nombre" placeholder="topónimo" th:field="*{nombre}"
+									   onkeydown="mySubmitButtonOnEnter('validarToponimoButton')" maxlength="50">
 							</div>
 						</div>
 						<div class="row py-1">
-
+							<!-- VALIDACION -->
 							<!-- COORDENADAS -->
 							<div class="col-md-2">
-								<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="validarCoordenadas"
-										name="action">Validar coordenadas
+								<button type="submit" class="btn btn-primary w-100" form="añadirUbicacionForm" value="validarCoordenadas"
+										name="action" id="validarCoordenadasButton">Validar coordenadas
 								</button>
 							</div>
 							<div class="col-md-4">
@@ -84,8 +88,8 @@
 
 							<!-- TOPONIMO -->
 							<div class="col-md-2">
-								<button type="submit" class="btn btn-primary" form="añadirUbicacionForm" value="validarToponimo"
-										name="action">Validar topónimo
+								<button type="submit" class="btn btn-primary w-100" form="añadirUbicacionForm" value="validarToponimo"
+										name="action" id="validarToponimoButton">Validar topónimo
 								</button>
 							</div>
 							<div class="col-md-3">
