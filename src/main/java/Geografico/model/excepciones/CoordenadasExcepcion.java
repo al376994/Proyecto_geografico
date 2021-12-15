@@ -16,19 +16,19 @@ public class CoordenadasExcepcion extends Exception {
         String msg = "";
         switch (codigoError){
             case 0:
-                msg = "La latitud es errónea";
+                msg = "La latitud esta fuera de rango (90 a -90)";
                 break;
             case 1:
-                msg = "La longitud es errónea";
+                msg = "La longitud esta fuera de rango (180 a -180)";
                 break;
             case 2:
-                msg = "La latitud y longitud son erróneas";
+                msg = "La latitud y longitud estan fuera de rango (90 a -90) y (180 a -180)";
                 break;
             case 3:
-                msg = "La latitud y longitud no apuntan a una ubicación";
+                msg = "Las coordenadas no apuntan a una ubicación válida";
                 break;
             default:
-                msg = "Error inesperado en las coordenadas";
+                msg = "Error inesperado en la introducción de coordenadas";
                 break;
         }
 
