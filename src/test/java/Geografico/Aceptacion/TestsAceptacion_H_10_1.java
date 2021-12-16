@@ -1,8 +1,10 @@
 package Geografico.Aceptacion;
 
-import Geografico.model.API.*;
+import Geografico.model.API.APIOpenDataSoft;
+import Geografico.model.API.APIOpenDataSoftInterface;
+import Geografico.model.API.APIOpenWeather;
+import Geografico.model.API.APIOpenWeatherInterface;
 import Geografico.model.Ciudad;
-import Geografico.model.EquipoClasificacion;
 import Geografico.model.Prevision;
 import Geografico.model.Usuario;
 import Geografico.model.excepciones.CoordenadasExcepcion;
@@ -17,7 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestsAceptacion_H_9_1 {
+public class TestsAceptacion_H_10_1 {
     private Usuario usuario;
     private APIOpenWeatherInterface APIOpenWeather;
     private APIOpenDataSoftInterface APIOpenDataSoft;
@@ -32,9 +34,9 @@ public class TestsAceptacion_H_9_1 {
     }
 
     @Test
-    public void verTiempoCapitalesProvincia_E9_1_1_Correcta() throws SQLException, CoordenadasExcepcion, JSONException, FileNotFoundException {
+    public void verCalidadAireUbiActual_E10_1_1_Correcta() throws SQLException, CoordenadasExcepcion, JSONException, FileNotFoundException {
         //Arrange
-        List<Ciudad> ciudades = APIOpenDataSoft.getCapitales();
+        List<Ciudad> ciudades = APIOpenDataSoft.getCapitalesCV();
         System.out.println(ciudades);
         //Act
         List<List<Prevision>> previsiones = new ArrayList<>();
@@ -43,11 +45,11 @@ public class TestsAceptacion_H_9_1 {
             previsiones.add(pr);
         }
         //Assert
-        assertEquals(true, previsiones.size()>1);
+        assertEquals(0, previsiones.size());
     }
 
     @Test
-    public void verTiempoCapitalesProvincia_E9_1_2_Incorrecta() throws SQLException, JSONException, FileNotFoundException {
+    public void verCalidadAireUbiActual_E10_1_2_Incorrecta() throws SQLException, JSONException, FileNotFoundException {
         APIOpenDataSoft = null;
         //Arrange
         List<Ciudad> ciudades = APIOpenDataSoft.getCapitales();

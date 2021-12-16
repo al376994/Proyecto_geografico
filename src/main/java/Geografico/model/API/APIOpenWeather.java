@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class APIOpenWeather {
+public class APIOpenWeather implements APIOpenWeatherInterface{
     private String apiKey = "2ec35783959b4041396cb606354134ff";
 
     public APIOpenWeather(){}
