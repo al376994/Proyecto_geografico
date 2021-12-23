@@ -160,7 +160,7 @@ public class DataBaseFunctions {
 
 	public Ubicacion getUbicacionUsuario(String usuario, String ubicacion){
 		try{
-			PreparedStatement statement = conn.prepareStatement("SELECT u.latitud, u.longitud, r.ubicacion FROM usuario_ubicaciones r " +
+			PreparedStatement statement = conn.prepareStatement("SELECT u.latitud, u.longitud, r.ubicacion AS nombre FROM usuario_ubicaciones r " +
 					"JOIN ubicaciones u ON r.ubicacion=u.nombre " +
 					"WHERE r.nombre = ? AND r.ubicacion = ?");
 			statement.setString(1, usuario);

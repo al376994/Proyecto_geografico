@@ -137,7 +137,8 @@
 					<h5 th:text="${ubicacion.getNombre()}"></h5>
 				</div>
 				<div class="col-md-2">
-					<h5 th:text="${ubicacion.getNombre()}"></h5>
+					<a th:href="@{/ubicaciones/eliminar/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+					   role="button" class="btn btn-primary">Dar de baja</a>
 				</div>
 			</div>
 		</div>

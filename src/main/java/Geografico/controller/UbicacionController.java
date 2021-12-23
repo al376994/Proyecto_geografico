@@ -9,9 +9,7 @@ import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
@@ -82,6 +80,13 @@ public class UbicacionController {
         } catch (AlreadyHasPlaceException e) {
             e.printStackTrace();
         }
+        return "redirect:/ubicaciones/lista";
+    }
+
+    @RequestMapping(value = "/eliminar/{toponimo}")
+    public String deleteUbicacion(@SessionAttribute("user") Usuario usuario, @PathVariable String toponimo) {
+        Ubicacion ubicacion = usuario.getUbicacion(toponimo);
+        usuario.darDeBajaUbicacion(ubicacion);
         return "redirect:/ubicaciones/lista";
     }
 
