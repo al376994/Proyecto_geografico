@@ -20,6 +20,14 @@ public class Ubicacion {
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.nombre = nombre;
+		this.alias = nombre;
+	}
+
+	public Ubicacion(double latitud, double longitud, String nombre, String alias) {
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.nombre = nombre;
+		this.alias = alias;
 	}
 
 	public String getNombre() {
