@@ -15,7 +15,7 @@ public class Usuario {
 	private String email;
 	private String contrasena;
 
-	private List<APIGeocodeInterface> listAPIGeocode = new ArrayList<>();
+	private final List<APIGeocodeInterface> listAPIGeocode = new ArrayList<>();
 	private APIGeocodeInterface apiGeocode; // La API de geolocalización elegida actualmente por el usuario
 	private DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
 
@@ -100,13 +100,10 @@ public class Usuario {
 	}
 
 	private void guardarUbicacionEnBaseDeDatos(Ubicacion ubicacion) throws AlreadyHasPlaceException {
-		// TODO comunicar con la base de datos (guardar ubicación)
-		dataBaseFunctions.añadirUbicacionUsuario(this.nombre, ubicacion.getLatitud(),
-				ubicacion.getLongitud(), ubicacion.getNombre(), ubicacion.getAlias());
+		dataBaseFunctions.addUbicacionUsuario(this.nombre, ubicacion);
 	}
 
 	public List<Ubicacion> getUbicaciones() throws SQLException {
-		// TODO comunicar con la base de datos (recibir ubicaciones)
 		return dataBaseFunctions.listarUbicacionesUsuario(this.nombre);
 	}
 
@@ -120,9 +117,13 @@ public class Usuario {
 		return dataBaseFunctions.isLocationActive(this.nombre, ubicacion);
 	}
 
-	public Boolean darDeBajaUbicacion(Ubicacion ubicacion) {
-		//TODO comprobar que existe esa ubicacion y eliminarla y devolver true o folse si se ha podido aliminar
-		return true;
+	public boolean darDeBajaUbicacion(Ubicacion ubicacion) {
+		Ubicacion ubicacionADarDeBaja = dataBaseFunctions.getAddedUbicacionPorToponimo(ubicacion.getNombre());
+
+		if ( ubicacionADarDeBaja == null ) return false;
+		//TODO deberia saltar excepcion en el if ya que mediante interfaz no deberia de ocurrir este caso
+
+		return dataBaseFunctions.quitarUbicacionUsuario(getNombre(), ubicacionADarDeBaja.getNombre());
 	}
 
 	public String obtenerToponimoCercanoCoordenadas(double lat, double lon) throws CoordenadasExcepcion {
