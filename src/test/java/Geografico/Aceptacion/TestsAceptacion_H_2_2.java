@@ -56,7 +56,7 @@ public class TestsAceptacion_H_2_2 {
 		//Arrange
 		Ubicacion castellon = usuario.altaUbicacionToponimo("Castellón");
 		usuario.activarServicioAPI("AirVisual");
-		usuario.bajaUbicacionToponimo("Castellón");
+		usuario.darDeBajaUbicacion(castellon);
 		//Assert										 //Act
 		assertThrows(NotFoundPlaceException.class, () -> usuario.altaServicioUbicacion(castellon, "AirVisual"));
 		assertTrue(usuario.getServiciosAPIUbicacion(castellon).isEmpty());

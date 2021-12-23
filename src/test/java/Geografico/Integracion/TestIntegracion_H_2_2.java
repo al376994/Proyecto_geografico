@@ -50,7 +50,7 @@ public class TestIntegracion_H_2_2 {
 		when(mockedUsuario.altaUbicacionToponimo("Castellón")).thenReturn(new Ubicacion("Castellón"));
 		Ubicacion castellon = mockedUsuario.altaUbicacionToponimo("Castellón");
 		mockedUsuario.activarServicioAPI("AirVisual");
-		mockedUsuario.bajaUbicacionToponimo("Castellón");
+		mockedUsuario.darDeBajaUbicacion(castellon);
 		//Assert										 //Act
 		when(mockedUsuario.altaServicioUbicacion(castellon, "AirVisual")).thenThrow(NotFoundPlaceException.class);
 		when(mockedUsuario.getServiciosAPIUbicacion(castellon)).thenReturn(new ArrayList<String>());
