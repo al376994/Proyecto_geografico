@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DataBaseFunctions {
 	public static final String FOREIGN_KEY_VALUE_INVALID = "23503";
-	private Connection conn;
+	private final Connection conn;
 
 	public DataBaseFunctions(Connection connection){
 		this.conn = connection;
@@ -39,35 +39,34 @@ public class DataBaseFunctions {
 		return ubicaciones;
 	}
 
-	public void añadirUbicacionUsuario(String usuario, double latitud,double longitud, String nombre, String alias) throws AlreadyHasPlaceException {
+	public void addUbicacionUsuario(String usuario, Ubicacion ubicacion) throws AlreadyHasPlaceException {
 
-		if (getUbicacionUsuario(usuario, nombre) != null) throw new AlreadyHasPlaceException(nombre);
-
+		if (getUbicacionUsuario(usuario, ubicacion.getNombre()) != null)
+			throw new AlreadyHasPlaceException(ubicacion.getNombre());
 		try{
-			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_ubicaciones values(?, ?, ?, ?,?,?,?)");
-			statement.setString(1, usuario);
-			statement.setDouble(2, latitud);
-			statement.setDouble(3, longitud);
-			statement.setString(4, nombre);
-			statement.setBoolean(5,true);
-			statement.setBoolean(6, false);
-			statement.setString(7, alias);
-
-			statement.executeUpdate();
-
 			// Esto comprueba si la ubicación ya ha sido registrada antes en la base da datos en general.
 			// Si es el caso no la vuelve a registrar
-			statement = conn.prepareStatement("SELECT * FROM ubicaciones WHERE nombre=? AND latitud=? AND longitud=?");
-			statement.setString(1, nombre);
-			statement.setDouble(2, latitud);
-			statement.setDouble(3, longitud);
-			if(!statement.executeQuery().next()) {
-				PreparedStatement statement1 = conn.prepareStatement("INSERT INTO ubicaciones values(?, ?, ?)");
-				statement1.setDouble(1, latitud);
-				statement1.setDouble(2, longitud);
-				statement1.setString(3, nombre);
-				statement1.executeUpdate();
+			if (getAddedUbicacionPorToponimo(ubicacion.getNombre()) == null) {
+				PreparedStatement statement = conn.prepareStatement("INSERT INTO ubicaciones values(?, ?, ?)");
+				statement.setDouble(1, ubicacion.getLatitud());
+				statement.setDouble(2, ubicacion.getLongitud());
+				statement.setString(3, ubicacion.getNombre());
+				statement.executeUpdate();
 			}
+
+			if (getUbicacionUsuario(usuario, ubicacion.getNombre()) == null) {
+				PreparedStatement statement = conn.prepareStatement(
+						"INSERT INTO usuario_ubicaciones values(?, ?, ?, ?,?,?,?)");
+				statement.setString(1, usuario);
+				statement.setDouble(2, ubicacion.getLatitud());
+				statement.setDouble(3, ubicacion.getLongitud());
+				statement.setString(4, ubicacion.getNombre());
+				statement.setBoolean(5,true);
+				statement.setBoolean(6, false);
+				statement.setString(7, ubicacion.getAlias());
+				statement.executeUpdate();
+			}
+
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
@@ -176,23 +175,13 @@ public class DataBaseFunctions {
 		return null;
 	}
 
-	public Ubicacion getUbicacion(String ubicacion){
-		try{
-			PreparedStatement statement = conn.prepareStatement("SELECT latitud, longitud, nombre AS ubicacion FROM ubicaciones " +
-					"where nombre = ?");
-			statement.setString(1, ubicacion);
-			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				return buildUbicacionFromResultSet(resultSet);
-			}
-		}catch (SQLException e2){
-			e2.printStackTrace();
-		}
-		return null;
-	}
-
-	private Ubicacion buildUbicacionFromResultSet(ResultSet resultSet) throws SQLException {
-		return new Ubicacion(resultSet.getDouble("latitud"), resultSet.getDouble("longitud"), resultSet.getString("ubicacion"));
+	private Ubicacion buildUbicacionFromResultSet(ResultSet ubicacion) throws SQLException {
+		Ubicacion ubicacionProcesada = new Ubicacion();
+		ubicacionProcesada.setNombre(ubicacion.getString("nombre"));
+		ubicacionProcesada.setLongitud(ubicacion.getDouble("longitud"));
+		ubicacionProcesada.setLatitud(ubicacion.getDouble("latitud"));
+		ubicacionProcesada.setAlias(ubicacion.getString("nombre"));
+		return ubicacionProcesada;
 	}
 
 	public String getAliasUbicacion(String usuario, String ubicacion){
@@ -239,13 +228,8 @@ public class DataBaseFunctions {
 			statement.setString(1, toponimo);
 			ResultSet ubicacion = statement.executeQuery();
 			if (!ubicacion.next()) return null;
-			Ubicacion ubicacionProcesada = new Ubicacion();
-			ubicacionProcesada.setNombre(ubicacion.getString("nombre"));
-			ubicacionProcesada.setLongitud(ubicacion.getDouble("longitud"));
-			ubicacionProcesada.setLatitud(ubicacion.getDouble("latitud"));
-			ubicacionProcesada.setAlias(ubicacion.getString("nombre"));
 
-			return ubicacionProcesada;
+			return buildUbicacionFromResultSet(ubicacion);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
