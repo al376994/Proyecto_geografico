@@ -20,7 +20,6 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	public String login(Model model, HttpSession session) {
-
 		return "login";
 	}
 

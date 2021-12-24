@@ -1,5 +1,7 @@
 package Geografico.model.API;
 
+import Geografico.model.Polucion;
+import Geografico.model.Ciudad;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,5 +28,29 @@ public class APIAirVisual implements APIAirVisualInterface{
         return false;
 	}
 
+    @Override
+    public Ciudad getCiudadCercana() throws JSONException {
+        String raw = APIHelper.getBody("http://api.airvisual.com/v2/nearest_city?key="+key);
+        JSONObject obj = new JSONObject(raw);
+        JSONObject data = obj.getJSONObject("data");
+        String nombre = data.getString("city");
+        String state = data.getString("state");
+        String country = data.getString("country");
+        Ciudad c = new Ciudad(nombre,null,country,state);
+        return c;
+    }
 
+    public Polucion getPolucionCiudadCercana() throws JSONException {
+        String raw = APIHelper.getBody("http://api.airvisual.com/v2/nearest_city?key="+key);
+        JSONObject obj = new JSONObject(raw);
+        JSONObject data = obj.getJSONObject("data");
+        JSONObject current = data.getJSONObject("current");
+        JSONObject pollution = current.getJSONObject("pollution");
+//        System.out.println(pollution);
+        int aqius = pollution.getInt("aqius");
+        int aqicn = pollution.getInt("aqicn");
+        String maincn = pollution.getString("maincn");
+        String mainus = pollution.getString("mainus");
+        return new Polucion(aqius,aqicn,mainus,maincn);
+    }
 }

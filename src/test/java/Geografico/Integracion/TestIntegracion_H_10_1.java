@@ -1,38 +1,40 @@
-package Geografico.Aceptacion;
+package Geografico.Integracion;
 
-import Geografico.model.API.*;
-import Geografico.model.Ciudad;
+import Geografico.model.API.APIAirVisual;
+import Geografico.model.API.APIAirVisualInterface;
+import Geografico.model.API.APIOpenWeather;
 import Geografico.model.Polucion;
-import Geografico.model.Prevision;
 import Geografico.model.Usuario;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.when;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestsAceptacion_H_10_1 {
+public class TestIntegracion_H_10_1 {
     private Usuario usuario;
-    private APIAirVisualInterface APIAirVisual;
+    private APIAirVisualInterface mockedAPIAirVisual;
 
 
     @BeforeEach
     private void iniciarVariables() throws SQLException {
         usuario = new Usuario();
         usuario.setNombre("usuarioFt");
-        APIAirVisual = new APIAirVisual();
+        mockedAPIAirVisual = Mockito.mock(APIAirVisual.class);
     }
 
     @Test
     public void verCalidadAireUbiActual_E10_1_1_Correcta() throws SQLException, CoordenadasExcepcion, JSONException, FileNotFoundException {
         //Arrange
-        Polucion p = APIAirVisual.getPolucionCiudadCercana();
+        Polucion aux = new Polucion(1,2, "test", "test");
+        when(mockedAPIAirVisual.getPolucionCiudadCercana()).thenReturn(aux);
+        Polucion p = mockedAPIAirVisual.getPolucionCiudadCercana();
         //Act
 
         //Assert
@@ -42,8 +44,9 @@ public class TestsAceptacion_H_10_1 {
     @Test
     public void verCalidadAireUbiActual_E10_1_2_Incorrecta() throws SQLException, JSONException, FileNotFoundException {
         //Arrange
-        APIAirVisual = null;
-        Polucion p = APIAirVisual.getPolucionCiudadCercana();
+        when(mockedAPIAirVisual.getPolucionCiudadCercana()).thenReturn(null);
+        mockedAPIAirVisual = null;
+        Polucion p = mockedAPIAirVisual.getPolucionCiudadCercana();
         //Act
 
         //Assert

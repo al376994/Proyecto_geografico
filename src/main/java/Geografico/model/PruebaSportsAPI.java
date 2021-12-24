@@ -1,5 +1,6 @@
 package Geografico.model;
 
+import Geografico.model.API.APIAirVisual;
 import Geografico.model.API.APIOpenDataSoft;
 import Geografico.model.API.APIOpenWeather;
 import Geografico.model.API.APISportsData;
@@ -12,14 +13,9 @@ public class PruebaSportsAPI {
     public static void main(String[] args) throws JSONException, FileNotFoundException {
 //        DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
 //        APISportsData apiSportsData = new APISportsData();
-        APIOpenWeather apiOpenWeather = new APIOpenWeather();
-        APIOpenDataSoft apiOpenDataSoft = new APIOpenDataSoft();
-        apiOpenWeather.getPrevisionDiaria(new Ciudad("Valencia","Valencia",
-                "Valencia","Valencia"));
-        List<Ciudad> ciudades = apiOpenDataSoft.getCapitalesCV();
-        for (Ciudad c: ciudades){
-            apiOpenWeather.getTiempoActual(c);
-        }
+        APIAirVisual apiAirVisual = new APIAirVisual();
+        Polucion p = apiAirVisual.getPolucionCiudadCercana();
+        System.out.println(p.toString());;
 //        System.out.println(apiSportsData.getEquipo("6402").toString());
 //        apiSportsData.getClasificacion("2029");
 //        apiSportsData.getPartidosLiga("2029");
