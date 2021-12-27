@@ -21,7 +21,7 @@ public class DataBaseFunctions {
 	public List<Ubicacion> listarUbicacionesUsuario(String usuario) throws SQLException {
 		List<Ubicacion> ubicaciones = new ArrayList<>();
 		try{
-			PreparedStatement statement = conn.prepareStatement("SELECT ubicacion, latitud, longitud, alias FROM usuario_ubicaciones " +
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones " +
 					"where nombre = ?");
 			statement.setString(1, usuario);
 			ResultSet resultSet = statement.executeQuery();
@@ -31,6 +31,8 @@ public class DataBaseFunctions {
 				ubicacion.setAlias(resultSet.getString("alias"));
 				ubicacion.setLatitud(resultSet.getDouble("latitud"));
 				ubicacion.setLongitud(resultSet.getDouble("longitud"));
+				ubicacion.setActivo(resultSet.getBoolean("activo"));
+				ubicacion.setFavorito(resultSet.getBoolean("favorito"));
 				ubicaciones.add(ubicacion);
 			}
 		}catch (SQLException e){
@@ -160,9 +162,8 @@ public class DataBaseFunctions {
 
 	public Ubicacion getUbicacionUsuario(String usuario, String ubicacion){
 		try{
-			PreparedStatement statement = conn.prepareStatement("SELECT u.latitud, u.longitud, r.ubicacion AS nombre FROM usuario_ubicaciones r " +
-					"JOIN ubicaciones u ON r.ubicacion=u.nombre " +
-					"WHERE r.nombre = ? AND r.ubicacion = ?");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones " +
+					"WHERE nombre = ? AND ubicacion = ?");
 			statement.setString(1, usuario);
 			statement.setString(2, ubicacion);
 			ResultSet resultSet = statement.executeQuery();
@@ -177,10 +178,15 @@ public class DataBaseFunctions {
 
 	private Ubicacion buildUbicacionFromResultSet(ResultSet ubicacion) throws SQLException {
 		Ubicacion ubicacionProcesada = new Ubicacion();
-		ubicacionProcesada.setNombre(ubicacion.getString("nombre"));
+		ubicacionProcesada.setNombre(ubicacion.getString("ubicacion"));
 		ubicacionProcesada.setLongitud(ubicacion.getDouble("longitud"));
 		ubicacionProcesada.setLatitud(ubicacion.getDouble("latitud"));
-		ubicacionProcesada.setAlias(ubicacion.getString("nombre"));
+		// Si viene de la tabla ubicaciones no tendrá más de estas columnas.
+		if(ubicacion.getMetaData().getColumnCount()<=3) return ubicacionProcesada;
+
+		ubicacionProcesada.setAlias(ubicacion.getString("alias"));
+		ubicacionProcesada.setActivo(ubicacion.getBoolean("activo"));
+		ubicacionProcesada.setFavorito(ubicacion.getBoolean("favorito"));
 		return ubicacionProcesada;
 	}
 
@@ -224,11 +230,10 @@ public class DataBaseFunctions {
 
 	public Ubicacion getAddedUbicacionPorToponimo(String toponimo) {
 		try {
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM ubicaciones WHERE UPPER(nombre) = UPPER(?);");
+			PreparedStatement statement = conn.prepareStatement("SELECT latitud, longitud, nombre AS ubicacion FROM ubicaciones WHERE UPPER(nombre) = UPPER(?);");
 			statement.setString(1, toponimo);
 			ResultSet ubicacion = statement.executeQuery();
 			if (!ubicacion.next()) return null;
-
 			return buildUbicacionFromResultSet(ubicacion);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -353,7 +358,7 @@ public class DataBaseFunctions {
 	}
 
 	public boolean anadirUbicacionFavorita(String usuario, String ubicacion) throws SQLException {
-		if (!listarUbicacionesUsuario(usuario).contains(ubicacion)){
+		if (getUbicacionUsuario(usuario, ubicacion) == null){
 			return false;
 		}
 		try{
