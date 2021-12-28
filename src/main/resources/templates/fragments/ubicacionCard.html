@@ -1,0 +1,67 @@
+<div class="card text-white bg-primary mb-3">
+
+
+	<div class="row mt-2">
+		<div class="col-md-4">
+			<h5 class="ms-4" th:text="${ubicacion.getAlias()}"></h5>
+		</div>
+		<div class="col-md-2">
+			<a th:href="@{/ubicaciones/lista}"
+			   role="button" class="btn btn-primary">Información</a>
+		</div>
+		<div class="col-md-1">
+			<a th:href="@{/ubicaciones/lista}"
+			   role="button" class="btn btn-primary">Editar</a>
+		</div>
+		<div class="col-md-1">
+			<a th:href="@{/ubicaciones/lista}"
+			   role="button" class="btn btn-primary">Desactivar</a>
+		</div>
+		<div th:if="${ubicacion.isFavorito()}" class="col-md-1">
+			<a th:href="@{/ubicaciones/toggleFavorito/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">
+				<img src="/bootstrap-icons/star-fill.svg" alt="Favorito" width="18" height="18" style="filter: invert(100%)">
+			</a>
+		</div>
+		<div th:unless="${ubicacion.isFavorito()}" class="col-md-1">
+			<a th:href="@{/ubicaciones/toggleFavorito/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">
+				<img src="/bootstrap-icons/star.svg" alt="No favorito" width="18" height="18" style="filter: invert(100%)">
+			</a>
+		</div>
+		<div class="col-md-1"></div>
+		<div class="col-md-1">
+			<a th:href="@{/ubicaciones/eliminar/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">Eliminar</a>
+		</div>
+	</div>
+
+	<div class="row my-4"><div class="col-md-12"></div></div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<h5 class="ms-4">Tiempo atmosferico</h5>
+		</div>
+		<div class="col-md-4">
+			<h5>Calidad del aire</h5>
+		</div>
+		<div class="col-md-4">
+			<h5 class="me-4">Deporte</h5>
+		</div>
+	</div>
+
+	<!-- TODO añadir filas para facilitar muestreo de informacion o buscar la forma de crear cartas dentro con contenido -->
+	<div class="row mt-2">
+		<div class="col-md-4">
+			<h5 class="ms-4">Contenido Tiempo atmosferico</h5>
+		</div>
+		<div class="col-md-4">
+			<h5>Contenido Calidad del aire</h5>
+		</div>
+		<div class="col-md-4">
+			<h5 class="me-4">Contenido Deporte</h5>
+		</div>
+	</div>
+
+
+</div>
