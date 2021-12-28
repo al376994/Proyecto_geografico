@@ -91,12 +91,13 @@ public class Usuario {
 		return nuevaUbicacion;
 	}
 
-	public Ubicacion bajaUbicacionToponimo(String toponimo){
-		Ubicacion nuevaUbicacion = dataBaseFunctions.getAddedUbicacionPorToponimo(toponimo);
+	public boolean darDeBajaUbicacion(Ubicacion ubicacion) {
+		Ubicacion ubicacionADarDeBaja = dataBaseFunctions.getAddedUbicacionPorToponimo(ubicacion.getNombre());
 
-		if ( nuevaUbicacion == null ) return null;
-		dataBaseFunctions.quitarUbicacionUsuario(getNombre(), nuevaUbicacion.getNombre());
-		return nuevaUbicacion;
+		if ( ubicacionADarDeBaja == null ) return false;
+		//TODO deberia saltar excepcion en el if ya que mediante interfaz no deberia de ocurrir este caso
+
+		return dataBaseFunctions.quitarUbicacionUsuario(getNombre(), ubicacionADarDeBaja.getNombre());
 	}
 
 	private void guardarUbicacionEnBaseDeDatos(Ubicacion ubicacion) throws AlreadyHasPlaceException {
@@ -105,6 +106,10 @@ public class Usuario {
 
 	public List<Ubicacion> getUbicaciones() throws SQLException {
 		return dataBaseFunctions.listarUbicacionesUsuario(this.nombre);
+	}
+
+	public Ubicacion getUbicacion(String ubicacion){
+		return dataBaseFunctions.getUbicacionUsuario(getNombre(), ubicacion);
 	}
 
 	public boolean activarUbicacion(Ubicacion ubicacion) {
@@ -117,13 +122,18 @@ public class Usuario {
 		return dataBaseFunctions.isLocationActive(this.nombre, ubicacion);
 	}
 
-	public boolean darDeBajaUbicacion(Ubicacion ubicacion) {
-		Ubicacion ubicacionADarDeBaja = dataBaseFunctions.getAddedUbicacionPorToponimo(ubicacion.getNombre());
+	public List<Ubicacion> getUbicacionesActivas() throws SQLException {
+		return dataBaseFunctions.getUbicacionesActivas(this.nombre);
+	}
 
-		if ( ubicacionADarDeBaja == null ) return false;
-		//TODO deberia saltar excepcion en el if ya que mediante interfaz no deberia de ocurrir este caso
-
-		return dataBaseFunctions.quitarUbicacionUsuario(getNombre(), ubicacionADarDeBaja.getNombre());
+	public boolean toggleFavoritoUbicacion(Ubicacion ubicacion) throws SQLException {
+		if (getUbicacion(ubicacion.getNombre()).isFavorito()) {
+			dataBaseFunctions.desactivarUbicacionFavorita(nombre, ubicacion.getNombre());
+			return false;
+		} else {
+			dataBaseFunctions.anadirUbicacionFavorita(nombre, ubicacion.getNombre());
+			return true;
+		}
 	}
 
 	public String obtenerToponimoCercanoCoordenadas(double lat, double lon) throws CoordenadasExcepcion {
@@ -131,19 +141,11 @@ public class Usuario {
 		return toponimo;
 	}
 
-	public List<Ubicacion> getUbicacionesActivas() throws SQLException {
-		return dataBaseFunctions.getUbicacionesActivas(this.nombre);
-	}
-
 	public boolean asignarAliasUbicacion(String ubicacion, String alias){
 		if (alias.equals("")){
 			throw new IllegalArgumentException();
 		}
 		return dataBaseFunctions.altaAliasUbicacion(nombre, ubicacion, alias);
-	}
-
-	public Ubicacion getUbicacion(String ubicacion){
-		return dataBaseFunctions.getUbicacionUsuario(getNombre(), ubicacion);
 	}
 
 	public String getAliasUbicacion(String ubicacion){
