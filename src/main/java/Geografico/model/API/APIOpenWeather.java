@@ -1,9 +1,6 @@
 package Geografico.model.API;
 
-import Geografico.model.Ciudad;
-import Geografico.model.Coordenadas;
-import Geografico.model.Prevision;
-import Geografico.model.TiempoActual;
+import Geografico.model.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +29,23 @@ public class APIOpenWeather implements APIOpenWeatherInterface{
         String descripcion = desc.getString("description");
         TiempoActual tiempoActual = new TiempoActual(temp, sensacion, humedad, presion, descripcion);
 //        System.out.println(tiempoActual.toString());
+        return tiempoActual;
+    }
+
+    public TiempoActual getTiempoActual (Ubicacion u) throws JSONException {
+        String raw = APIHelper.getBody("https://api.openweathermap.org/data/2.5/weather?" +
+                "lat=" + u.getLatitud() + "&lon=" + u.getLongitud() +
+                "&appid=" + apiKey + "&units=metric" + "&lang=es");
+        JSONObject obj = new JSONObject(raw);
+        JSONObject main = new JSONObject(obj.getString("main"));
+        String temp =  main.getString("temp");
+        String humedad = main.getString("humidity");
+        String presion = main.getString("pressure");
+        String sensacion = main.getString("feels_like");
+        JSONArray weather = obj.getJSONArray("weather");
+        JSONObject desc = new JSONObject(weather.getString(0));
+        String descripcion = desc.getString("description");
+        TiempoActual tiempoActual = new TiempoActual(temp, sensacion, humedad, presion, descripcion);
         return tiempoActual;
     }
 
