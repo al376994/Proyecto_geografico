@@ -8,6 +8,8 @@ public class Ubicacion {
 	private double longitud;
 	private String nombre;
 	private String alias;
+	private boolean activo;
+	private boolean favorito;
 
 	public Ubicacion(){
 	}
@@ -60,6 +62,22 @@ public class Ubicacion {
 
 	public void setLongitud(double longitud) {
 		this.longitud = longitud;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	public boolean isFavorito() {
+		return favorito;
+	}
+
+	public void setFavorito(boolean favorito) {
+		this.favorito = favorito;
 	}
 
 	public static Ubicacion crearUbicacionDesdeGeocode(JSONObject ubicacionSinProcesar) {
