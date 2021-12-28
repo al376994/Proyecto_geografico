@@ -6,10 +6,14 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-class APIHelper {
+public class APIHelper {
 	// Listado do keys para las APIs
 	static final String airVisualKey = "bf324fc3-3c44-4f50-bd19-836179b019b8";
 	static final String geoCodeKey = "141327850401479e15902869x14886"; //""102117135053285100704x51216";
+
+	public static final String WEATHERAPI = "OpenWeather";
+	public static final String AIRPOLUTIONAPI = "AirVisual";
+	public static final String SPORTSAPI = "SportsData";
 	
 	private static final HttpClient client = HttpClient.newHttpClient();
 
