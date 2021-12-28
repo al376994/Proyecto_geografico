@@ -12,7 +12,19 @@
 	<h1 id="h1">Tus Ubicaciones</h1>
 </div>
 <div class="container pt-4 card bg-light h-auto">
-	<div class="accordion">
+	<div>
+		<div class="row">
+			<div class="col-md-6">
+				<a th:href="@{/ubicaciones/lista}"
+				   role="button" class="btn btn-primary w-100">Ubicaciones desactivadas (No imp.)</a>
+			</div>
+			<div class="col-md-6">
+				<a th:href="@{/ubicaciones/lista}"
+				   role="button" class="btn btn-primary w-100">Historial ubicaciones eliminadas (No imp.)</a>
+			</div>
+		</div>
+	</div>
+	<div class="accordion mt-4">
 		<div class="accordion-item">
 			<button class="accordion-button" type="button" accordion-target="accordion-item-content-1">
 				<h2>Añadir nueva ubicación</h2>
@@ -106,41 +118,10 @@
 		</div>
 	</div>
 	<div class="table-responsive mt-4 grey-background">
-		<div class="card text-white bg-primary mb-3" style="width: 99%;" th:each="ubicacion: ${ubicaciones}">
-			<div class="row">
-				<div class="col-md-2">
-					<h5 th:text="${ubicacion.getNombre()}"></h5>
-				</div>
-				<div class="col-md-8">
-					<h5 th:text="${ubicacion.getNombre()}"></h5>
-				</div>
-				<div class="col-md-2">
-					<h5 th:text="${ubicacion.getNombre()}"></h5>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-2">
-					<h5 th:text="${ubicacion.getNombre()}"></h5>
-				</div>
-				<div class="col-md-8">
-					<h5 th:text="${ubicacion.getNombre()}"></h5>
-				</div>
-				<div class="col-md-2">
-					<h5 th:text="${ubicacion.getNombre()}"></h5>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-2">
-					<h5 th:text="${ubicacion.getNombre()}"></h5>
-				</div>
-				<div class="col-md-8">
-					<h5 th:text="${ubicacion.getNombre()}"></h5>
-				</div>
-				<div class="col-md-2">
-					<a th:href="@{/ubicaciones/eliminar/{toponimo}(toponimo=${ubicacion.getNombre()})}"
-					   role="button" class="btn btn-primary">Dar de baja</a>
-				</div>
-			</div>
+		<div style="width: 99%;" th:each="ubicacion: ${ubicaciones}">
+
+			<div th:replace="fragments/ubicacionCard"></div>
+
 		</div>
 	</div>
 </div>
