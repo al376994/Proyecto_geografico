@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Ubicaciones</title>
+	<link rel="stylesheet" href="/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/estilos.css"/>
+</head>
+<body class="bg-secondary">
+
+<div th:replace="fragments/nav"></div>
+
+<div class="text-center py-2">
+	<h1 id="h1">Servicios</h1>
+</div>
+<div class="container container-xxxl py-4 card bg-light h-auto">
+
+	<div class="row">
+
+		<div class="col-md-4 bar-r">
+			<h2 class="ms-4 text-md-center">Tiempo atmosferico con OpenWeather</h2>
+		</div>
+
+		<div class="col-md-4 bar-r">
+			<h2 class="ms-4">Calidad del aire con AirVisual</h2>
+		</div>
+
+		<div class="col-md-4">
+			<h2 class="ms-4">Deporte con SportsData</h2>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-md-4 bar-r" th:if="${serviciosActivos.contains('OpenWeather')}">
+			<div th:each="ubicacion: ${ubicacionesWeather}">
+				<div class="ms-4 mb-2 bg-white border-box-with-shadow" th:object="${weather.get(ubicacion.getNombre())}">
+					<h3 class="ms-2" th:text="${ubicacion.getNombre()}"></h3>
+					<div class="row ms-2">
+						<div class="col-md-12">
+							<h5 th:text="*{descripcion}"></h5>
+						</div>
+					</div>
+					<div class="row ms-2">
+						<div class="col-md-6">
+							<h5 th:text="*{'Temperatura: ' + tActual + 'ºC'}"></h5>
+						</div>
+						<div class="col-md-6">
+							<h5 th:text="*{'Sensación: ' + sensacionTermica + 'ºC'}"></h5>
+						</div>
+					</div>
+					<div class="row ms-2">
+						<div class="col-md-12">
+							<h5 th:text="*{'Humedad: ' + humedad + '%'}"></h5>
+						</div>
+					</div>
+					<div class="row ms-2">
+						<div class="col-md-6">
+							<h5 th:text="*{'Presion: ' + presion + ' hPa'}"></h5>
+						</div>
+						<div class="col-md-6">
+							<h5 th:text="*{getEvaluacionDePresion()}"
+								th:classappend="*{getEvaluacionDePresion()=='Presion baja' ? 'borrasca'
+								: getEvaluacionDePresion()=='Presion alta' ? 'anticiclon' : ''}">
+							</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 bar-r" th:unless="${serviciosActivos.contains('OpenWeather')}">
+			<div class="row ms-4">
+				<div class="col-md-12">
+					<h5 class="text-md-center bg-dark">Servicio desactivado</h5>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-4 bar-r" th:if="${serviciosActivos.contains('AirVisual')}">
+			<h5 class="ms-4 text-md-center bg-dark">Contenido Calidad del aire</h5>
+		</div>
+		<div class="col-md-4 bar-r" th:unless="${serviciosActivos.contains('AirVisual')}">
+			<h5 class="ms-4 text-md-center bg-dark">Servicio desactivado</h5>
+		</div>
+
+		<div class="col-md-4" th:if="${serviciosActivos.contains('SportsData')}">
+			<h5 class="ms-4 text-md-center bg-dark">Servicio desactivado</h5>
+		</div>
+		<div class="col-md-4" th:unless="${serviciosActivos.contains('SportsData')}">
+			<h5 class="ms-4 text-md-center bg-dark">Servicio desactivado</h5>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>
