@@ -1,10 +1,7 @@
 package Geografico.controller;
 
+import Geografico.model.*;
 import Geografico.model.API.APIGeocode;
-import Geografico.model.DataBaseConnector;
-import Geografico.model.DataBaseFunctions;
-import Geografico.model.Ubicacion;
-import Geografico.model.Usuario;
 import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.springframework.stereotype.Controller;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value="/ubicaciones")
@@ -39,6 +37,7 @@ public class UbicacionController {
 		model.addAttribute("coordenadasValidas", session.getAttribute("coordenadasValidas"));
 		model.addAttribute("toponimoValido", session.getAttribute("toponimoValido"));
 		model.addAttribute("weather", usuario.getWeather());
+		Map<String, TiempoActual> map = usuario.getWeather();
 		return "principal/ubicaciones";
 	}
 

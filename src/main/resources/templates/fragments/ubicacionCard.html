@@ -54,8 +54,13 @@
 	 	 añadir en un futuro botones que permitan desactivar los servicios -->
 	<div class="row mt-2">
 		<div class="col-md-4">
-			<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black" th:object="${weather.get(ubicacion.getNombre())}">
-				<div th:replace="fragments/servicioInsideCard"></div>
+			<div th:if="${weather.get(ubicacion.getNombre()) != null}">
+				<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black" th:object="${weather.get(ubicacion.getNombre())}">
+					<div th:replace="fragments/servicioInsideCard"></div>
+				</div>
+			</div>
+			<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black" th:unless="${weather.get(ubicacion.getNombre()) != null}">
+				<h5 class="ms-4">Servicio desactivado para esta ubicacion</h5>
 			</div>
 		</div>
 		<div class="col-md-4">
