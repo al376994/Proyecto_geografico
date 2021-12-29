@@ -1,14 +1,16 @@
 package Geografico.model;
 
-import Geografico.model.API.APIGeocode;
-import Geografico.model.API.APIGeocodeInterface;
+import Geografico.model.API.*;
 import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import Geografico.model.excepciones.NotFoundPlaceException;
+import org.json.JSONException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Usuario {
 	private String nombre;
@@ -17,6 +19,7 @@ public class Usuario {
 
 	private final List<APIGeocodeInterface> listAPIGeocode = new ArrayList<>();
 	private APIGeocodeInterface apiGeocode; // La API de geolocalización elegida actualmente por el usuario
+	private APIOpenWeatherInterface apiOpenWeather = new APIOpenWeather();
 	private DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
 
 	// FIN DE VARIABLES
@@ -170,7 +173,7 @@ public class Usuario {
 
 	public boolean activarServicioAPI(String servicio) {
 		try {
-			dataBaseFunctions.activarServicioAPI(this.nombre, servicio);
+			dataBaseFunctions.activarServicioAPIUsuario(this.nombre, servicio);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -180,12 +183,16 @@ public class Usuario {
 
 	public boolean desactivarServicioAPI(String servicio) {
 		try {
-			dataBaseFunctions.desactivarServicioAPI(this.nombre, servicio);
+			dataBaseFunctions.desactivarServicioAPIUsuario(this.nombre, servicio);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 		return true;
+	}
+
+	public List<String> getServiciosAPI() {
+		return dataBaseFunctions.getServiciosAPIUsuario(this.nombre);
 	}
 
 	public List<String> altaServicioUbicacion(Ubicacion ubicacion, String servicio) throws NotFoundPlaceException {
@@ -200,5 +207,22 @@ public class Usuario {
 
 	public List<String> getServiciosAPIUbicacion(Ubicacion ubicacion) {
 		return dataBaseFunctions.getServiciosAPIUbicacionUsuario(getNombre(), ubicacion.getNombre());
+	}
+
+	public List<Ubicacion> getUbicacionesConServicioAPI(String servicio) {
+		return dataBaseFunctions.getUbicacionesConServicioUsuario(this.nombre, servicio);
+	}
+
+	public Map<String, TiempoActual> getWeather() {
+		Map<String, TiempoActual> weather = new HashMap<>();
+		List<Ubicacion> ubicaciones = getUbicacionesConServicioAPI(APIHelper.WEATHERAPI);
+		for (Ubicacion ubicacion : ubicaciones) {
+			try {
+				weather.put(ubicacion.getNombre(), apiOpenWeather.getTiempoActual(ubicacion));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return weather;
 	}
 }
