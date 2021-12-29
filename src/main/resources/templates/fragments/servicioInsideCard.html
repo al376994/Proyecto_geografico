@@ -1,0 +1,29 @@
+<div class="row ms-2">
+	<div class="col-md-12">
+		<h5 th:text="*{descripcion}"></h5>
+	</div>
+</div>
+<div class="row ms-2">
+	<div class="col-md-6">
+		<h5 th:text="*{'Temperatura: ' + tActual + 'ºC'}"></h5>
+	</div>
+	<div class="col-md-6">
+		<h5 th:text="*{'Sensación: ' + sensacionTermica + 'ºC'}"></h5>
+	</div>
+</div>
+<div class="row ms-2">
+	<div class="col-md-12">
+		<h5 th:text="*{'Humedad: ' + humedad + '%'}"></h5>
+	</div>
+</div>
+<div class="row ms-2">
+	<div class="col-md-6">
+		<h5 th:text="*{'Presion: ' + presion + ' hPa'}"></h5>
+	</div>
+	<div class="col-md-6">
+		<h5 th:text="*{getEvaluacionDePresion()}"
+			th:classappend="*{getEvaluacionDePresion()=='Presion baja' ? 'borrasca'
+								: getEvaluacionDePresion()=='Presion alta' ? 'anticiclon' : ''}">
+		</h5>
+	</div>
+</div>
