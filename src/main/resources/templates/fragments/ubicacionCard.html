@@ -54,7 +54,9 @@
 	 	 añadir en un futuro botones que permitan desactivar los servicios -->
 	<div class="row mt-2">
 		<div class="col-md-4">
-			<h5 class="ms-4">Contenido Tiempo atmosferico</h5>
+			<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black" th:object="${weather.get(ubicacion.getNombre())}">
+				<div th:replace="fragments/servicioInsideCard"></div>
+			</div>
 		</div>
 		<div class="col-md-4">
 			<h5>Contenido Calidad del aire</h5>

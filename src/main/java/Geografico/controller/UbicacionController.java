@@ -30,11 +30,15 @@ public class UbicacionController {
 			session.removeAttribute("coordenadasValidas");
 			session.removeAttribute("toponimoValido");
 		}
+
+		Usuario usuario = (Usuario)session.getAttribute("user");
+
 		model.addAttribute("Ubicacion", session.getAttribute("lastUbicacion"));
-		List<Ubicacion> ubicaciones = ((Usuario)session.getAttribute("user")).getUbicaciones();
+		List<Ubicacion> ubicaciones = usuario.getUbicaciones();
 		model.addAttribute("ubicaciones", ubicaciones);
 		model.addAttribute("coordenadasValidas", session.getAttribute("coordenadasValidas"));
 		model.addAttribute("toponimoValido", session.getAttribute("toponimoValido"));
+		model.addAttribute("weather", usuario.getWeather());
 		return "principal/ubicaciones";
 	}
 
