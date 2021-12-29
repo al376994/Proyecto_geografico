@@ -22,7 +22,7 @@ public class DataBaseFunctions {
 		List<Ubicacion> ubicaciones = new ArrayList<>();
 		try{
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones " +
-					"where nombre = ?");
+					"where nombre = ? ORDER BY alias");
 			statement.setString(1, usuario);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
@@ -65,7 +65,17 @@ public class DataBaseFunctions {
 				statement.setString(4, ubicacion.getNombre());
 				statement.setBoolean(5,true);
 				statement.setBoolean(6, false);
-				statement.setString(7, ubicacion.getAlias());
+				if (ubicacion.getAlias() == null) statement.setString(7, ubicacion.getNombre());
+				else statement.setString(7, ubicacion.getAlias());
+				statement.executeUpdate();
+			}
+
+			for (String servicio: getServiciosAPIUsuario(usuario)) {
+				PreparedStatement statement = conn.prepareStatement(
+						"INSERT INTO usuario_ubicaciones_servicios values(?,?,?)");
+				statement.setString(1, usuario);
+				statement.setString(2, ubicacion.getNombre());
+				statement.setString(3, servicio);
 				statement.executeUpdate();
 			}
 
@@ -179,8 +189,8 @@ public class DataBaseFunctions {
 	private Ubicacion buildUbicacionFromResultSet(ResultSet ubicacion) throws SQLException {
 		Ubicacion ubicacionProcesada = new Ubicacion();
 		ubicacionProcesada.setNombre(ubicacion.getString("ubicacion"));
-		ubicacionProcesada.setLongitud(ubicacion.getDouble("longitud"));
 		ubicacionProcesada.setLatitud(ubicacion.getDouble("latitud"));
+		ubicacionProcesada.setLongitud(ubicacion.getDouble("longitud"));
 		// Si viene de la tabla ubicaciones no tendrá más de estas columnas.
 		if(ubicacion.getMetaData().getColumnCount()<=3) return ubicacionProcesada;
 
@@ -396,9 +406,6 @@ public class DataBaseFunctions {
 		if (!getUbicacionesFavoritas(usuario).contains(ubicacion)){
 			return false;
 		}
-		if (!listarUbicacionesUsuario(usuario).get(0).getNombre().equals(ubicacion)){
-			return false;
-		}
 		try{
 			PreparedStatement statement = conn.prepareStatement("update usuario_ubicaciones set favorito = false " +
 					"where nombre = ? and ubicacion = ?;");
@@ -470,11 +477,10 @@ public class DataBaseFunctions {
 		return APIsDisponibles;
 	}
 
-
-	public void activarServicioAPI(String nombre, String servicio) {
+	public void activarServicioAPIUsuario(String usuario, String servicio) {
 		try {
 			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_servicios VALUES(?,?);");
-			statement.setString(1, nombre);
+			statement.setString(1, usuario);
 			statement.setString(2, servicio);
 			statement.execute();
 		} catch (SQLException e) {
@@ -482,15 +488,44 @@ public class DataBaseFunctions {
 		}
 	}
 
-	public void desactivarServicioAPI(String nombre, String servicio) {
+	public void desactivarServicioAPIUsuario(String usuario, String servicio) {
 		try {
 			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario_servicios WHERE usuario =? AND servicioapi=?;");
-			statement.setString(1, nombre);
+			statement.setString(1, usuario);
 			statement.setString(2, servicio);
 			statement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public List<String> getServiciosAPIUsuario(String usuario) {
+		List<String> servicios = new ArrayList<>();
+		try {
+			PreparedStatement statement = conn.prepareStatement("SELECT servicioapi FROM usuario_servicios WHERE usuario=?;");
+			statement.setString(1, usuario);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				servicios.add(resultSet.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return servicios;
+	}
+
+	public boolean isServicioAPIActivoUsuario(String usuario, String servicio) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("SELECT 1 FROM usuario_servicios " +
+					"WHERE usuario=? AND servicioapi=?;");
+			statement.setString(1, usuario);
+			statement.setString(2, servicio);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public boolean altaServicioUbicacion(String usuario, String ubicacion, String servicio) throws NotFoundPlaceException {
@@ -536,6 +571,24 @@ public class DataBaseFunctions {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public List<Ubicacion> getUbicacionesConServicioUsuario(String usuario, String servicio) {
+		List<Ubicacion> ubicaciones = new ArrayList<>();
+		try {
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones_servicios " +
+					"JOIN usuario_ubicaciones USING(ubicacion) " +
+					"WHERE usuario=? AND servicioapi=? AND nombre='u'");
+			statement.setString(1, usuario);
+			statement.setString(2, servicio);
+			ResultSet result = statement.executeQuery();
+			while(result.next()) {
+				ubicaciones.add(buildUbicacionFromResultSet(result));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ubicaciones;
 	}
 
 	public void anadirEquipoClasificacion(EquipoClasificacion equipoClasificacion){
