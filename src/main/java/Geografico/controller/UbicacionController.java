@@ -9,6 +9,7 @@ import Geografico.model.excepciones.NotFoundPlaceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
@@ -43,7 +44,7 @@ public class UbicacionController {
 		return "principal/ubicaciones";
 	}
 
-	@RequestMapping(value = "/añadir", method = RequestMethod.POST, params = "action=validarCoordenadas")
+	@RequestMapping(value = "/add", method = RequestMethod.POST, params = "action=validarCoordenadas")
 	public String validarCoordenadas(HttpSession session, @ModelAttribute("Ubicacion") Ubicacion ubicacion){
 		ubicacion.setNombre( ((Ubicacion)session.getAttribute("lastUbicacion")).getNombre() );
 		boolean coordenadasValidas = apiGeocode.validarCoordenadas(ubicacion.getLatitud(), ubicacion.getLongitud());
@@ -53,7 +54,7 @@ public class UbicacionController {
 		return "redirect:/ubicaciones/lista";
 	}
 
-	@RequestMapping(value = "/añadir", method = RequestMethod.POST, params = "action=validarToponimo")
+	@RequestMapping(value = "/add", method = RequestMethod.POST, params = "action=validarToponimo")
 	public String validarToponimo(HttpSession session, @ModelAttribute("Ubicacion") Ubicacion ubicacion){
 		ubicacion.setLatitud( ((Ubicacion)session.getAttribute("lastUbicacion")).getLatitud() );
 		ubicacion.setLongitud( ((Ubicacion)session.getAttribute("lastUbicacion")).getLongitud() );
@@ -64,20 +65,21 @@ public class UbicacionController {
 		return "redirect:/ubicaciones/lista";
 	}
 
-	@RequestMapping(value = "/añadir", method = RequestMethod.POST, params = "action=añadirPorCoordenadas")
-	public String addUbicacionPorCoordenadas(HttpSession session, @ModelAttribute("Ubicacion") Ubicacion ubicacion) {
+	@RequestMapping(value = "/add", method = RequestMethod.POST, params = "action=añadirPorCoordenadas")
+	public String addUbicacionPorCoordenadas(HttpSession session, @ModelAttribute("Ubicacion") Ubicacion ubicacion, RedirectAttributes redirectAttributes) {
 		Usuario usuario = (Usuario) session.getAttribute("user");
 		try {
 			usuario.altaUbicacionCoordenadas(ubicacion.getLatitud(), ubicacion.getLongitud());
 		} catch (CoordenadasExcepcion e) {
-			e.printStackTrace();
+			session.setAttribute("coordenadasValidas", false);
+			session.setAttribute("lastUbicacion", ubicacion);
 		} catch (AlreadyHasPlaceException e) {
 			e.printStackTrace();
 		}
 		return "redirect:/ubicaciones/lista";
 	}
 
-	@RequestMapping(value = "/añadir", method = RequestMethod.POST, params = "action=añadirPorToponimo")
+	@RequestMapping(value = "/add", method = RequestMethod.POST, params = "action=añadirPorToponimo")
 	public String addUbicacionPorToponimo(HttpSession session, @ModelAttribute("Ubicacion") Ubicacion ubicacion){
 		Usuario usuario = (Usuario) session.getAttribute("user");
 		try {
@@ -86,6 +88,13 @@ public class UbicacionController {
 			e.printStackTrace();
 		}
 		return "redirect:/ubicaciones/lista";
+	}
+
+	@RequestMapping(value = "/ubicacion/{toponimo}")
+	public String muestraDestallesUbicacion(Model model, @PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) {
+		Ubicacion ubicacion = usuario.getUbicacion(toponimo);
+		model.addAttribute("ubicacion", ubicacion);
+		return "principal/ubicacion";
 	}
 
 	@RequestMapping(value = "/lista/desactivadas")

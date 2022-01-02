@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Ubicaciones</title>
+	<link rel="stylesheet" href="/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/estilos.css"/>
+</head>
+<body class="bg-secondary" th:object="${ubicacion}">
+<div th:replace="fragments/nav"></div>
+<div class="text-center py-2">
+	<h1 id="h1" th:text="*{getAlias()}"></h1>
+</div>
+<div class="container container-xxxl pt-4 card bg-light h-auto">
+	<div class="row">
+		<div class="col-md-12">
+			<a th:href="@{/ubicaciones/lista}"
+			   role="button" class="btn btn-primary w-100">Volver</a>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-3">Alias</div>
+		<div class="col-md-3">Ubicacion</div>
+		<div class="col-md-3">Latitud</div>
+		<div class="col-md-3">Longitud</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-3" th:text="*{getAlias()}"></div>
+		<div class="col-md-3" th:text="*{getNombre()}"></div>
+		<div class="col-md-3" th:text="*{getLatitud()}"></div>
+		<div class="col-md-3" th:text="*{getLongitud()}"></div>
+	</div>
+
+</div>
+</body>
+</html>

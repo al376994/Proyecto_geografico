@@ -5,13 +5,9 @@
 		<div class="col-md-4">
 			<h5 class="ms-4" th:text="${ubicacion.getAlias()}"></h5>
 		</div>
-		<div class="col-md-2">
-			<a th:href="@{/ubicaciones/lista}"
-			   role="button" class="btn btn-primary">Información</a>
-		</div>
-		<div class="col-md-1">
-			<a th:href="@{/ubicaciones/lista}"
-			   role="button" class="btn btn-primary">Editar</a>
+		<div class="col-md-3">
+			<a th:href="@{/ubicaciones/ubicacion/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">Detalles/Editar</a>
 		</div>
 		<div class="col-md-1">
 			<a th:if="${ubicacion.isActivo()}" th:href="@{/ubicaciones/desactivar/{toponimo}(toponimo=${ubicacion.getNombre()})}"
