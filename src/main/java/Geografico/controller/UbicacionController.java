@@ -2,8 +2,10 @@ package Geografico.controller;
 
 import Geografico.model.*;
 import Geografico.model.API.APIGeocode;
+import Geografico.model.API.APIHelper;
 import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.CoordenadasExcepcion;
+import Geografico.model.excepciones.NotFoundPlaceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -107,6 +109,18 @@ public class UbicacionController {
 	@RequestMapping(value = "desactivar/{toponimo}")
 	public String desactivarUbicacion(@PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) {
 		usuario.desactivarUbicacion(usuario.getUbicacion(toponimo));
+		return "redirect:/ubicaciones/lista";
+	}
+
+	@RequestMapping(value = "activar/weather/{toponimo}")
+	public String activarWeatherUbicacion(@PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) throws NotFoundPlaceException {
+		usuario.altaServicioUbicacion(usuario.getUbicacion(toponimo), APIHelper.WEATHERAPI);
+		return "redirect:/ubicaciones/lista";
+	}
+
+	@RequestMapping(value = "desactivar/weather/{toponimo}")
+	public String desactivarWeatherUbicacion(@PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) {
+		usuario.bajaServicioUbicacion(usuario.getUbicacion(toponimo), APIHelper.WEATHERAPI);
 		return "redirect:/ubicaciones/lista";
 	}
 

@@ -552,7 +552,7 @@ public class DataBaseFunctions {
 	public void bajaServicioUbicacion(String usuario, String ubicacion, String servicio) {
 		try {
 			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario_ubicaciones_servicios " +
-					"WHERE usuario=? AND ubicacion=? AND servicioapi=?);");
+					"WHERE usuario=? AND ubicacion=? AND servicioapi=?");
 			statement.setString(1, usuario);
 			statement.setString(2, ubicacion);
 			statement.setString(3, servicio);

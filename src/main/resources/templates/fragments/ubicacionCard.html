@@ -1,4 +1,4 @@
-<div class="card text-white bg-primary mb-3">
+<div class="card text-white bg-primary mb-3" xmlns:th="http://www.w3.org/1999/xhtml">
 
 
 	<div class="row mt-2">
@@ -41,14 +41,28 @@
 	<div class="row my-4"><div class="col-md-12"></div></div>
 
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-2">
 			<h5 class="ms-4">Tiempo atmosferico</h5>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-2">
+
+			<a th:if="${weather.get(ubicacion.getNombre()) != null}" th:href="@{/ubicaciones/desactivar/weather/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">Desactivar servicio</a>
+			<a th:unless="${weather.get(ubicacion.getNombre()) != null}" th:href="@{/ubicaciones/activar/weather/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">Activar servicio</a>
+
+		</div>
+		<div class="col-md-2">
 			<h5>Calidad del aire</h5>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-2">
+
+		</div>
+		<div class="col-md-2">
 			<h5 class="me-4">Deporte</h5>
+		</div>
+		<div class="col-md-2">
+
 		</div>
 	</div>
 
