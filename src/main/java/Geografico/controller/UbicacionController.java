@@ -32,7 +32,7 @@ public class UbicacionController {
 		Usuario usuario = (Usuario)session.getAttribute("user");
 
 		model.addAttribute("Ubicacion", session.getAttribute("lastUbicacion"));
-		List<Ubicacion> ubicaciones = usuario.getUbicaciones();
+		List<Ubicacion> ubicaciones = usuario.getUbicacionesActivas();
 		model.addAttribute("ubicaciones", ubicaciones);
 		model.addAttribute("coordenadasValidas", session.getAttribute("coordenadasValidas"));
 		model.addAttribute("toponimoValido", session.getAttribute("toponimoValido"));
@@ -86,11 +86,34 @@ public class UbicacionController {
 		return "redirect:/ubicaciones/lista";
 	}
 
+	@RequestMapping(value = "/lista/desactivadas")
+	public String listaUbicacionesDesactivadas(Model model, HttpSession session) throws SQLException {
+		if(ControllerFunctions.checkIsLogged(model, session, "/ubicaciones/lista/desactivadas")) return "redirect:/login";
+
+		Usuario usuario = (Usuario)session.getAttribute("user");
+
+		List<Ubicacion> ubicaciones = usuario.getUbicacionesDesactivadas();
+		model.addAttribute("ubicaciones", ubicaciones);
+		model.addAttribute("weather", usuario.getWeather());
+		return "principal/ubicacionesDesactivadas";
+	}
+
+	@RequestMapping(value = "activar/{toponimo}")
+	public String activarUbicacion(@PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) {
+		usuario.activarUbicacion(usuario.getUbicacion(toponimo));
+		return "redirect:/ubicaciones/lista/desactivadas";
+	}
+
+	@RequestMapping(value = "desactivar/{toponimo}")
+	public String desactivarUbicacion(@PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) {
+		usuario.desactivarUbicacion(usuario.getUbicacion(toponimo));
+		return "redirect:/ubicaciones/lista";
+	}
+
 	@RequestMapping(value = "/toggleFavorito/{toponimo}")
 	public String toggleFavoritoUbicacion(@SessionAttribute("user") Usuario usuario, @PathVariable String toponimo) throws SQLException {
 		Ubicacion ubicacion = usuario.getUbicacion(toponimo);
 		usuario.toggleFavoritoUbicacion(ubicacion);
-		System.out.println("\n\n" + usuario.getUbicacion(toponimo).isFavorito() + "\n\n");
 		return "redirect:/ubicaciones/lista";
 	}
 

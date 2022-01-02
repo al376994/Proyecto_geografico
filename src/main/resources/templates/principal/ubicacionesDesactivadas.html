@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>Ubicaciones</title>
+	<link rel="stylesheet" href="/bootstrap.min.css"/>
+	<link rel="stylesheet" href="/estilos.css"/>
+</head>
+<body class="bg-secondary">
+<div th:replace="fragments/nav"></div>
+<div class="text-center py-2">
+	<h1 id="h1">Tus Ubicaciones Desactivadas</h1>
+</div>
+<div class="container container-xxxl pt-4 card bg-light h-auto">
+
+	<div>
+		<div class="row">
+			<div class="col-md-6">
+				<a th:href="@{/ubicaciones/lista}"
+				   role="button" class="btn btn-primary w-100">Ubicaciones activas</a>
+			</div>
+			<div class="col-md-6">
+				<a th:href="@{/ubicaciones/lista}"
+				   role="button" class="btn btn-primary w-100">Historial ubicaciones eliminadas (No imp.)</a>
+			</div>
+		</div>
+	</div>
+
+	<div class="table-responsive mt-4 grey-background">
+		<div style="width: 99%;" th:each="ubicacion: ${ubicaciones}">
+
+			<div th:replace="fragments/ubicacionCard"></div>
+
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

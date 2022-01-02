@@ -111,6 +111,10 @@ public class Usuario {
 		return dataBaseFunctions.listarUbicacionesUsuario(this.nombre);
 	}
 
+	public List<Ubicacion> getUbicacionesDesactivadas() throws SQLException {
+		return dataBaseFunctions.getUbicacionesDesactivadasUsuario(this.nombre);
+	}
+
 	public Ubicacion getUbicacion(String ubicacion){
 		return dataBaseFunctions.getUbicacionUsuario(getNombre(), ubicacion);
 	}

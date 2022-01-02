@@ -24,21 +24,32 @@ public class DataBaseFunctions {
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones " +
 					"where nombre = ? ORDER BY alias");
 			statement.setString(1, usuario);
-			ResultSet resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				Ubicacion ubicacion = new Ubicacion();
-				ubicacion.setNombre(resultSet.getString("ubicacion"));
-				ubicacion.setAlias(resultSet.getString("alias"));
-				ubicacion.setLatitud(resultSet.getDouble("latitud"));
-				ubicacion.setLongitud(resultSet.getDouble("longitud"));
-				ubicacion.setActivo(resultSet.getBoolean("activo"));
-				ubicacion.setFavorito(resultSet.getBoolean("favorito"));
+			ResultSet resultSetUbicaciones = statement.executeQuery();
+			while (resultSetUbicaciones.next()) {
+				Ubicacion ubicacion = buildUbicacionFromResultSet(resultSetUbicaciones);
 				ubicaciones.add(ubicacion);
 			}
 		}catch (SQLException e){
 			e.printStackTrace();
 		}
 		return ubicaciones;
+	}
+
+	public List<Ubicacion> getUbicacionesDesactivadasUsuario(String usuario) {
+		List<Ubicacion> ubicacionesDesactivadas = new ArrayList<>();
+		try{
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones " +
+					"where nombre = ? AND activo=false ORDER BY alias");
+			statement.setString(1, usuario);
+			ResultSet resultSetUbicaciones = statement.executeQuery();
+			while (resultSetUbicaciones.next()) {
+				Ubicacion ubicacion = buildUbicacionFromResultSet(resultSetUbicaciones);
+				ubicacionesDesactivadas.add(ubicacion);
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return ubicacionesDesactivadas;
 	}
 
 	public void addUbicacionUsuario(String usuario, Ubicacion ubicacion) throws AlreadyHasPlaceException {
@@ -115,9 +126,9 @@ public class DataBaseFunctions {
 		try{
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario WHERE nombre=?");
 			statement.setString(1, nombre);
-			ResultSet resultSet = statement.executeQuery();
-			if (!resultSet.next()) return null;
-			Usuario usuario = new Usuario(resultSet.getString(1), resultSet.getString(2));
+			ResultSet resultSetUsuario = statement.executeQuery();
+			if (!resultSetUsuario.next()) return null;
+			Usuario usuario = new Usuario(resultSetUsuario.getString(1), resultSetUsuario.getString(2));
 			// Aqui se añadiran todos los otros datos que falten en usuario (ej: usuario.setEmail("email")),
 			// de momento la BBDD solo guarda nombre y contraseña
 			// Tambien falta la comprovación de la contraseña
@@ -176,9 +187,9 @@ public class DataBaseFunctions {
 					"WHERE nombre = ? AND ubicacion = ?");
 			statement.setString(1, usuario);
 			statement.setString(2, ubicacion);
-			ResultSet resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				return buildUbicacionFromResultSet(resultSet);
+			ResultSet resultSetUbicacion = statement.executeQuery();
+			if (resultSetUbicacion.next()) {
+				return buildUbicacionFromResultSet(resultSetUbicacion);
 			}
 		}catch (SQLException e2){
 			e2.printStackTrace();
@@ -207,9 +218,9 @@ public class DataBaseFunctions {
 					"where nombre = ? and ubicacion = ?");
 			statement.setString(1, usuario);
 			statement.setString(2, ubicacion);
-			ResultSet resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				alias = resultSet.getString(1);
+			ResultSet resultSetAlias = statement.executeQuery();
+			while (resultSetAlias.next()) {
+				alias = resultSetAlias.getString(1);
 			}
 		}catch (SQLException e2){
 			e2.printStackTrace();
@@ -223,13 +234,9 @@ public class DataBaseFunctions {
 		try {
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones WHERE nombre = ? AND activo = 't';");
 			statement.setString(1, nombre);
-			ResultSet ubicaciones = statement.executeQuery();
-			while(ubicaciones.next()) {
-				Ubicacion ubicacion = new Ubicacion();
-				ubicacion.setNombre(ubicaciones.getString("ubicacion"));
-				ubicacion.setLongitud(ubicaciones.getDouble("longitud"));
-				ubicacion.setLatitud(ubicaciones.getDouble("latitud"));
-				ubicacion.setAlias(ubicaciones.getString("alias"));
+			ResultSet resultSetUbicaciones = statement.executeQuery();
+			while(resultSetUbicaciones.next()) {
+				Ubicacion ubicacion = buildUbicacionFromResultSet(resultSetUbicaciones);
 				ubicacionesActivas.add(ubicacion);
 			}
 		} catch (SQLException e) {
@@ -504,9 +511,9 @@ public class DataBaseFunctions {
 		try {
 			PreparedStatement statement = conn.prepareStatement("SELECT servicioapi FROM usuario_servicios WHERE usuario=?;");
 			statement.setString(1, usuario);
-			ResultSet resultSet = statement.executeQuery();
-			while (resultSet.next()) {
-				servicios.add(resultSet.getString(1));
+			ResultSet resultSetServicios = statement.executeQuery();
+			while (resultSetServicios.next()) {
+				servicios.add(resultSetServicios.getString(1));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -574,21 +581,21 @@ public class DataBaseFunctions {
 	}
 
 	public List<Ubicacion> getUbicacionesConServicioUsuario(String usuario, String servicio) {
-		List<Ubicacion> ubicaciones = new ArrayList<>();
+		List<Ubicacion> ubicacionesConServicio = new ArrayList<>();
 		try {
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones_servicios " +
 					"JOIN usuario_ubicaciones USING(ubicacion) " +
 					"WHERE usuario=? AND servicioapi=? AND nombre='u'");
 			statement.setString(1, usuario);
 			statement.setString(2, servicio);
-			ResultSet result = statement.executeQuery();
-			while(result.next()) {
-				ubicaciones.add(buildUbicacionFromResultSet(result));
+			ResultSet resultSetUbicaciones = statement.executeQuery();
+			while(resultSetUbicaciones.next()) {
+				ubicacionesConServicio.add(buildUbicacionFromResultSet(resultSetUbicaciones));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return ubicaciones;
+		return ubicacionesConServicio;
 	}
 
 	public void anadirEquipoClasificacion(EquipoClasificacion equipoClasificacion){
