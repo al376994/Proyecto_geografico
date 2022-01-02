@@ -39,7 +39,7 @@ public class TestIntegracion_H_9_1 {
         Ciudad ciudad = new Ciudad("valencia","valencia","valencia","valencia");
         aux.add(ciudad);
         List<Prevision> auxP = new ArrayList<>();
-        auxP.add(new Prevision("10","5","50","soleado"));
+        auxP.add(new Prevision("10","5","50","soleado",ciudad));
         when(mockedAPIOpenWeather.getPrevisionDiaria(ciudad)).thenReturn(auxP);
         when(mockedAPIOpenDataSoft.getCapitales()).thenReturn(aux);
 

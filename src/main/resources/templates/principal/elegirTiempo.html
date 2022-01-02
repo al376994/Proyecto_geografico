@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Elegir tiempo</title>
+    <link rel="stylesheet" href="/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/estilos.css"/>
+</head>
+<body>
+<div th:replace="fragments/nav"></div>
+<div class="tiempo" align="center">
+    <a th:href="@{/tiempo/CV}" role="button" class="btn btn-primary">Tiempo Comunidad Valenciana</a>
+    <a th:href="@{/tiempo/CV}" role="button" class="btn btn-primary">Tiempo España</a>
+</div>
+</body>
+</html>

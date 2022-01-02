@@ -59,7 +59,7 @@ public class APIOpenWeather implements APIOpenWeatherInterface{
         JSONObject obj = new JSONObject(raw);
         JSONArray daily = obj.getJSONArray("daily");
         int i = 0;
-        while (i < daily.length()){
+        while (i < 2){
             JSONObject aux = (JSONObject) daily.get(i);
             JSONObject temp = (JSONObject) aux.get("temp");
             String tMax = temp.getString("max");
@@ -68,8 +68,8 @@ public class APIOpenWeather implements APIOpenWeatherInterface{
             JSONArray weather = aux.getJSONArray("weather");
             JSONObject desc = new JSONObject(weather.getString(0));
             String descripcion = desc.getString("description");
-            Prevision p = new Prevision(tMax, tMin, humedad, descripcion);
-            System.out.println(p.toString());;
+            Prevision p = new Prevision(tMax, tMin, humedad, descripcion, c);
+//            System.out.println(p.toString());;
             previsiones.add(p);
             i++;
         }
