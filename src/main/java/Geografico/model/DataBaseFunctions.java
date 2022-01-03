@@ -756,4 +756,24 @@ public class DataBaseFunctions {
 		}
 		return partidos;
 	}
+
+	public List<Ubicacion> getHistorialUbicaciones(String usuario) {
+		List<Ubicacion> historial = new ArrayList<>();
+		try {
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM historial_ubicaciones WHERE nombreusuario = ?;");
+			statement.setString(1, usuario);
+			ResultSet resultSetHistorial = statement.executeQuery();
+			while(resultSetHistorial.next()) {
+				Ubicacion ubicacion = new Ubicacion();
+				ubicacion.setNombre(resultSetHistorial.getString("nombreubicacion"));
+				ubicacion.setLatitud(resultSetHistorial.getDouble("latitud"));
+				ubicacion.setLongitud(resultSetHistorial.getDouble("longitud"));
+				ubicacion.setAlias(resultSetHistorial.getString("alias"));
+				historial.add(ubicacion);
+			}
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return historial;
+	}
 }

@@ -161,7 +161,7 @@ public class Usuario {
 
     public List<Ubicacion> getHistorialUbicaciones() {
 		//TODO devolver listado de ubiaciones en el historial de un usuario
-		List<Ubicacion> historialUbicaciones = new ArrayList<>();
+		List<Ubicacion> historialUbicaciones = dataBaseFunctions.getHistorialUbicaciones(this.nombre);
 		return historialUbicaciones;
     }
 
