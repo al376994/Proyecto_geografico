@@ -12,7 +12,7 @@ public interface APISportsDataInterface {
     public Equipo getEquipo(String id) throws JSONException;
     public List<EquipoClasificacion> getClasificacionUsuario(String liga) throws JSONException;
     public List<EquipoClasificacion> getClasificacion(String id) throws JSONException;
-    public List<EquipoClasificacion> getClasificacionChampions(String id);
+    public List<EquipoClasificacion> getClasificacionChampions(String id) throws JSONException;
     public List<EquipoClasificacion> getClasificacionLaLiga(String id) throws JSONException;
     public boolean elegirLiga(String usuario, String liga);
     public List<Partido> getPartidosUsuario(String liga) throws JSONException;

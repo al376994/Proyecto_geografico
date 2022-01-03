@@ -450,6 +450,23 @@ public class DataBaseFunctions {
 		}
 	}
 
+	public String getLigaUsuario(String usuario){
+		try{
+			PreparedStatement statement = conn.prepareStatement("select liga from usuario_liga" +
+					"where usuario = ?");
+			statement.setString(1, usuario);
+			ResultSet result = statement.executeQuery();
+			while(result.next()){
+				String liga = result.getString(1);
+				System.out.println(liga);
+				return liga;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+
 	public void addServicioAPIDisponible(String servicio) {
 		try {
 			PreparedStatement statement = conn.prepareStatement("INSERT INTO servicios_api VALUES(?);");
@@ -617,6 +634,42 @@ public class DataBaseFunctions {
 		}
 	}
 
+	public void anadirEquipoClasificacionBundesliga(EquipoClasificacion equipoClasificacion){
+		try {
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO clasificacionbundesliga" +
+					" values(?, ?, ?, ?,?,?,?,?)");
+			statement.setString(1, equipoClasificacion.getNombre());
+			statement.setString(2, equipoClasificacion.getPais());
+			statement.setString(3, equipoClasificacion.getId());
+			statement.setString(4, equipoClasificacion.getLogo());
+			statement.setInt(5, equipoClasificacion.getPuntos());
+			statement.setInt(6, equipoClasificacion.getPartidosGanados());
+			statement.setInt(7, equipoClasificacion.getPartidosPerdidos());
+			statement.setInt(8, equipoClasificacion.getPartidosEmpatados());
+
+			statement.executeUpdate();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public List<EquipoClasificacion> getClasificacionBundesliga(){
+		List<EquipoClasificacion> clasificacion = new ArrayList<>();
+		try {
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM clasificacionbundesliga");
+			ResultSet result = statement.executeQuery();
+			while(result.next()) {
+				EquipoClasificacion e = new EquipoClasificacion(result.getString(1),result.getString(2)
+						,result.getString(4),result.getString(3),result.getInt(5),result.getInt(6)
+						,result.getInt(7),result.getInt(8));
+				clasificacion.add(e);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return clasificacion;
+	}
+
 	public List<EquipoClasificacion> getClasificacionLiga(){
 		List<EquipoClasificacion> clasificacion = new ArrayList<>();
 		try {
@@ -649,10 +702,45 @@ public class DataBaseFunctions {
 		}
 	}
 
+	public void anadirPartidoBundesliga(Partido p){
+		try {
+			PreparedStatement statement = conn.prepareStatement("INSERT INTO partidosbundesliga" +
+					" values(?, ?, ?, ?,?)");
+			statement.setString(1, p.getEquipoCasa().getNombre());
+			statement.setString(2, p.getEquipoFuera().getNombre());
+			statement.setString(3, p.getEstadio());
+			statement.setString(4, p.getResultado());
+			statement.setString(5, p.getFecha());
+			statement.executeUpdate();
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+	}
+
 	public List<Partido> getPartidos(){
 		List<Partido> partidos = new ArrayList<>();
 		try {
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM partidos");
+			ResultSet result = statement.executeQuery();
+			while(result.next()) {
+				Equipo equipo1 = new Equipo();
+				equipo1.setNombre(result.getString(1));
+				Equipo equipo2 = new Equipo();
+				equipo2.setNombre(result.getString(2));
+				Partido p = new Partido(equipo1,equipo2,result.getString(3)
+						,result.getString(4),result.getString(5));
+				partidos.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return partidos;
+	}
+
+	public List<Partido> getPartidosBundesliga(){
+		List<Partido> partidos = new ArrayList<>();
+		try {
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM partidosbundesliga");
 			ResultSet result = statement.executeQuery();
 			while(result.next()) {
 				Equipo equipo1 = new Equipo();

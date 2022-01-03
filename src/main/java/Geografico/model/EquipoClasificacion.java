@@ -5,6 +5,7 @@ public class EquipoClasificacion extends Equipo{
     private int partidosGanados;
     private int partidosPerdidos;
     private int partidosEmpatados;
+    private int partidosJugados;
 
     public EquipoClasificacion(String nombre, String pais, String id, String logo, int p, int pG, int pP, int pE) {
         super(nombre, pais, id, logo);
@@ -12,6 +13,7 @@ public class EquipoClasificacion extends Equipo{
         this.partidosGanados = pG;
         this.partidosPerdidos = pP;
         this.partidosEmpatados = pE;
+        this.partidosJugados = pG + pP + pE;
     }
 
     public int getPuntos() {
@@ -44,6 +46,14 @@ public class EquipoClasificacion extends Equipo{
 
     public void setPartidosEmpatados(int partidosEmpatados) {
         this.partidosEmpatados = partidosEmpatados;
+    }
+
+    public int getPartidosJugados() {
+        return partidosJugados;
+    }
+
+    public void setPartidosJugados(int partidosJugados) {
+        this.partidosJugados = partidosJugados;
     }
 
     public String toString(){

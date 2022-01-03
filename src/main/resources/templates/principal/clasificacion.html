@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Clasificacion</title>
+    <link rel="stylesheet" href="/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/estilos.css"/>
+</head>
+<body>
+<div th:replace="fragments/nav"></div>
+<div class="text-center py-2">
+    <h1 id="h1">Clasificación de la</h1>
+    <h1 th:text="*{liga}"></h1>
+</div>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Escudo</th>
+            <th>Escudo</th>
+            <th>Escudo</th>
+            <th>Club</th>
+            <th>PJ</th>
+            <th>V</th>
+            <th>E</th>
+            <th>P</th>
+            <th>Pts</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="equipo: ${equipos}">
+            <td><img src="https://cdn.sportdataapi.com/images/soccer/teams/100/113.png" width="50" height="50"></td>
+            <td th:text="${equipo.getLogo()}"></td>
+            <td><img src="${equipo.getLogo()}" width="50" height="50"></td>
+            <td th:text="${equipo.getNombre()}"></td>
+            <td th:text="${equipo.getPartidosJugados()}"></td>
+            <td th:text="${equipo.getPartidosGanados()}"></td>
+            <td th:text="${equipo.getPartidosPerdidos()}"></td>
+            <td th:text="${equipo.getPartidosEmpatados()}"></td>
+            <td th:text="${equipo.getPuntos()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

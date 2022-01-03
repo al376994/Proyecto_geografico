@@ -15,6 +15,7 @@ ApiKey-> https://app.sportdataapi.com/api/v1/status?apikey=5aa5db70-5b72-11ec-9e
 Spain-> country_id:113
 Liga española-> id:538-> season_id:2029
 Champions League-> id:281-> season_id:1959
+Bundesliga Alemana -> id:314 -> season_id:2020
 Team_id example:6402
  */
 
@@ -25,7 +26,7 @@ public class APISportsData implements APISportsDataInterface{
 
     public APISportsData(){
         ligas.add("La Liga Española");
-        ligas.add("UEFA Champions League");
+        ligas.add("Bundesliga Alemana");
         dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
     }
 
@@ -44,7 +45,7 @@ public class APISportsData implements APISportsDataInterface{
     //Le proporcionas el id del equipo y te devuelve un objeto Equipo con todo sus atributos
     @Override
     public Equipo getEquipo(String id) throws JSONException {
-        String raw = APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/teams/"+id+"?apikey=6f119a10-5c43-11ec-8e75-e3ad7d2b4b87");
+        String raw = APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/teams/"+id+"?apikey=5aa5db70-5b72-11ec-9e41-f38ffd713460");
 
         JSONObject jsonObject = new JSONObject(raw);
 //        System.out.println(jsonObject);
@@ -59,7 +60,7 @@ public class APISportsData implements APISportsDataInterface{
             case "La Liga Española":
                 return getPartidosLiga("2029");
             default:
-                return getPartidosLiga("1959");
+                return getPartidosLiga("2020");
         }
     }
 
@@ -68,7 +69,7 @@ public class APISportsData implements APISportsDataInterface{
             case "La Liga Española":
                 return getClasificacionLaLiga("2029");
             default:
-                return getClasificacionChampions("1959");
+                return getClasificacionLaLiga("2020");
         }
     }
 
@@ -80,12 +81,12 @@ public class APISportsData implements APISportsDataInterface{
             case "2029":
                 return getClasificacionLaLiga(id);
             default:
-                return getClasificacionChampions(id);
+                return getClasificacionLaLiga(id);
         }
     }
 
-    //Falta
-    public List<EquipoClasificacion> getClasificacionChampions(String id){
+    //No hace falta
+    public List<EquipoClasificacion> getClasificacionChampions(String id) throws JSONException {
         List<EquipoClasificacion> clasificacion = new ArrayList<>();
         return clasificacion;
     }
@@ -125,7 +126,7 @@ public class APISportsData implements APISportsDataInterface{
     @Override
     public List<Partido> getPartidosLiga(String id) throws JSONException {
         List<Partido> partidos = new ArrayList<>();
-        String raw = APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/matches?apikey=6f119a10-5c43-11ec-8e75-e3ad7d2b4b87&season_id="+id+"&date_from=2021-12-10");
+        String raw = APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/matches?apikey=5aa5db70-5b72-11ec-9e41-f38ffd713460&season_id="+id+"&date_from=2021-12-10");
 //        System.out.println(raw);
         JSONObject obj = new JSONObject(raw);
 //        System.out.println(raw);
@@ -133,22 +134,30 @@ public class APISportsData implements APISportsDataInterface{
         int i = 0;
         while (i < data.length()){
             JSONObject match = (JSONObject) data.get(i);
-            String estadio = new JSONObject(match.getString("venue")).getString("name");
-            Equipo awayTeam = getEquipo(new JSONObject(match.getString("away_team")).getString("team_id"));
-            Equipo homeTeam = getEquipo(new JSONObject(match.getString("home_team")).getString("team_id"));
-            String golesHome = new JSONObject(match.getString("stats")).getString("home_score");
-            String golesAway = new JSONObject(match.getString("stats")).getString("away_score");
-            String resultado = golesHome + " - " + golesAway;
-            String fecha = match.getString("match_start_iso").split("T")[0];
 //            System.out.println(match);
-            Partido partido = new Partido(homeTeam, awayTeam, estadio, resultado, fecha);
+            try {
+                JSONObject venue = new JSONObject(match.getString("venue"));
+                if (venue != null){
+//                System.out.println(match);
+                    String estadio = new JSONObject(match.getString("venue")).getString("name");
+                    Equipo awayTeam = getEquipo(new JSONObject(match.getString("away_team")).getString("team_id"));
+                    Equipo homeTeam = getEquipo(new JSONObject(match.getString("home_team")).getString("team_id"));
+                    String golesHome = new JSONObject(match.getString("stats")).getString("home_score");
+                    String golesAway = new JSONObject(match.getString("stats")).getString("away_score");
+                    String resultado = golesHome + " - " + golesAway;
+                    String fecha = match.getString("match_start_iso").split("T")[0];
+//            System.out.println(match);
+                    Partido partido = new Partido(homeTeam, awayTeam, estadio, resultado, fecha);
 //            System.out.println(partido.toString());
-            partidos.add(partido);
+                    partidos.add(partido);
+                }
+            }catch (JSONException jsonException){
+                i += 1;
+            }
             i++;
         }
         return partidos;
     }
-
     //Proporcionando el id de la liga, devuelve los id's de las temporadas registradas.
     public String getSeason(String id){
         return APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/seasons?apikey=5aa5db70-5b72-11ec-9e41-f38ffd713460&league_id="+id);

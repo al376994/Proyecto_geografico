@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Partidos</title>
+    <link rel="stylesheet" href="/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/estilos.css"/>
+</head>
+<body>
+<div th:replace="fragments/nav"></div>
+<div class="text-center py-2">
+    <h1 id="h1">Partidos de la</h1>
+    <h1 th:text="*{liga}"></h1>
+</div>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Club L</th>
+            <th>Escudo L</th>
+            <th>Club V</th>
+            <th>Escudo V</th>
+            <th>Estadio</th>
+            <th>Resultado</th>
+            <th>Fecha</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="partido: ${partidos}">
+            <td th:text="${partido.getEquipoCasa().getNombre()}"></td>
+            <td><img src="${partido.getEquipoCasa().getLogo()}" width="50" height="50"></td>
+            <td th:text="${partido.getEquipoFuera().getNombre()}"></td>
+            <td><img src="${partido.getEquipoFuera().getLogo()}" width="50" height="50"></td>
+            <td th:text="${partido.getEstadio()}"></td>
+            <td th:text="${partido.getResultado()}"></td>
+            <td th:text="${partido.getFecha()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
