@@ -12,8 +12,28 @@
     <h1 id="h1">Elegir tiempo</h1>
 </div>
 <div class="tiempo" align="center">
-    <a th:href="@{/tiempo/CV}" role="button" class="btn btn-primary">Tiempo Comunidad Valenciana</a>
-    <a th:href="@{/tiempo/CV}" role="button" class="btn btn-primary">Tiempo España</a>
+    <a th:href="@{/tiempo/capitalesCV}" role="button" class="btn btn-primary">Tiempo Comunidad Valenciana</a>
+    <a th:href="@{/tiempo/capitalesEspana}" role="button" class="btn btn-primary">Tiempo España</a>
+</div>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Comunidad</th>
+            <th>País</th>
+            <th>Previsión</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="capital: ${capitales}">
+            <td th:text="${capital.getNombre()}"></td>
+            <td th:text="${capital.getComunidad()}"></td>
+            <td th:text="${capital.getPais()}"></td>
+            <td> <a th:href="@{/tiempo/formularioTiempoProv/{capital}(capital=${capital})}" class="btn btn-primary" role="button">Predicción</a></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

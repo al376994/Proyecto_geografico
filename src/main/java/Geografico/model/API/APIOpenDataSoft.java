@@ -70,4 +70,18 @@ public class APIOpenDataSoft implements  APIOpenDataSoftInterface{
         }
         return ciudades;
     }
+
+    public List<Ciudad> cambiarPorEspacios(List<Ciudad> c){
+        List<Ciudad> ciudades = new ArrayList<>();
+        for(Ciudad ciudad: c){
+            ciudad.setNombre(ciudad.getNombre().replace("%20"," "));
+            ciudades.add(ciudad);
+        }
+        return ciudades;
+    }
+
+    public Ciudad cambiarParaOpenWeather(Ciudad c){
+        c.setNombre(c.getNombre().replace(" ", "%20"));
+        return c;
+    }
 }

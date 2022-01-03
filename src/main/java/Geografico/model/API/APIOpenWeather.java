@@ -59,7 +59,7 @@ public class APIOpenWeather implements APIOpenWeatherInterface{
         JSONObject obj = new JSONObject(raw);
         JSONArray daily = obj.getJSONArray("daily");
         int i = 0;
-        while (i < 2){
+        while (i < 5){
             JSONObject aux = (JSONObject) daily.get(i);
             JSONObject temp = (JSONObject) aux.get("temp");
             String tMax = temp.getString("max");

@@ -1,29 +1,27 @@
-<!--<div class="provincia" xmlns:th="http://www.w3.org/1999/xhtml">-->
-<!--    <h5 th:text="${prevision.getCiudad().getNombre()}">Ciudad</h5>-->
-<!--    <div class="container">-->
-<!--        <div th:replace="fragments/prevision"></div>-->
-<!--    </div>-->
-<!--</div>-->
-<link rel="stylesheet" href="/prvCard.css" />
-<div class="main-container" xmlns:th="http://www.w3.org/1999/xhtml">
-    <div class="heading" xmlns:th="http://www.w3.org/1999/xhtml">
-        <h1 color="f90606" th:text="${previsionCiudad.getCiudad().getNombre()}">Ciudad</h1>
-    </div>
-    <div style="width: 99%;" th:each="prevision: ${previsionCiudad.getPrevisionList()}">
-        <div class="cards">
-            <div class="card card-1">
-                <h2 class="card__date" th:text="${prevision.getDate()}"></h2>
-                <div class="card__icon"><i class="fas fa-bolt"></i></div>
-                <p class="card__exit"><i class="fas fa-times"></i></p>
-                <h2 class="card__link">Temperatura mínima</h2>
-                <h3 th:text="${prevision.gettMin()}"></h3>
-                <h2 class="card__link">Temperatura máxima</h2>
-                <h3 th:text="${prevision.gettMax()}"></h3>
-                <h2 class="card__link">Humedad</h2>
-                <h3 th:text="${prevision.getHumedad()}"></h3>
-                <h2 class="card__link">Descripción</h2>
-                <h3 th:text="${prevision.getDescripcion()}"></h3>
-            </div>
-        </div>
-    </div>
+<link rel="stylesheet" href="/prvCard.css" xmlns:th="http://www.w3.org/1999/xhtml"/>
+<div class="prv" xmlns:th="http://www.w3.org/1999/xhtml">
+        <section class="page-contain">
+            <tr th:each="prevision: ${previsiones}">
+            <a class="data-card">
+                <h4 th:text="${prevision.getDate()}"></h4>
+                <div>
+                    <span class="inline">T máxima:</span>
+                    <span class="float-right" th:text="${prevision.gettMax()}"></span>
+                </div>
+                <div>
+                    <span class="inline">T mínima:</span>
+                    <span class="float-right" th:text="${prevision.gettMin()}"></span>
+                </div>
+                <div>
+                    <span class="inline">Humedad:</span>
+                    <span class="float-right" th:text="${prevision.getHumedad()}"></span>
+                </div>
+                <div>
+                    <span class="inline">Res:</span>
+                    <span class="float-right" th:text="${prevision.getDescripcion()}"></span>
+                </div>
+                </span>
+            </a>
+            </tr>
+        </section>
 </div>

@@ -2,17 +2,16 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Tiempo provincias</title>
+    <title>Tiempo Capital</title>
     <link rel="stylesheet" href="/bootstrap.min.css"/>
     <link rel="stylesheet" href="/estilos.css"/>
 </head>
 <body>
 <div th:replace="fragments/nav"></div>
 <div class="text-center py-2">
-    <h1 id="h1">Tiempo en la capitales de provincia</h1>
+    <h1 id="h1">Tiempo en</h1>
+    <h1 th:text="${capital.getNombre()}"></h1>
 </div>
-<div style="width: 99%;" th:each="previsionCiudad: ${previsionesEspana}">
-    <div th:replace="fragments/provincia"></div>
-</div>
+<div th:replace="fragments/provincia"></div>
 </body>
 </html>
