@@ -1,0 +1,17 @@
+<div class="card text-white bg-primary mb-3" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <div class="row mt-2">
+        <div class="col-md-4">
+            <h5 class="ms-4" th:text="${ubicacion.getAlias()}"></h5>
+        </div>
+        <div class="col-md-2">
+            <a th:href="@{/ubicaciones/reactivar/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+               role="button" class="btn btn-primary">Reactivar</a>
+        </div>
+    </div>
+
+    <div class="row my-4">
+        <div class="col-md-12"></div>
+    </div>
+    </div>
+</div>

@@ -164,8 +164,8 @@ public class Usuario {
 		return historialUbicaciones;
     }
 
-	public boolean reactivarUbicacionDelHistorial(Ubicacion ubicacion) {
-		return dataBaseFunctions.reactivarUbicacion(this.nombre, ubicacion);
+	public boolean reactivarUbicacionDelHistorial(String toponimo) {
+		return dataBaseFunctions.reactivarUbicacion(this.nombre, toponimo);
 	}
 
 	public List<String> getServiciosAPIDisponibles() {

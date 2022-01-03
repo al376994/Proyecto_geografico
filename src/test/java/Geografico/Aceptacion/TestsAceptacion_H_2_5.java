@@ -24,7 +24,7 @@ public class TestsAceptacion_H_2_5 {
         //Arrange
         //Act
         List<Ubicacion> historialUbicaciones = usuario.getHistorialUbicaciones();
-        boolean reactivada = usuario.reactivarUbicacionDelHistorial(historialUbicaciones.get(0));
+        boolean reactivada = usuario.reactivarUbicacionDelHistorial(historialUbicaciones.get(0).getNombre());
         //Assert
         assertTrue(reactivada);
     }
