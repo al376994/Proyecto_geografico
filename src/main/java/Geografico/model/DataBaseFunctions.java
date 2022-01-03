@@ -776,4 +776,17 @@ public class DataBaseFunctions {
 		}
 		return historial;
 	}
+
+	public boolean reactivarUbicacion(String nombre, Ubicacion ubicacion) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("DELETE FROM historial_ubicaciones WHERE nombreusuario = ? AND nombreubicacion = ?;");
+			statement.setString(1, nombre);
+			statement.setString(2, ubicacion.getNombre());
+			statement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }

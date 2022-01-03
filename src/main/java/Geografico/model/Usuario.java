@@ -160,14 +160,12 @@ public class Usuario {
 	}
 
     public List<Ubicacion> getHistorialUbicaciones() {
-		//TODO devolver listado de ubiaciones en el historial de un usuario
 		List<Ubicacion> historialUbicaciones = dataBaseFunctions.getHistorialUbicaciones(this.nombre);
 		return historialUbicaciones;
     }
 
 	public boolean reactivarUbicacionDelHistorial(Ubicacion ubicacion) {
-		//TODO para reactivar eliminas la ubicacion del historial y la agregas a la tabla de usuario_ubicaciones de nuevo
-		return true;
+		return dataBaseFunctions.reactivarUbicacion(this.nombre, ubicacion);
 	}
 
 	public List<String> getServiciosAPIDisponibles() {
