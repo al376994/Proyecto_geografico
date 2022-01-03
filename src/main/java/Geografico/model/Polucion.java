@@ -1,5 +1,7 @@
 package Geografico.model;
 
+import java.util.Map;
+
 public class Polucion {
 //    "aqius": 21, //AQI value based on US EPA standard
 //     "aqicn": 7, //AQI value based on China MEP standard
@@ -7,6 +9,14 @@ public class Polucion {
     private int aqcn;
     private String mainus;
     private String maincn;
+    private final Map<String, String> tiposPolucion = Map.ofEntries(
+            Map.entry("p1", "pm10"),
+            Map.entry("p2", "pm2.5"),
+            Map.entry("o3", "Ozono O3"),
+            Map.entry("n2", "Dioxido de nitrogeno NO2"),
+            Map.entry("s2", "Dioxido de sulfuro SO2"),
+            Map.entry("co", "Monoxido de carbono XO")
+    );
 
     public Polucion(int aqius, int aqcn, String mainus, String maincn) {
         this.aqius = aqius;
@@ -55,5 +65,26 @@ public class Polucion {
 
     public void setMaincn(String maincn) {
         this.maincn = maincn;
+    }
+
+    public String getTipoPolucion(boolean us) {
+        String tipo;
+        if (us) tipo = mainus;
+        else tipo = maincn;
+
+        return tiposPolucion.get(tipo);
+    }
+
+    public String getLevelOfConcern(boolean us) {
+        int aq;
+        if(us) aq = aqius;
+        else aq = aqcn;
+
+        if (aq < 51) return "Calidad buena";
+        if (aq < 101) return "Calidad moderada";
+        if (aq < 151) return "Calidad insalubre para grupos sensibles";
+        if (aq < 201) return "Calidad insalubre para el público general";
+        if (aq < 301) return "Calidad altamenta insalubre";
+        return "Calidad altamente contaminante, condiciones de emergencia";
     }
 }
