@@ -53,4 +53,19 @@ public class APIAirVisual implements APIAirVisualInterface{
         String mainus = pollution.getString("mainus");
         return new Polucion(aqius,aqicn,mainus,maincn);
     }
+
+    public Polucion getPolucionCoordenadas(double latitud, double longitud) throws JSONException {
+        String raw = APIHelper.getBody("http://api.airvisual.com/v2/nearest_city?lat="
+                + latitud + "&lon=" + longitud + "&key="+key);
+
+        JSONObject obj = new JSONObject(raw);
+        JSONObject data = obj.getJSONObject("data");
+        JSONObject current = data.getJSONObject("current");
+        JSONObject pollution = current.getJSONObject("pollution");
+        int aqius = pollution.getInt("aqius");
+        int aqicn = pollution.getInt("aqicn");
+        String maincn = pollution.getString("maincn");
+        String mainus = pollution.getString("mainus");
+        return new Polucion(aqius,aqicn,mainus,maincn);
+    }
 }
