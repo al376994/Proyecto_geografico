@@ -109,6 +109,23 @@ public class UbicacionController {
 		return "principal/ubicacionesDesactivadas";
 	}
 
+	@RequestMapping(value = "/lista/historial")
+	public String historialUbicaciones(Model model, HttpSession session) throws SQLException {
+		if(ControllerFunctions.checkIsLogged(model, session, "/ubicaciones/lista/historial")) return "redirect:/login";
+
+		Usuario usuario = (Usuario)session.getAttribute("user");
+
+		List<Ubicacion> historial = usuario.getHistorialUbicaciones();
+		model.addAttribute("historial", historial);
+		return "principal/historial";
+	}
+
+	@RequestMapping(value = "reactivar/{toponimo}")
+	public String reactivarUbicacionHistorial(@PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) {
+		usuario.reactivarUbicacionDelHistorial(toponimo);
+		return "redirect:/ubicaciones/lista/historial";
+	}
+
 	@RequestMapping(value = "activar/{toponimo}")
 	public String activarUbicacion(@PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) {
 		usuario.activarUbicacion(usuario.getUbicacion(toponimo));
