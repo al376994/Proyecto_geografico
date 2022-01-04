@@ -28,8 +28,8 @@
         <tbody>
         <tr th:each="capital: ${capitales}">
             <td th:text="${capital.getNombre()}"></td>
-            <td th:text="${capital.getComunidad()}"></td>
             <td th:text="${capital.getPais()}"></td>
+            <td th:text="${capital.getComunidad()}"></td>
             <td> <a th:href="@{/tiempo/formularioTiempoProv/{capital}(capital=${capital})}" class="btn btn-primary" role="button">Predicción</a></td>
         </tr>
         </tbody>

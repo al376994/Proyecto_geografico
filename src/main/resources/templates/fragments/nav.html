@@ -2,20 +2,20 @@
 	<div class="container-fluid">
 		<ul class="navbar-nav me-auto">
 			<li class="nav-item">
-				<a class="nav-link" href="javascript:window.history.back();">Enrere</a>
+				<a class="nav-link" href="javascript:window.history.back();">Atrás</a>
 			</li>
-			<a class="nav-link" href="/" th:href="@{/}">Inici</a>
+			<a class="nav-link" href="/" th:href="@{/}">Inicio</a>
 		</ul>
 		<div class="loggeduser" th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
 			<ul class="navbar-nav me-auto">
 				<li class="nav-item">
-					Autenticat com <span th:text="*{user.getNombre()}"></span>
+					Autenticado como <span th:text="*{user.getNombre()}"></span>
 				</li>
 				<li class="nav-item">
-					<a href="/logout" th:href="@{/logout}">Eixir</a>
+					<a href="/logout" th:href="@{/logout}">Salir</a>
 				</li>
-				<li>
-					Configurar
+				<li class="nav-item">
+					<a href="/configurar" th:href="@{/configurar}">Configurar</a>
 				</li>
 			</ul>
 		</div>

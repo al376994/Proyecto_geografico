@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -45,5 +46,18 @@ public class HomeController {
 	public String logout(HttpSession session){
 		session.invalidate();
 		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/configurar")
+	public String configurar(HttpSession session, Model model){
+		Usuario user = (Usuario) session.getAttribute("user");
+		model.addAttribute("user",user);
+		return "principal/configurar";
+	}
+
+	@RequestMapping(value = "/configurar/formulario/{password}")
+	public String configurarPwd(HttpSession session, @PathVariable String password, Model model){
+		System.out.println(password);
+		return "principal/configurar";
 	}
 }

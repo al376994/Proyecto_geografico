@@ -17,9 +17,7 @@
         <thead>
         <tr>
             <th>Club L</th>
-            <th>Escudo L</th>
             <th>Club V</th>
-            <th>Escudo V</th>
             <th>Estadio</th>
             <th>Resultado</th>
             <th>Fecha</th>
@@ -28,9 +26,7 @@
         <tbody>
         <tr th:each="partido: ${partidos}">
             <td th:text="${partido.getEquipoCasa().getNombre()}"></td>
-            <td><img src="${partido.getEquipoCasa().getLogo()}" width="50" height="50"></td>
             <td th:text="${partido.getEquipoFuera().getNombre()}"></td>
-            <td><img src="${partido.getEquipoFuera().getLogo()}" width="50" height="50"></td>
             <td th:text="${partido.getEstadio()}"></td>
             <td th:text="${partido.getResultado()}"></td>
             <td th:text="${partido.getFecha()}"></td>
