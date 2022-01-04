@@ -17,6 +17,7 @@
     <table class="table table-striped">
         <thead>
         <tr>
+            <th>Escudo</th>
             <th>Club</th>
             <th>PJ</th>
             <th>V</th>
@@ -27,6 +28,7 @@
         </thead>
         <tbody>
         <tr th:each="equipo: ${equipos}">
+            <td><img th:src="${equipo.getLogo()}" width="50" height="50"></td>
             <td th:text="${equipo.getNombre()}"></td>
             <td th:text="${equipo.getPartidosJugados()}"></td>
             <td th:text="${equipo.getPartidosGanados()}"></td>

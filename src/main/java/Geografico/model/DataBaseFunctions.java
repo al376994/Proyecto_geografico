@@ -734,7 +734,8 @@ public class DataBaseFunctions {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return partidos;
+		List<Partido> menosPartidos = partidos.subList(0,50);
+		return menosPartidos;
 	}
 
 	public List<Partido> getPartidosBundesliga(){
@@ -754,7 +755,8 @@ public class DataBaseFunctions {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return partidos;
+		List<Partido> menosPartidos = partidos.subList(0,50);
+		return menosPartidos;
 	}
 
 	public List<Ubicacion> getHistorialUbicaciones(String usuario) {

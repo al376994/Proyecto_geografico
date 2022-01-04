@@ -147,6 +147,7 @@ public class APISportsData implements APISportsDataInterface{
                     String resultado = golesHome + " - " + golesAway;
                     String fecha = match.getString("match_start_iso").split("T")[0];
 //            System.out.println(match);
+                    System.out.println(awayTeam.getLogo());
                     Partido partido = new Partido(homeTeam, awayTeam, estadio, resultado, fecha);
 //            System.out.println(partido.toString());
                     partidos.add(partido);
