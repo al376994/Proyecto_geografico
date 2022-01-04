@@ -97,6 +97,8 @@ public class UbicacionController {
 		Usuario usuario = (Usuario)session.getAttribute("user");
 		Ubicacion ubicacion = usuario.getUbicacion(toponimo);
 		model.addAttribute("ubicacion", ubicacion);
+		model.addAttribute("weather", usuario.getWeather());
+		model.addAttribute("airPolution", usuario.getAirPolution());
 		return "principal/ubicacion";
 	}
 
