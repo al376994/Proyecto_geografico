@@ -67,16 +67,23 @@
 	<div class="row mt-2">
 		<div class="col-md-4">
 			<div th:if="${weather.get(ubicacion.getNombre()) != null}">
-				<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black" th:object="${weather.get(ubicacion.getNombre())}">
+				<div class="ms-2 mb-2 bg-white border-box-with-shadow text-black" th:object="${weather.get(ubicacion.getNombre())}">
 					<div th:replace="fragments/weatherInsideCard"></div>
 				</div>
 			</div>
 			<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black" th:unless="${weather.get(ubicacion.getNombre()) != null}">
-				<h5 class="ms-4">Servicio desactivado para esta ubicacion</h5>
+				<h5 class="ms-2">Servicio desactivado para esta ubicacion</h5>
 			</div>
 		</div>
 		<div class="col-md-4">
-			<h5>Contenido Calidad del aire</h5>
+			<div th:if="${airPolution.get(ubicacion.getNombre()) != null}">
+				<div class="mb-2 bg-white border-box-with-shadow text-black" th:object="${airPolution.get(ubicacion.getNombre())}">
+					<div th:replace="fragments/airPolutionInsideCard"></div>
+				</div>
+			</div>
+			<div class="mb-2 bg-white border-box-with-shadow text-black" th:unless="${airPolution.get(ubicacion.getNombre()) != null}">
+				<h5 class="ms-2">Servicio desactivado para esta ubicacion</h5>
+			</div>
 		</div>
 		<div class="col-md-4">
 			<h5 class="me-4">Contenido Deporte</h5>

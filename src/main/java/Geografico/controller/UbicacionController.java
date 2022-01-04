@@ -39,8 +39,9 @@ public class UbicacionController {
 		model.addAttribute("ubicaciones", ubicaciones);
 		model.addAttribute("coordenadasValidas", session.getAttribute("coordenadasValidas"));
 		model.addAttribute("toponimoValido", session.getAttribute("toponimoValido"));
+
 		model.addAttribute("weather", usuario.getWeather());
-		Map<String, TiempoActual> map = usuario.getWeather();
+		model.addAttribute("airPolution", usuario.getAirPolution());
 		return "principal/ubicaciones";
 	}
 
