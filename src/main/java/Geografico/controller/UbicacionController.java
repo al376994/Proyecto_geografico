@@ -92,7 +92,9 @@ public class UbicacionController {
 	}
 
 	@RequestMapping(value = "/ubicacion/{toponimo}")
-	public String muestraDestallesUbicacion(Model model, @PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) {
+	public String muestraDestallesUbicacion(Model model, HttpSession session, @PathVariable String toponimo) {
+		if(ControllerFunctions.checkIsLogged(model, session, "/ubicaciones/ubicacion/" + toponimo)) return "redirect:/login";
+		Usuario usuario = (Usuario)session.getAttribute("user");
 		Ubicacion ubicacion = usuario.getUbicacion(toponimo);
 		model.addAttribute("ubicacion", ubicacion);
 		return "principal/ubicacion";
@@ -175,5 +177,11 @@ public class UbicacionController {
 		Ubicacion ubicacion = usuario.getUbicacion(toponimo);
 		usuario.darDeBajaUbicacion(ubicacion);
 		return "redirect:/ubicaciones/lista";
+	}
+
+	@RequestMapping(value = "/cambiarAlias")
+	public String cambiarAliasUbicacion(@SessionAttribute("user") Usuario usuario, @ModelAttribute("ubicacion") Ubicacion ubicacion) {
+		usuario.asignarAliasUbicacion(ubicacion.getNombre(), ubicacion.getAlias());
+		return "redirect:ubicaciones/ubicacion/" + ubicacion.getNombre();
 	}
 }

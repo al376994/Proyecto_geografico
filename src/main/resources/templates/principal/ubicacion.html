@@ -11,26 +11,64 @@
 <div class="text-center py-2">
 	<h1 id="h1" th:text="*{getAlias()}"></h1>
 </div>
-<div class="container container-xxxl pt-4 card bg-light h-auto">
-	<div class="row">
+<div class="container container-xxxl py-3 card bg-light h-auto">
+	<div class="row mb-3">
 		<div class="col-md-12">
 			<a th:href="@{/ubicaciones/lista}"
 			   role="button" class="btn btn-primary w-100">Volver</a>
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-3">Alias</div>
-		<div class="col-md-3">Ubicacion</div>
-		<div class="col-md-3">Latitud</div>
-		<div class="col-md-3">Longitud</div>
+	<form action="#" th:action="@{/cambiarAlias}" th:object="${ubicacion}" method="post">
+		<div class="row mx-2">
+			<div class="col-md-1 h5">Ubicacion:</div>
+			<div class="col-md-3 h5" th:text="*{getNombre()}"></div>
+			<div class="col-md-2"></div>
+
+			<div class="col-md-1 h5">Alias:</div>
+			<div class="col-md-3 h5">
+				<input class="form-control" type="text" th:field="*{alias}" maxlength="50">
+			</div>
+			<div class="col-md-2">
+				<button type="submit" class="btn btn-primary w-100" name="action">Modificar</button>
+			</div>
+		</div>
+	</form>
+
+	<div class="row mx-2">
+		<div class="col-md-1 h5">Latitud:</div>
+		<div class="col-md-3 h5" th:text="*{getLatitud()}"></div>
+		<div class="col-md-2"></div>
+		<div class="col-md-1 h5">Longitud:</div>
+		<div class="col-md-3 h5" th:text="*{getLongitud()}"></div>
+		<div class="col-md-2"></div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-3" th:text="*{getAlias()}"></div>
-		<div class="col-md-3" th:text="*{getNombre()}"></div>
-		<div class="col-md-3" th:text="*{getLatitud()}"></div>
-		<div class="col-md-3" th:text="*{getLongitud()}"></div>
+	<div class="row mx-2">
+		<div class="col-md-2">
+			<a th:if="${ubicacion.isActivo()}" th:href="@{/ubicaciones/desactivar/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">Desactivar ubicación</a>
+			<a th:unless="${ubicacion.isActivo()}" th:href="@{/ubicaciones/activar/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">Activar ubicación</a>
+		</div>
+		<div class="col-md-4"></div>
+		<div th:if="${ubicacion.isFavorito()}" class="col-md-2">
+			<a th:href="@{/ubicaciones/toggleFavorito/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">
+				<img src="/bootstrap-icons/star-fill.svg" alt="Favorito" width="18" height="18" style="filter: invert(100%)">
+			</a>
+		</div>
+		<div th:unless="${ubicacion.isFavorito()}" class="col-md-2">
+			<a th:href="@{/ubicaciones/toggleFavorito/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">
+				<img src="/bootstrap-icons/star.svg" alt="No favorito" width="18" height="18" style="filter: invert(100%)">
+			</a>
+		</div>
+		<div class="col-md-3"></div>
+		<div class="col-md-1">
+			<a th:href="@{/ubicaciones/eliminar/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">Eliminar</a>
+		</div>
 	</div>
 
 </div>
