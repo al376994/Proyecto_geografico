@@ -1,7 +1,9 @@
-<div class="card text-white bg-primary mb-3" xmlns:th="http://www.w3.org/1999/xhtml">
+<div class="card text-white bg-primary mt-1 mb-3" xmlns:th="http://www.w3.org/1999/xhtml">
 
-
-	<div class="row mt-2">
+	<!-- -------------------------- -->
+	<!-- ALIAS + BOTONES DE EDICION -->
+	<!-- -------------------------- -->
+	<div class="row mt-2 mb-5">
 		<div class="col-md-4">
 			<h5 class="ms-4" th:text="${ubicacion.getAlias()}"></h5>
 		</div>
@@ -33,10 +35,11 @@
 			   role="button" class="btn btn-primary">Eliminar</a>
 		</div>
 	</div>
-
-	<div class="row my-4"><div class="col-md-12"></div></div>
-
-	<div class="row">
+	<!-- ---------------------------------------------- -->
+	<!-- CABECERAS SERVICIOS + BOTON ACTIVAR/DESACTIVAR -->
+	<!-- ---------------------------------------------- -->
+	<div class="row mb-1">
+		<div class="col-md-1"></div>
 		<div class="col-md-2">
 			<h5 class="ms-4">Tiempo atmosferico</h5>
 		</div>
@@ -48,6 +51,8 @@
 			   role="button" class="btn btn-primary">Activar servicio</a>
 		</div>
 
+		<div class="col-md-2"></div>
+
 		<div class="col-md-2">
 			<h5>Calidad del aire</h5>
 		</div>
@@ -57,17 +62,20 @@
 			<a th:unless="${airPolution.get(ubicacion.getNombre()) != null}" th:href="@{/ubicaciones/activar/airPolution/{toponimo}(toponimo=${ubicacion.getNombre()})}"
 			   role="button" class="btn btn-primary">Activar servicio</a>
 		</div>
+		<div class="col-md-1"></div>
+		<!--
 		<div class="col-md-2">
 			<h5 class="me-4">Deporte</h5>
 		</div>
 		<div class="col-md-2">
-
 		</div>
+		-->
 	</div>
-
-	<!-- TODO añadir filas para facilitar muestreo de informacion o buscar la forma de crear cartas dentro con contenido
-	 	 añadir en un futuro botones que permitan desactivar los servicios -->
-	<div class="row mt-2">
+	<!-- ------------------- -->
+	<!-- CONTENIDO SERVICIOS -->
+	<!-- ------------------- -->
+	<div class="row mt-2 mb-1">
+		<div class="col-md-1"></div>
 		<div class="col-md-4">
 			<div th:if="${weather.get(ubicacion.getNombre()) != null}">
 				<div class="ms-2 mb-2 bg-white border-box-with-shadow text-black" th:object="${weather.get(ubicacion.getNombre())}">
@@ -78,6 +86,9 @@
 				<h5 class="ms-2">Servicio desactivado para esta ubicacion</h5>
 			</div>
 		</div>
+
+		<div class="col-md-2"></div>
+
 		<div class="col-md-4">
 			<div th:if="${airPolution.get(ubicacion.getNombre()) != null}">
 				<div class="mb-2 bg-white border-box-with-shadow text-black" th:object="${airPolution.get(ubicacion.getNombre())}">
@@ -88,9 +99,12 @@
 				<h5 class="ms-2">Servicio desactivado para esta ubicacion</h5>
 			</div>
 		</div>
+		<div class="col-md-1"></div>
+		<!--
 		<div class="col-md-4">
 			<h5 class="me-4">Contenido Deporte</h5>
 		</div>
+		-->
 	</div>
 
 
