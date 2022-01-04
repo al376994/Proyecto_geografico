@@ -9,7 +9,9 @@ import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
@@ -37,5 +39,29 @@ public class ServicioController {
 		model.addAttribute("airPolution", usuario.getAirPolution());
 
 		return "principal/servicios";
+	}
+
+	@RequestMapping(value="activar/WEATHERAPI")
+	public String activarServicioWeather(@SessionAttribute("user") Usuario usuario) {
+		usuario.activarServicioAPI(APIHelper.WEATHERAPI);
+		return "redirect:/servicios";
+	}
+
+	@RequestMapping(value="desactivar/WEATHERAPI")
+	public String desactivarServicioWeather(@SessionAttribute("user") Usuario usuario) {
+		usuario.desactivarServicioAPI(APIHelper.WEATHERAPI);
+		return "redirect:/servicios";
+	}
+
+	@RequestMapping(value="activar/AIRPOLUTIONAPI")
+	public String activarServicioAirPolution(@SessionAttribute("user") Usuario usuario) {
+		usuario.activarServicioAPI(APIHelper.AIRPOLUTIONAPI);
+		return "redirect:/servicios";
+	}
+
+	@RequestMapping(value="desactivar/AIRPOLUTIONAPI")
+	public String desactivarServicioAirPolution(@SessionAttribute("user") Usuario usuario) {
+		usuario.desactivarServicioAPI(APIHelper.AIRPOLUTIONAPI);
+		return "redirect:/servicios";
 	}
 }
