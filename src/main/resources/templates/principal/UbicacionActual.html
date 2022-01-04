@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Ubicacion actual</title>
+    <link rel="stylesheet" href="/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/estilos.css"/>
+</head>
+<body>
+<div th:replace="fragments/nav"></div>
+<h1>Servicios en la ubicación actual</h1>
+<h2>Tiempo atmosférico</h2>
+<div class="mb-2 bg-white border-box-with-shadow text-black">
+    <div class="row ms-2">
+        <div class="col-md-12">
+            <h5 th:text="*{tiempo.getDescripcion()}"></h5>
+        </div>
+    </div>
+    <div class="row ms-2">
+        <div class="col-md-6">
+            <h5 th:text="*{'Temperatura: ' + tiempo.gettActual() + 'ºC'}"></h5>
+        </div>
+        <div class="col-md-6">
+            <h5 th:text="*{'Sensación: ' + tiempo.getSensacionTermica() + 'ºC'}"></h5>
+        </div>
+    </div>
+    <div class="row ms-2">
+        <div class="col-md-12">
+            <h5 th:text="*{'Humedad: ' + tiempo.getHumedad() + '%'}"></h5>
+        </div>
+    </div>
+    <div class="row ms-2">
+        <div class="col-md-6">
+            <h5 th:text="*{'Presion: ' + tiempo.getPresion() + ' hPa'}"></h5>
+        </div>
+        <div class="col-md-6">
+            <h5 th:text="*{tiempo.getEvaluacionDePresion()}"
+                th:classappend="*{tiempo.getEvaluacionDePresion()=='Presion baja' ? 'borrasca'
+                                    : tiempo.getEvaluacionDePresion()=='Presion alta' ? 'anticiclon' : ''}">
+            </h5>
+        </div>
+    </div>
+</div>
+<h2>Polución del aire</h2>
+<div class="mb-2 bg-white border-box-with-shadow text-black">
+    <div class="mb-4 mx-2 bar-b">
+        <div class="row ms-2">
+            <div class="col-md-6">
+                <h5 th:text="*{'Calidad del aire (US): ' + polucion.getAqius}"></h5>
+            </div>
+            <div class="col-md-6">
+                <h5 th:text="*{'Tipo de polución: ' + polucion.getTipoPolucion(true)}"></h5>
+            </div>
+        </div>
+        <div class="row ms-2">
+            <div class="col-md-12">
+                <h5 th:text="*{polucion.getLevelOfConcern(true).getValue()}" th:classappend="*{polucion.getLevelOfConcern(true).getKey()}"></h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-2">
+        <div class="row ms-2">
+            <div class="col-md-6">
+                <h5 th:text="*{'Calidad del aire (CN): ' + polucion.getAqcn}"></h5>
+            </div>
+            <div class="col-md-6">
+                <h5 th:text="*{'Tipo de polución: ' + polucion.getTipoPolucion(false)}"></h5>
+            </div>
+        </div>
+        <div class="row ms-2">
+            <div class="col-md-12">
+                <h5 th:text="*{polucion.getLevelOfConcern(false).getValue()}" th:classappend="*{polucion.getLevelOfConcern(false).getKey()}"></h5>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
