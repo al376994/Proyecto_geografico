@@ -232,11 +232,17 @@ h4 {
 }
 
 .borrasca {
-    color: red;
+    background: rgb(228, 0, 0);
+    color: black;
+    margin-right:1rem;
+    text-align: center;
 }
 
 .anticiclon {
-    color: blue;
+    background: rgb(0, 0, 288);
+    color: white;
+    margin-right:1rem;
+    text-align: center;
 }
 
 .text-black {
@@ -247,40 +253,40 @@ h4 {
     background: rgb(0, 228, 0);
     color: black;
     margin-right:1rem;
+    text-align: center;
 }
 
 .LC_Moderate {
     background: yellow;
     color: black;
     margin-right:1rem;
+    text-align: center;
 }
 
 .LC_Unhealthy_1 {
     background: rgb(255, 126, 0);
     color: white;
     margin-right:1rem;
+    text-align: center;
 }
 
 .LC_Unhealthy_2 {
     background: red;
     color: white;
     margin-right:1rem;
+    text-align: center;
 }
 
 .LC_Unhealthy_3 {
     background: rgb(143, 63, 151);
     color: white;
     margin-right:1rem;
+    text-align: center;
 }
 
 .LC_Hazardous {
     background: rgb(126, 0, 35 );
     color: white;
     margin-right:1rem;
-}
-
-.col-md-0{
-    -ms-flex:0 0 auto;
-    flex:0 0 auto;
-    width:0%
+    text-align: center;
 }
