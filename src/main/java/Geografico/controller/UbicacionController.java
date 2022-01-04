@@ -151,6 +151,18 @@ public class UbicacionController {
 		return "redirect:/ubicaciones/lista";
 	}
 
+	@RequestMapping(value = "activar/airPolution/{toponimo}")
+	public String activarAirPolutionUbicacion(@PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) throws NotFoundPlaceException {
+		usuario.altaServicioUbicacion(usuario.getUbicacion(toponimo), APIHelper.AIRPOLUTIONAPI);
+		return "redirect:/ubicaciones/lista";
+	}
+
+	@RequestMapping(value = "desactivar/airPolution/{toponimo}")
+	public String desactivarAirPolutionUbicacion(@PathVariable String toponimo, @SessionAttribute("user") Usuario usuario) {
+		usuario.bajaServicioUbicacion(usuario.getUbicacion(toponimo), APIHelper.AIRPOLUTIONAPI);
+		return "redirect:/ubicaciones/lista";
+	}
+
 	@RequestMapping(value = "/toggleFavorito/{toponimo}")
 	public String toggleFavoritoUbicacion(@SessionAttribute("user") Usuario usuario, @PathVariable String toponimo) throws SQLException {
 		Ubicacion ubicacion = usuario.getUbicacion(toponimo);

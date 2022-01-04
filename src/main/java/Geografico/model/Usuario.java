@@ -1,6 +1,7 @@
 package Geografico.model;
 
 import Geografico.model.API.*;
+import Geografico.model.excepciones.AirPolutionAPIRequestsLimitReachedException;
 import Geografico.model.excepciones.AlreadyHasPlaceException;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import Geografico.model.excepciones.NotFoundPlaceException;
@@ -235,6 +236,8 @@ public class Usuario {
 		for (Ubicacion ubicacion : ubicaciones) {
 			try {
 				airPolution.put(ubicacion.getNombre(), apiAirVisual.getPolucionUbicacion(ubicacion));
+			} catch (AirPolutionAPIRequestsLimitReachedException e) {
+				airPolution.put(ubicacion.getNombre(), new Polucion(e.getMessage()));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

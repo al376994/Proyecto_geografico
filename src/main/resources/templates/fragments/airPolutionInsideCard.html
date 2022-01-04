@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.w3.org/1999/xhtml">
+<div th:if="*{getErrorMessage().equals('')}" xmlns:th="http://www.w3.org/1999/xhtml">
 
 	<div class="mb-4 mx-2 bar-b">
 		<div class="row ms-2">
@@ -32,4 +32,8 @@
 		</div>
 	</div>
 
+</div>
+
+<div th:unless="*{getErrorMessage().equals('')}" xmlns:th="http://www.w3.org/1999/xhtml">
+	<h5 class="my-4 mx-2" th:text="*{getErrorMessage()}"></h5>
 </div>

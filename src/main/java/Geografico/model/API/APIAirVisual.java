@@ -3,6 +3,7 @@ package Geografico.model.API;
 import Geografico.model.Polucion;
 import Geografico.model.Ciudad;
 import Geografico.model.Ubicacion;
+import Geografico.model.excepciones.AirPolutionAPIRequestsLimitReachedException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,12 +56,19 @@ public class APIAirVisual implements APIAirVisualInterface{
         return new Polucion(aqius,aqicn,mainus,maincn);
     }
 
-    public Polucion getPolucionUbicacion(Ubicacion u) throws JSONException {
+    public Polucion getPolucionUbicacion(Ubicacion u) throws JSONException, AirPolutionAPIRequestsLimitReachedException {
         String raw = APIHelper.getBody("http://api.airvisual.com/v2/nearest_city?lat="
                 + u.getLatitud() + "&lon=" + u.getLongitud() + "&key="+key);
 
         JSONObject obj = new JSONObject(raw);
         JSONObject data = obj.getJSONObject("data");
+        if (!data.has("current")) {
+            if (data.getString("message").equals("call_per_minute_limit_reached"))
+                throw new AirPolutionAPIRequestsLimitReachedException(
+                        "Se han alcanzado el número máximo de solicitudes a la API, recarga la página ahora o " +
+                        "dentro de un minuto para solucionar el problema."
+                );
+        }
         JSONObject current = data.getJSONObject("current");
         JSONObject pollution = current.getJSONObject("pollution");
         int aqius = pollution.getInt("aqius");

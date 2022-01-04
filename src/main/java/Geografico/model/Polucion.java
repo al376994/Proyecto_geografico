@@ -17,12 +17,18 @@ public class Polucion {
             Map.entry("s2", "Dioxido de sulfuro SO2"),
             Map.entry("co", "Monoxido de carbono XO")
     );
+    private final String errorMessage;
 
     public Polucion(int aqius, int aqcn, String mainus, String maincn) {
         this.aqius = aqius;
         this.aqcn = aqcn;
         this.mainus = mainus;
         this.maincn = maincn;
+        errorMessage = "";
+    }
+
+    public Polucion(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public int getAqius() {
@@ -65,6 +71,10 @@ public class Polucion {
 
     public void setMaincn(String maincn) {
         this.maincn = maincn;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
     public String getTipoPolucion(boolean us) {

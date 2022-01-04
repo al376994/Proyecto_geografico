@@ -40,19 +40,22 @@
 		<div class="col-md-2">
 			<h5 class="ms-4">Tiempo atmosferico</h5>
 		</div>
-		<div class="col-md-2">
 
+		<div class="col-md-2">
 			<a th:if="${weather.get(ubicacion.getNombre()) != null}" th:href="@{/ubicaciones/desactivar/weather/{toponimo}(toponimo=${ubicacion.getNombre()})}"
 			   role="button" class="btn btn-primary">Desactivar servicio</a>
 			<a th:unless="${weather.get(ubicacion.getNombre()) != null}" th:href="@{/ubicaciones/activar/weather/{toponimo}(toponimo=${ubicacion.getNombre()})}"
 			   role="button" class="btn btn-primary">Activar servicio</a>
-
 		</div>
+
 		<div class="col-md-2">
 			<h5>Calidad del aire</h5>
 		</div>
 		<div class="col-md-2">
-
+			<a th:if="${airPolution.get(ubicacion.getNombre()) != null}" th:href="@{/ubicaciones/desactivar/airPolution/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">Desactivar servicio</a>
+			<a th:unless="${airPolution.get(ubicacion.getNombre()) != null}" th:href="@{/ubicaciones/activar/airPolution/{toponimo}(toponimo=${ubicacion.getNombre()})}"
+			   role="button" class="btn btn-primary">Activar servicio</a>
 		</div>
 		<div class="col-md-2">
 			<h5 class="me-4">Deporte</h5>
