@@ -49,33 +49,16 @@ public class HomeController {
 		return "redirect:/";
 	}
 
-//	@RequestMapping(value = "/configurar")
-//	public String configurar(HttpSession session, Model model){
-//		Usuario user = (Usuario) session.getAttribute("user");
-//		model.addAttribute("user",user);
-//		return "principal/configurar";
-//	}
-//
-//	@RequestMapping(value = "/configurar/formulario/{password}")
-//	public String configurarPwd(HttpSession session, @PathVariable String password, Model model){
-//		System.out.println(password);
-//		return "principal/menuPrincipal";
-//	}
-//	@RequestMapping(value="/configurar/{password}", method = RequestMethod.GET)
-//	public String editarUsuario(Model model, @PathVariable String password, HttpSession session) {
-//		Usuario user = (Usuario) session.getAttribute("user");
-//		session.setAttribute("oldPwd",);
-//		model.addAttribute("user",user);
-//		return "principal/configurar";
-//	}
-//
-//	@RequestMapping(value="/update", method = RequestMethod.POST)
-//	public String processUpdateSubmit(
-//			@ModelAttribute("user") User user,
-//			BindingResult bindingResult) {
-//		if (bindingResult.hasErrors())
-//			return "principal/configurar";
-//		dataBaseFunctions.actualizarContraseña(user.getUsername())
-//		return "principal/menuPrincipal";
-//	}
+	@RequestMapping(value = "/configurar")
+	public String configurar(HttpSession session, Model model){
+		Usuario user = (Usuario) session.getAttribute("user");
+		model.addAttribute("user",user);
+		return "principal/configurar";
+	}
+
+	@RequestMapping(value = "/update", method= RequestMethod.POST)
+	public String configurarPwd(@ModelAttribute("user") UserDetails user, HttpSession session, Model model){
+		dataBaseFunctions.actualizarContrasena(user.getUsername(), user.getPassword());
+		return "redirect:/menuPrincipal";
+	}
 }

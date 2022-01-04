@@ -791,4 +791,16 @@ public class DataBaseFunctions {
 		}
 		return true;
 	}
+
+	public void actualizarContrasena(String username, String password) {
+		try {
+			System.out.println(password);
+			PreparedStatement statement = conn.prepareStatement("UPDATE usuario SET contraseña = ? WHERE nombre = ?;");
+			statement.setString(1, password);
+			statement.setString(2, username);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

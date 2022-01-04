@@ -15,8 +15,12 @@
 <div class="pt-5">
     <div class="center">
         <div class="formLogin1">
-            <h4 class="py-2">Contraseña: <input type="password" id="password"/></h4>
-            <a th:href="@{/configurar/formulario/{password}(password=${password})}" class="btn btn-primary" role="button">Aceptar</a></td>
+            <form class="pt-4" action="update" method="post">
+                <h4 class="py-2">Contraseña: <input type="password" name="password" id="password"/></h4>
+                <div class="boto">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
