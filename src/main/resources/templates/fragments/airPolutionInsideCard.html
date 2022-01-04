@@ -1,0 +1,35 @@
+<div xmlns:th="http://www.w3.org/1999/xhtml">
+
+	<div class="mb-4 mx-2 bar-b">
+		<div class="row ms-2">
+			<div class="col-md-6">
+				<h5 th:text="*{'Calidad del aire (US): ' + getAqius}"></h5>
+			</div>
+			<div class="col-md-6">
+				<h5 th:text="*{'Tipo de polución: ' + getTipoPolucion(true)}"></h5>
+			</div>
+		</div>
+		<div class="row ms-2">
+			<div class="col-md-12">
+				<h5 th:text="*{getLevelOfConcern(true).getValue()}" th:classappend="*{getLevelOfConcern(true).getKey()}"></h5>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<div class="row ms-2">
+			<div class="col-md-6">
+				<h5 th:text="*{'Calidad del aire (CN): ' + getAqcn}"></h5>
+			</div>
+			<div class="col-md-6">
+				<h5 th:text="*{'Tipo de polución: ' + getTipoPolucion(false)}"></h5>
+			</div>
+		</div>
+		<div class="row ms-2">
+			<div class="col-md-12">
+				<h5 th:text="*{getLevelOfConcern(false).getValue()}" th:classappend="*{getLevelOfConcern(false).getKey()}"></h5>
+			</div>
+		</div>
+	</div>
+
+</div>

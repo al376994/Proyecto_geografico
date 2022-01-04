@@ -68,7 +68,7 @@
 		<div class="col-md-4">
 			<div th:if="${weather.get(ubicacion.getNombre()) != null}">
 				<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black" th:object="${weather.get(ubicacion.getNombre())}">
-					<div th:replace="fragments/servicioInsideCard"></div>
+					<div th:replace="fragments/weatherInsideCard"></div>
 				</div>
 			</div>
 			<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black" th:unless="${weather.get(ubicacion.getNombre()) != null}">

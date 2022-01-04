@@ -19,7 +19,8 @@ public class Usuario {
 
 	private final List<APIGeocodeInterface> listAPIGeocode = new ArrayList<>();
 	private APIGeocodeInterface apiGeocode; // La API de geolocalización elegida actualmente por el usuario
-	private APIOpenWeatherInterface apiOpenWeather = new APIOpenWeather();
+	private final APIOpenWeatherInterface apiOpenWeather = new APIOpenWeather();
+	private final APIAirVisualInterface apiAirVisual = new APIAirVisual();
 	private DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
 
 	// FIN DE VARIABLES
@@ -226,5 +227,18 @@ public class Usuario {
 			}
 		}
 		return weather;
+	}
+
+	public Map<String, Polucion> getAirPolution() {
+		Map<String, Polucion> airPolution = new HashMap<>();
+		List<Ubicacion> ubicaciones = getUbicacionesConServicioAPI(APIHelper.AIRPOLUTIONAPI);
+		for (Ubicacion ubicacion : ubicaciones) {
+			try {
+				airPolution.put(ubicacion.getNombre(), apiAirVisual.getPolucionUbicacion(ubicacion));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return airPolution;
 	}
 }

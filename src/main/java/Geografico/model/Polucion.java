@@ -75,16 +75,16 @@ public class Polucion {
         return tiposPolucion.get(tipo);
     }
 
-    public String getLevelOfConcern(boolean us) {
+    public Map.Entry<String, String> getLevelOfConcern(boolean us) {
         int aq;
         if(us) aq = aqius;
         else aq = aqcn;
 
-        if (aq < 51) return "Calidad buena";
-        if (aq < 101) return "Calidad moderada";
-        if (aq < 151) return "Calidad insalubre para grupos sensibles";
-        if (aq < 201) return "Calidad insalubre para el público general";
-        if (aq < 301) return "Calidad altamenta insalubre";
-        return "Calidad altamente contaminante, condiciones de emergencia";
+        if (aq < 51)  return Map.entry("LC_Good", "Calidad buena");;
+        if (aq < 101) return Map.entry("LC_Moderate", "Calidad moderada");
+        if (aq < 151) return Map.entry("LC_Unhealthy_1","Calidad insalubre para grupos sensibles");
+        if (aq < 201) return Map.entry("LC_Unhealthy_2","Calidad insalubre para el público general");
+        if (aq < 301) return Map.entry("LC_Unhealthy_3","Calidad altamenta insalubre");
+        return Map.entry("LC_Hazardous","Calidad altamente contaminante, condiciones de emergencia");
     }
 }

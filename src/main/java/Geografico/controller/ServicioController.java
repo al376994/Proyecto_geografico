@@ -30,11 +30,12 @@ public class ServicioController {
 		List<String> serviciosActivos = usuario.getServiciosAPI();
 		model.addAttribute("serviciosActivos", serviciosActivos);
 
-		if (serviciosActivos.contains(APIHelper.WEATHERAPI))
-			model.addAttribute("ubicacionesWeather", usuario.getUbicacionesConServicioAPI(APIHelper.WEATHERAPI));
-		if (serviciosActivos.contains(APIHelper.AIRPOLUTIONAPI))
-			model.addAttribute("ubicacionesAirPolution", usuario.getUbicacionesConServicioAPI(APIHelper.AIRPOLUTIONAPI));
-			model.addAttribute("weather", usuario.getWeather());
+		model.addAttribute("ubicacionesWeather", usuario.getUbicacionesConServicioAPI(APIHelper.WEATHERAPI));
+		model.addAttribute("weather", usuario.getWeather());
+
+		model.addAttribute("ubicacionesAirPolution", usuario.getUbicacionesConServicioAPI(APIHelper.AIRPOLUTIONAPI));
+		model.addAttribute("airPolution", usuario.getAirPolution());
+
 		return "principal/servicios";
 	}
 }

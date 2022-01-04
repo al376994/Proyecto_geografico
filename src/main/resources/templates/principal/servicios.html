@@ -32,11 +32,11 @@
 	</div>
 
 	<div class="row">
-		<div class="col-md-4 bar-r" th:if="${serviciosActivos.contains('OpenWeather')}">
+		<div class="col-md-4 bar-r " th:if="${serviciosActivos.contains('OpenWeather')}">
 			<div th:each="ubicacion: ${ubicacionesWeather}">
 				<div class="ms-4 mb-2 bg-white border-box-with-shadow" th:object="${weather.get(ubicacion.getNombre())}">
 					<h3 class="ms-2" th:text="${ubicacion.getNombre()}"></h3>
-					<div th:replace="fragments/servicioInsideCard"></div>
+					<div th:replace="fragments/weatherInsideCard"></div>
 				</div>
 			</div>
 		</div>
@@ -49,10 +49,19 @@
 		</div>
 
 		<div class="col-md-4 bar-r" th:if="${serviciosActivos.contains('AirVisual')}">
-			<h5 class="ms-4 text-md-center bg-dark">Contenido Calidad del aire</h5>
+			<div th:each="ubicacion: ${ubicacionesAirPolution}">
+				<div class="ms-4 mb-2 bg-white border-box-with-shadow" th:object="${airPolution.get(ubicacion.getNombre())}">
+					<h3 class="ms-2" th:text="${ubicacion.getNombre()}"></h3>
+					<div th:replace="fragments/airPolutionInsideCard"></div>
+				</div>
+			</div>
 		</div>
 		<div class="col-md-4 bar-r" th:unless="${serviciosActivos.contains('AirVisual')}">
-			<h5 class="ms-4 text-md-center bg-dark">Servicio desactivado</h5>
+			<div class="row ms-4">
+				<div class="col-md-12">
+					<h5 class="text-md-center bg-dark">Servicio desactivado</h5>
+				</div>
+			</div>
 		</div>
 
 		<div class="col-md-4" th:if="${serviciosActivos.contains('SportsData')}">

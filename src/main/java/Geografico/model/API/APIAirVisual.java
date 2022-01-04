@@ -2,6 +2,7 @@ package Geografico.model.API;
 
 import Geografico.model.Polucion;
 import Geografico.model.Ciudad;
+import Geografico.model.Ubicacion;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -54,9 +55,9 @@ public class APIAirVisual implements APIAirVisualInterface{
         return new Polucion(aqius,aqicn,mainus,maincn);
     }
 
-    public Polucion getPolucionCoordenadas(double latitud, double longitud) throws JSONException {
+    public Polucion getPolucionUbicacion(Ubicacion u) throws JSONException {
         String raw = APIHelper.getBody("http://api.airvisual.com/v2/nearest_city?lat="
-                + latitud + "&lon=" + longitud + "&key="+key);
+                + u.getLatitud() + "&lon=" + u.getLongitud() + "&key="+key);
 
         JSONObject obj = new JSONObject(raw);
         JSONObject data = obj.getJSONObject("data");

@@ -227,6 +227,10 @@ h4 {
     border-right: outset;
 }
 
+.bar-b {
+    border-bottom: outset;
+}
+
 .borrasca {
     color: red;
 }
@@ -235,6 +239,48 @@ h4 {
     color: blue;
 }
 
-.text-black{
+.text-black {
     color:#000!important
+}
+
+.LC_Good {
+    background: rgb(0, 228, 0);
+    color: black;
+    margin-right:1rem;
+}
+
+.LC_Moderate {
+    background: yellow;
+    color: black;
+    margin-right:1rem;
+}
+
+.LC_Unhealthy_1 {
+    background: rgb(255, 126, 0);
+    color: white;
+    margin-right:1rem;
+}
+
+.LC_Unhealthy_2 {
+    background: red;
+    color: white;
+    margin-right:1rem;
+}
+
+.LC_Unhealthy_3 {
+    background: rgb(143, 63, 151);
+    color: white;
+    margin-right:1rem;
+}
+
+.LC_Hazardous {
+    background: rgb(126, 0, 35 );
+    color: white;
+    margin-right:1rem;
+}
+
+.col-md-0{
+    -ms-flex:0 0 auto;
+    flex:0 0 auto;
+    width:0%
 }
