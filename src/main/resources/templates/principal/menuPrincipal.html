@@ -25,5 +25,17 @@
 		<a th:href="@{/ubicacionActual/servicios}" role="button" class="btn btn-primary">Ubicación actual</a>
 	</div>
 </div>
+<div class="row">
+	<h1>Ubicaciones favoritas</h1>
+	<div class="container container-xxxl pt-4 card bg-light h-auto">
+		<div class="table-responsive mt-4 grey-background">
+			<div style="width: 99%;" th:each="ubicacion: ${ubicaciones}">
+
+				<div th:replace="fragments/ubicacionCard"></div>
+
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>

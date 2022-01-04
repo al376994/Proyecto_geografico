@@ -391,15 +391,15 @@ public class DataBaseFunctions {
 		}
 	}
 
-	public List<String> getUbicacionesFavoritas(String usuario){
-		List<String> ubicacionesFavoritas = new ArrayList<>();
+	public List<Ubicacion> getUbicacionesFavoritas(String usuario){
+		List<Ubicacion> ubicacionesFavoritas = new ArrayList<>();
 		try{
-			PreparedStatement statement = conn.prepareStatement("select ubicacion from usuario_ubicaciones " +
-					"where nombre = ? and favorito=true;");
+			PreparedStatement statement = conn.prepareStatement("select * from usuario_ubicaciones " +
+					"where nombre = ? and favorito=true and activo=true;");
 			statement.setString(1, usuario);
 			ResultSet result = statement.executeQuery();
 			while(result.next()){
-				ubicacionesFavoritas.add(result.getString(1));
+				ubicacionesFavoritas.add(buildUbicacionFromResultSet(result));
 			}
 
 		}catch (SQLException e){
@@ -410,7 +410,7 @@ public class DataBaseFunctions {
 	}
 
 	public boolean desactivarUbicacionFavorita(String usuario, String ubicacion) throws SQLException {
-		if (!getUbicacionesFavoritas(usuario).contains(ubicacion)){
+		if (!getUbicacionUsuario(usuario, ubicacion).isFavorito()){
 			return false;
 		}
 		try{

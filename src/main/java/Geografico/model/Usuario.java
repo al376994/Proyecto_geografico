@@ -113,8 +113,16 @@ public class Usuario {
 		return dataBaseFunctions.listarUbicacionesUsuario(this.nombre);
 	}
 
+	public List<Ubicacion> getUbicacionesActivas() throws SQLException {
+		return dataBaseFunctions.getUbicacionesActivas(this.nombre);
+	}
+
 	public List<Ubicacion> getUbicacionesDesactivadas() throws SQLException {
 		return dataBaseFunctions.getUbicacionesDesactivadasUsuario(this.nombre);
+	}
+
+	public List<Ubicacion> getUbicacionesFavoritas() {
+		return dataBaseFunctions.getUbicacionesFavoritas(this.nombre);
 	}
 
 	public Ubicacion getUbicacion(String ubicacion){
@@ -129,10 +137,6 @@ public class Usuario {
 	public boolean desactivarUbicacion(Ubicacion ubicacion) {
 		dataBaseFunctions.desactivarUbicacion(this.nombre, ubicacion);
 		return dataBaseFunctions.isLocationActive(this.nombre, ubicacion);
-	}
-
-	public List<Ubicacion> getUbicacionesActivas() throws SQLException {
-		return dataBaseFunctions.getUbicacionesActivas(this.nombre);
 	}
 
 	public boolean toggleFavoritoUbicacion(Ubicacion ubicacion) throws SQLException {

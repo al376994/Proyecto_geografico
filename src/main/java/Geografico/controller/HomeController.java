@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -27,10 +28,16 @@ public class HomeController {
 		else return "redirect:/menuPrincipal";
 	}
 
-	//habrá que ponerlo como post
 	@RequestMapping(value="/menuPrincipal")
-	public String redirigirPaginaPrincipal(Model model, HttpSession session){
+	public String redirigirPaginaPrincipal(Model model, HttpSession session) {
 		if (ControllerFunctions.checkIsLogged(model, session, "/menuPrincipal")) return "redirect:/login";
+
+		Usuario usuario = (Usuario)session.getAttribute("user");
+		List<Ubicacion> ubicaciones = usuario.getUbicacionesFavoritas();
+		model.addAttribute("ubicaciones", ubicaciones);
+		model.addAttribute("weather", usuario.getWeather());
+		model.addAttribute("airPolution", usuario.getAirPolution());
+
 		return "principal/menuPrincipal";
 	}
 
