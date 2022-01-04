@@ -16,7 +16,7 @@ public class TiempoActual {
 	}
 
 	public String getDescripcion() {
-		return descripcion;
+		return descripcion.substring(0,1).toUpperCase() + descripcion.substring(1).toLowerCase();
 	}
 
 	public void setDescripcion(String descripcion) {
