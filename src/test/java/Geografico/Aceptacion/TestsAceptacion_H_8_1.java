@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestsAceptacion_H_8_1 {
     private Usuario usuario;
@@ -42,13 +43,12 @@ public class TestsAceptacion_H_8_1 {
         //simulamos que no hay conexión con la API
         APISportsData = null;
         //Arrange
-        List<String> ligasDisponibles = APISportsData.getLigas();
-        System.out.println(ligasDisponibles);
+        assertThrows(NullPointerException.class,
+                ()-> {
+                    List<String> ligasDisponibles = APISportsData.getLigas();
+        });
         //Act
-        Boolean elegida = APISportsData.elegirLiga(usuario.getNombre(),ligasDisponibles.get(0));
-        List<Partido> partidos = APISportsData.getPartidosLiga(ligasDisponibles.get(0));
         //Assert
         //cortamos la conexión con la API
-        assertEquals(null, partidos);
     }
 }

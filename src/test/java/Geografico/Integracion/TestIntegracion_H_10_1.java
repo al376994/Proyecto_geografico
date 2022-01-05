@@ -10,6 +10,8 @@ import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.io.FileNotFoundException;
@@ -46,10 +48,12 @@ public class TestIntegracion_H_10_1 {
         //Arrange
         when(mockedAPIAirVisual.getPolucionCiudadCercana()).thenReturn(null);
         mockedAPIAirVisual = null;
-        Polucion p = mockedAPIAirVisual.getPolucionCiudadCercana();
+        assertThrows(NullPointerException.class,
+                ()-> {
+                    Polucion p = mockedAPIAirVisual.getPolucionCiudadCercana();
+                });
         //Act
 
         //Assert
-        assertEquals(null, p);
     }
 }

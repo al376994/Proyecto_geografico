@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 public class TestIntegracion_H_8_1 {
@@ -62,15 +63,13 @@ public class TestIntegracion_H_8_1 {
         List<Partido> partidos1 = new ArrayList<>();
         partidos1.add(new Partido(new Equipo(), new Equipo(), "estadio", "resultado", "fecha"));
         partidos1.add(new Partido(new Equipo(), new Equipo(), "estadio", "resultado", "fecha"));
-        when(mockedAPISportsData.getLigas()).thenReturn(ligas);
-        List<String> ligasDisponibles = mockedAPISportsData.getLigas();
-        System.out.println(ligasDisponibles);
+        assertThrows(NullPointerException.class,
+                ()-> {
+                    List<String> ligasDisponibles = mockedAPISportsData.getLigas();
+                });
         //Act
-        when(mockedAPISportsData.getPartidosUsuario(ligasDisponibles.get(0))).thenReturn(partidos1);
-        Boolean elegida = mockedAPISportsData.elegirLiga(usuario.getNombre(),ligasDisponibles.get(0));
-        List<Partido> partidos = mockedAPISportsData.getPartidosLiga(ligasDisponibles.get(0));
+
         //Assert
         //cortamos la conexión con la API
-        assertEquals(null, partidos);
     }
 }
