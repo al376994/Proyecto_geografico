@@ -295,6 +295,7 @@ public class DataBaseFunctions {
 			statement.setString(2, ubicacion.getNombre());
 			ResultSet result = statement.executeQuery();
 			if(result.next()) active = result.getBoolean("activo");
+			else active = false;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
