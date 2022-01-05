@@ -7,6 +7,9 @@ import Geografico.model.excepciones.AirPolutionAPIRequestsLimitReachedException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class APIAirVisual implements APIAirVisualInterface{
 
     private final String key = APIHelper.airVisualKey;
@@ -76,5 +79,25 @@ public class APIAirVisual implements APIAirVisualInterface{
         String maincn = pollution.getString("maincn");
         String mainus = pollution.getString("mainus");
         return new Polucion(aqius,aqicn,mainus,maincn);
+    }
+
+    public String getDescripcion(){
+        return "API para obtener la calidad del aire";
+    }
+
+    public String getPeticiones(){
+        return "10.000 peticiones/mes";
+    }
+
+    public List<String> getAtributos(){
+        List<String> l = new ArrayList<>();
+        l.add("Calidad del aire según USA");
+        l.add("Calidad del aire según China");
+        return l;
+    }
+
+
+    public String getNombre(){
+        return "AirVisual";
     }
 }

@@ -75,4 +75,26 @@ public class APIOpenWeather implements APIOpenWeatherInterface{
         }
         return previsiones;
     }
+
+    public String getDescripcion(){
+        return "API para obtener el tiempo actual y la predicción";
+    }
+
+    public String getPeticiones(){
+        return "60 peticiones/minuto o 1.000.000 peticiones/mes";
+    }
+
+    public List<String> getAtributos(){
+        List<String> l = new ArrayList<>();
+        l.add("Temperatura y sensación térmica");
+        l.add("Humedad");
+        l.add("Presión atmosférica");
+        l.add("Descripción del tiempo");
+        return l;
+    }
+
+
+    public String getNombre(){
+        return "OpenWeather";
+    }
 }

@@ -6,6 +6,8 @@ import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class APIGeocode implements APIGeocodeInterface{
@@ -123,5 +125,24 @@ public class APIGeocode implements APIGeocodeInterface{
 		// 4 a 6 decimales pegados por una ",", aqui nos aseguramos de que siempre tengasn 5 decimales
 		// Locale.ENGLISH se usa para que al formatear la separación decimal se usen '.' en vez de ','
 		return String.format(Locale.ENGLISH,"%.5f,%.5f", lat, lon);
+	}
+
+	public String getDescripcion(){
+		return "API para obtener ubicaciones";
+	}
+
+	public String getPeticiones(){
+		return "1 petición/segundo";
+	}
+
+	public List<String> getAtributos(){
+		List<String> l = new ArrayList<>();
+		l.add("Convierte coordenadas a topónimos y vicerversa");
+		return l;
+	}
+
+
+	public String getNombre(){
+		return "GeoCode";
 	}
 }
