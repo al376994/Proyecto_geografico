@@ -145,9 +145,15 @@ public class DataBaseFunctions {
 			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario_ubicaciones WHERE nombre=?");
 			statement.setString(1, nombre);
 			statement.executeUpdate();
+
 			statement = conn.prepareStatement("DELETE FROM usuario_servicios WHERE usuario=?");
 			statement.setString(1, nombre);
 			statement.executeUpdate();
+
+			statement = conn.prepareStatement("DELETE FROM historial_ubicaciones WHERE nombreusuario=?");
+			statement.setString(1, nombre);
+			statement.executeUpdate();
+
 			statement = conn.prepareStatement("DELETE FROM usuario WHERE nombre=?");
 			statement.setString(1, nombre);
 			statement.executeUpdate();
@@ -785,7 +791,8 @@ public class DataBaseFunctions {
 			statement.setString(1, nombre);
 			statement.setString(2, toponimo);
 			statement.execute();
-		} catch (SQLException e) {
+			addUbicacionUsuario(nombre, getAddedUbicacionPorToponimo(toponimo));
+		} catch (SQLException | AlreadyHasPlaceException e) {
 			e.printStackTrace();
 			return false;
 		}
