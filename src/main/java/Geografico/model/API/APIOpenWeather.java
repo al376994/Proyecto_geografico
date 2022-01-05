@@ -53,6 +53,7 @@ public class APIOpenWeather implements APIOpenWeatherInterface{
         List<Prevision> previsiones = new ArrayList<>();
         APIGeocode apiGeocode = new APIGeocode();
         Coordenadas coordenadas = apiGeocode.getCoordenadasDeToponimo(c.getNombre());
+        System.out.println(coordenadas.getLatitud());
         String raw = APIHelper.getBody("https://api.openweathermap.org/data/2.5/onecall?" +
                 "lat=" + coordenadas.getLatitud() +"&lon="+ coordenadas.getLongitud() +
                 "&exclude=current,minutely,hourly&appid=" + apiKey + "&units=metric" + "&lang=es");

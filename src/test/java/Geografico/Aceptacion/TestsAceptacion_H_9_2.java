@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestsAceptacion_H_9_2 {
     private Usuario usuario;
@@ -42,22 +43,25 @@ public class TestsAceptacion_H_9_2 {
             previsiones.add(pr);
         }
         //Assert
-        assertEquals(0, previsiones.size());
+        assertEquals(true, previsiones.get(1).size() > 0);
     }
 
     @Test
     public void verTiempoCapitalesCV_E9_2_2_Incorrecta() throws SQLException, JSONException, FileNotFoundException {
         APIOpenDataSoft = null;
         //Arrange
-        List<Ciudad> ciudades = APIOpenDataSoft.getCapitalesCV();
-        System.out.println(ciudades);
+        assertThrows(NullPointerException.class,
+                ()-> {
+                    List<Ciudad> ciudades = APIOpenDataSoft.getCapitalesCV();
+                });
+//        System.out.println(ciudades);
         //Act
-        List<List<Prevision>> previsiones = new ArrayList<>();
-        for (Ciudad c:ciudades){
-            List<Prevision> pr = APIOpenWeather.getPrevisionDiaria(c);
-            previsiones.add(pr);
-        }
+//        List<List<Prevision>> previsiones = new ArrayList<>();
+//        for (Ciudad c:ciudades){
+//            List<Prevision> pr = APIOpenWeather.getPrevisionDiaria(c);
+//            previsiones.add(pr);
+//        }
         //Assert
-        assertEquals(0, previsiones.size());
+//        assertEquals(0, previsiones.size());
     }
 }

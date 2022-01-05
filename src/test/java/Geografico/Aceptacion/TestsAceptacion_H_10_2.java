@@ -16,11 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestsAceptacion_H_10_2 {
     private Usuario usuario;
     private APIAirVisualInterface APIAirVisual;
     private APIOpenWeatherInterface APIOpenWeather;
+    private APIOpenDataSoft apiOpenDataSoft;
 
 
     @BeforeEach
@@ -29,14 +31,16 @@ public class TestsAceptacion_H_10_2 {
         usuario.setNombre("usuarioFt");
         APIAirVisual = new APIAirVisual();
         APIOpenWeather = new APIOpenWeather();
+        apiOpenDataSoft = new APIOpenDataSoft();
     }
 
     @Test
     public void verTiempoUbiActual_E10_1_1_Correcta() throws SQLException, CoordenadasExcepcion, JSONException, FileNotFoundException {
         //Arrange
         Ciudad ciudadCercana = APIAirVisual.getCiudadCercana();
+        Ciudad aux = apiOpenDataSoft.cambiarParaOpenWeather(ciudadCercana);
         //Act
-        TiempoActual p = APIOpenWeather.getTiempoActual(ciudadCercana);
+        TiempoActual p = APIOpenWeather.getTiempoActual(aux);
         //Assert
         assertEquals(true, p.gettActual()!=null);
     }
@@ -46,8 +50,10 @@ public class TestsAceptacion_H_10_2 {
         //Arrange
         Ciudad ciudadCercana = null;
         //Act
-        TiempoActual p = APIOpenWeather.getTiempoActual(ciudadCercana);
+        assertThrows(NullPointerException.class,
+                ()-> {
+                    TiempoActual p = APIOpenWeather.getTiempoActual(ciudadCercana);
+        });
         //Assert
-        assertEquals(null, p);
     }
 }

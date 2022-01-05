@@ -32,6 +32,7 @@ public class TestsAceptacion_H_1_5 {
     public void activarUbicacionNoDisponible_E1_5_2_NoSeActiva(){
         //Arrange
         //Act
+        usuario.desactivarUbicacion(ubicacion);
         Boolean activada = usuario.activarUbicacion(ubicacion);
         //Assert
         assertFalse(activada);

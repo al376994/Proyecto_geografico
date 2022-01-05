@@ -31,6 +31,7 @@ public class TestsAceptacion_H_1_2 {
         listaUsuario = new ListaUsuario();
         usuario = new Usuario();
         usuario.setNombre("usuarioPruebas");
+        usuario.setContrasena("pwd");
         limpiarBaseDeDatos();
         listaUsuario.addUsuario(usuario);
         // Esto, aunque redundante, sirve para simular el comportamiento completo del programa

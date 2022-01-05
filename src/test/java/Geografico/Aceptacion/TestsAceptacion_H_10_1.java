@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestsAceptacion_H_10_1 {
     private Usuario usuario;
@@ -43,10 +44,11 @@ public class TestsAceptacion_H_10_1 {
     public void verCalidadAireUbiActual_E10_1_2_Incorrecta() throws SQLException, JSONException, FileNotFoundException {
         //Arrange
         APIAirVisual = null;
-        Polucion p = APIAirVisual.getPolucionCiudadCercana();
+        assertThrows(NullPointerException.class,
+                ()-> {
+                    Polucion p = APIAirVisual.getPolucionCiudadCercana();
+        });
         //Act
-
         //Assert
-        assertEquals(null, p);
     }
 }
