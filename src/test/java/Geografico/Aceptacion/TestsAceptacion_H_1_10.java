@@ -1,9 +1,14 @@
 package Geografico.Aceptacion;
 
+import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
+import Geografico.model.excepciones.AlreadyHasPlaceException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,12 +16,25 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TestsAceptacion_H_1_10 {
     private Usuario usuario;
     private Ubicacion ubicacion;
+    private ListaUsuario listaUsuario;
 
     @BeforeEach
-    public void setUp() {
+    private void setUp() throws SQLException, AlreadyHasPlaceException {
+        listaUsuario = new ListaUsuario();
         usuario = new Usuario();
-        ubicacion = new Ubicacion(39.97990, -0.03304, "Castello De La Plana");
-        ubicacion.setAlias("Castellon");
+        usuario.setNombre("usuarioPruebas");
+        usuario.setContrasena("pwd");
+        limpiarBaseDeDatos();
+        listaUsuario.addUsuario(usuario);
+        usuario = listaUsuario.getUsuario(usuario.getNombre(), null);
+        ubicacion = usuario.altaUbicacionToponimo("Castellón");
+    }
+
+    @AfterEach
+    private void limpiarBaseDeDatos() throws SQLException {
+        if (listaUsuario.getUsuario(usuario.getNombre(), null) != null) {
+            listaUsuario.deleteUsuario(usuario.getNombre(), null);
+        }
     }
 
     @Test
@@ -31,6 +49,7 @@ public class TestsAceptacion_H_1_10 {
     @Test
     public void darDeBajaUbicacionNoDisponible_E1_10_2_laUbicacionNoSePuedeDarDeBaja() {
         //Arrange
+        usuario.darDeBajaUbicacion(ubicacion);
         //Act
         Boolean baja = usuario.darDeBajaUbicacion(ubicacion);
         //Assert
