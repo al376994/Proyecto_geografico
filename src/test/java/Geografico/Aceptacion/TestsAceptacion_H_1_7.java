@@ -39,7 +39,7 @@ public class TestsAceptacion_H_1_7 {
         //Act
         Ubicacion ubicacion = apiGeocode.getUbicacionCoordenadas(39.986,-0.0376709);
         //Assert
-        assertEquals("Castellón de la Plana", ubicacion.getNombre());
+        assertEquals("Castello De La Plana", ubicacion.getNombre());
     }
 
     @Test
