@@ -40,10 +40,10 @@
 
 		<div class="col-md-6">
 			<a th:if="${serviciosActivos.contains('AirVisual')}"
-			   th:href="@{/servicios/desactivar/WEATHERAPI}"
+			   th:href="@{/servicios/desactivar/AIRPOLUTIONAPI}"
 			   role="button" class="btn btn-primary w-100 ms-2 me-4">Desactivar</a>
 			<a th:unless="${serviciosActivos.contains('AirVisual')}"
-			   th:href="@{/servicios/activar/WEATHERAPI}"
+			   th:href="@{/servicios/activar/AIRPOLUTIONAPI}"
 			   role="button" class="btn btn-primary w-100 ms-2 me-4">Activar</a>
 		</div>
 
@@ -83,6 +83,21 @@
 		</div>
 	</div>
 
+</div>
+<br>
+<div class="container container-xxxl py-4 card bg-light h-auto">
+	<div th:each="servicio: ${serv}">
+		<h3 align="center" th:text="${servicio.getNombre()}"></h3>
+		<h4 align="left" th:text="${servicio.getDescripcion()}"></h4>
+		<h4 align="left" th:text="${servicio.getPeticiones()}"></h4>
+		<h4>Nos proporciona:</h4>
+		<ol type=”A”>
+			<div th:each="atributo: ${servicio.getAtributos()}">
+				<h4 align="left"><li th:text="${atributo}"></li></h4>
+			</div>
+		</ol>
+		<br>
+	</div>
 </div>
 </body>
 </html>

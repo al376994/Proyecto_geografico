@@ -163,4 +163,24 @@ public class APISportsData implements APISportsDataInterface{
     public String getSeason(String id){
         return APIHelper.getBody("https://app.sportdataapi.com/api/v1/soccer/seasons?apikey=5aa5db70-5b72-11ec-9e41-f38ffd713460&league_id="+id);
     }
+
+    public String getDescripcion(){
+        return "API para obtener la clasificación y los partidos de cualquier liga de fútbol";
+    }
+
+    public String getPeticiones(){
+        return "500 peticiones/día";
+    }
+
+    public List<String> getAtributos(){
+        List<String> l = new ArrayList<>();
+        l.add("Clasificación de la liga");
+        l.add("Partidos pasado y futuros");
+        return l;
+    }
+
+
+    public String getNombre(){
+        return "SporsData";
+    }
 }

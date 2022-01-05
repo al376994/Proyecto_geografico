@@ -1,8 +1,6 @@
 package Geografico.controller;
 
-import Geografico.model.API.APIGeocode;
-import Geografico.model.API.APIHelper;
-import Geografico.model.API.APIOpenWeather;
+import Geografico.model.API.*;
 import Geografico.model.DataBaseConnector;
 import Geografico.model.DataBaseFunctions;
 import Geografico.model.Ubicacion;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,6 +23,8 @@ public class ServicioController {
 	private final DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(DataBaseConnector.getConnection());
 	private final APIGeocode apiGeocode = new APIGeocode();
 	private final APIOpenWeather apiOpenWeather = new APIOpenWeather();
+	private final APIAirVisual apiAirVisual = new APIAirVisual();
+	private final APISportsData apiSportsData = new APISportsData();
 
 	@RequestMapping(value="")
 	public String redirigirServicio(Model model, HttpSession session) throws SQLException {
@@ -37,6 +38,11 @@ public class ServicioController {
 
 		model.addAttribute("ubicacionesAirPolution", usuario.getUbicacionesConServicioAPI(APIHelper.AIRPOLUTIONAPI));
 		model.addAttribute("airPolution", usuario.getAirPolution());
+
+		//descripción de los servicios
+		List<Object> serv = new ArrayList<>();
+		serv.add(apiAirVisual);serv.add(apiOpenWeather);serv.add(apiSportsData);serv.add(apiGeocode);
+		model.addAttribute("serv", serv);
 
 		return "principal/servicios";
 	}

@@ -10,4 +10,5 @@ public interface APIGeocodeInterface {
 	Ubicacion getUbicacionToponimo(String toponimo);
 	Ubicacion getUbicacionCoordenadas(double lat, double lon) throws CoordenadasExcepcion;
 	Coordenadas getCoordenadasDeToponimo(String toponimo);
+	String getDescripcion();
 }

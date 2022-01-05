@@ -12,4 +12,5 @@ public interface APIAirVisualInterface {
 	Ciudad getCiudadCercana() throws JSONException;
 	Polucion getPolucionCiudadCercana() throws JSONException;
 	Polucion getPolucionUbicacion(Ubicacion u) throws JSONException, AirPolutionAPIRequestsLimitReachedException;
+	String getDescripcion();
 }
