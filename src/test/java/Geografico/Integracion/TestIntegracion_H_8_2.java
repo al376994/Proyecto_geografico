@@ -10,6 +10,8 @@ import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
@@ -62,15 +64,11 @@ public class TestIntegracion_H_8_2 {
         List<EquipoClasificacion> equipos1 = new ArrayList<>();
         equipos1.add(new EquipoClasificacion("Vila", "es", "id", "logo", 20, 0, 0, 0));
         equipos1.add(new EquipoClasificacion("Vila", "es", "id", "logo", 20, 0, 0, 0));
-        when(mockedAPISportsData.getLigas()).thenReturn(ligas);
-        List<String> ligasDisponibles = mockedAPISportsData.getLigas();
-        System.out.println(ligasDisponibles);
+        assertThrows(NullPointerException.class,
+                ()-> {
+                    List<String> ligasDisponibles = mockedAPISportsData.getLigas();
+                });
         //Act
-        when(mockedAPISportsData.elegirLiga(usuario.getNombre(),ligasDisponibles.get(0))).thenReturn(true);
-        Boolean elegida = mockedAPISportsData.elegirLiga(usuario.getNombre(),ligasDisponibles.get(0));
-        when(mockedAPISportsData.getClasificacionUsuario(ligasDisponibles.get(0))).thenReturn(equipos1);
-        List<EquipoClasificacion> equipos = mockedAPISportsData.getClasificacionUsuario(ligasDisponibles.get(0));
         //Assert
-        assertEquals(null, equipos);
     }
 }

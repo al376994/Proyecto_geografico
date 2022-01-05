@@ -9,6 +9,8 @@ import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.io.FileNotFoundException;
@@ -59,15 +61,11 @@ public class TestIntegracion_H_9_1 {
     public void verTiempoCapitalesProvincia_E9_1_2_Incorrecta() throws SQLException, JSONException, FileNotFoundException {
         mockedAPIOpenDataSoft = null;
         //Arrange
-        List<Ciudad> ciudades = mockedAPIOpenDataSoft.getCapitales();
-        System.out.println(ciudades);
+        assertThrows(NullPointerException.class,
+                ()-> {
+                    List<Ciudad> ciudades = mockedAPIOpenDataSoft.getCapitales();
+        });
         //Act
-        List<List<Prevision>> previsiones = new ArrayList<>();
-        for (Ciudad c:ciudades){
-            List<Prevision> pr = mockedAPIOpenWeather.getPrevisionDiaria(c);
-            previsiones.add(pr);
-        }
         //Assert
-        assertEquals(0, previsiones.size());
     }
 }

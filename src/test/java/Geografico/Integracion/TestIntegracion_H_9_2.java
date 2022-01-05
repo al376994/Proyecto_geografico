@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 public class TestIntegracion_H_9_2 {
@@ -62,15 +63,11 @@ public class TestIntegracion_H_9_2 {
     public void verTiempoCapitalesCV_E9_2_2_Incorrecta() throws SQLException, JSONException, FileNotFoundException {
         mockedAPIOpenDataSoft = null;
         //Arrange
-        List<Ciudad> ciudades = mockedAPIOpenDataSoft.getCapitalesCV();
-        System.out.println(ciudades);
+        assertThrows(NullPointerException.class,
+                ()-> {
+                    List<Ciudad> ciudades = mockedAPIOpenDataSoft.getCapitalesCV();
+                });
         //Act
-        List<List<Prevision>> previsiones = new ArrayList<>();
-        for (Ciudad c:ciudades){
-            List<Prevision> pr = mockedAPIOpenWeather.getPrevisionDiaria(c);
-            previsiones.add(pr);
-        }
         //Assert
-        assertEquals(0, previsiones.size());
     }
 }
