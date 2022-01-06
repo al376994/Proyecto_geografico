@@ -187,12 +187,11 @@ public class Usuario {
 
 	public boolean desactivarServicioAPI(String servicio) {
 		try {
-			dataBaseFunctions.desactivarServicioAPIUsuario(this.nombre, servicio);
+			return dataBaseFunctions.desactivarServicioAPIUsuario(this.nombre, servicio);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		return true;
 	}
 
 	public List<String> getServiciosAPI() {

@@ -520,15 +520,16 @@ public class DataBaseFunctions {
 		return true;
 	}
 
-	public void desactivarServicioAPIUsuario(String usuario, String servicio) {
+	public boolean desactivarServicioAPIUsuario(String usuario, String servicio) {
 		try {
 			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario_servicios WHERE usuario =? AND servicioapi=?;");
 			statement.setString(1, usuario);
 			statement.setString(2, servicio);
-			statement.execute();
+			return statement.executeUpdate() > 0;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public List<String> getServiciosAPIUsuario(String usuario) {

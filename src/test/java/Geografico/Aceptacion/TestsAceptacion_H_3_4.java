@@ -1,51 +1,59 @@
 package Geografico.Aceptacion;
 
-import Geografico.model.DataBaseConnector;
-import Geografico.model.DataBaseFunctions;
-import Geografico.model.Ubicacion;
-import Geografico.model.Usuario;
+import Geografico.model.*;
+import Geografico.model.API.APIGeocode;
+import Geografico.model.API.APIHelper;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestsAceptacion_H_3_4 {
+	private Usuario usuario;
+	private ListaUsuario listaUsuario;
 
-    @Test
-    public void desactivarAPIQueYaNoInteresaAlUsuario_E3_4_1_SeDesactivaLaAPIParaEsteUsuario() throws SQLException {
-        //Arrange
-        Connection conn = DataBaseConnector.getConnection();
-        DataBaseFunctions dataBaseFunctions = new DataBaseFunctions(conn);
+	@BeforeEach
+	public void setUp() throws SQLException {
+		listaUsuario = new ListaUsuario();
+		usuario = new Usuario();
+		usuario.setNombre("userP");
+		usuario.setContrasena("passP");
+		limpiarBaseDeDatos();
+		listaUsuario.addUsuario(usuario);
+		// Esto, aunque redundante, sirve para simular el comportamiento completo del programa
+		usuario = listaUsuario.getUsuario(usuario.getNombre(), usuario.getContrasena());
+		usuario.addAPIGeocode(new APIGeocode());
+	}
 
-        dataBaseFunctions.addServicioAPIDisponible("AirVisual1");
-        dataBaseFunctions.addServicioAPIDisponible("Currents1");
+	@AfterEach
+	private void limpiarBaseDeDatos() throws SQLException {
+		if (listaUsuario.getUsuario(usuario.getNombre(), usuario.getContrasena()) != null) {
+			listaUsuario.deleteUsuario(usuario.getNombre(), usuario.getContrasena());
+		}
+	}
 
-        Usuario usuario = new Usuario("nuevoUsuario");
-        List<String> APIsDisponibles= usuario.getServiciosAPIDisponibles();
-        boolean activado = usuario.activarServicioAPI(APIsDisponibles.get(0));
+	@Test
+	public void desactivarAPIQueYaNoInteresaAlUsuario_E3_4_1_SeDesactivaLaAPIParaEsteUsuario() {
+		//Arrange
+		usuario.activarServicioAPI(APIHelper.WEATHERAPI);
+		//Act
+		boolean desactivado = usuario.desactivarServicioAPI(APIHelper.WEATHERAPI);
+		//Assert
+		assertTrue(desactivado);
+	}
 
-        //Act
-        boolean desactivado = usuario.desactivarServicioAPI(APIsDisponibles.get(0));
-
-        dataBaseFunctions.deleteServicioAPIDisponible("AirVisual1");
-        dataBaseFunctions.deleteServicioAPIDisponible("Currents1");
-
-        //Assert
-        assertTrue(desactivado);
-    }
-
-    @Test
-    public void desactivarAPIQueYaNoInteresaAlUsuario_E3_4_2_NoTieneAPIsActivasNoSeDesactivaNada() throws SQLException {
-        //Arrange
-        Usuario usuario = new Usuario("nuevoUsuario");
-        List<String> APIsDisponibles= usuario.getServiciosAPIDisponibles();
-        //Act
-        //Assert
-        assertEquals(0, APIsDisponibles.size());
-    }
+	@Test
+	public void desactivarAPIQueYaNoInteresaAlUsuario_E3_4_2_NoTieneAPIsActivasNoSeDesactivaNada() {
+		//Arrange
+		//Act
+		boolean desactivado = usuario.desactivarServicioAPI(APIHelper.WEATHERAPI);
+		//Assert
+		assertFalse(desactivado);
+	}
 }
