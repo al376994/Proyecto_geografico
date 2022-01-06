@@ -1,6 +1,5 @@
 package Geografico.Integracion;
 
-import Geografico.model.DataBaseConnector;
 import Geografico.model.DataBaseFunctions;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
@@ -12,7 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.when;
 
 public class TestIntegracion_H_4_2 {
@@ -61,8 +61,7 @@ public class TestIntegracion_H_4_2 {
 			nombreUbicacion2 = null;
 		}
 		//Assert
-		//comprobación absurda, pero no hay otra
 
-		assertNull(nombreUbicacion2);
+		assertNotEquals(nombreUbicacion2, nombreUbicacion1);
 	}
 }
