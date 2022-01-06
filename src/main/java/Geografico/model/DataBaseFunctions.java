@@ -793,8 +793,8 @@ public class DataBaseFunctions {
 			PreparedStatement statement = conn.prepareStatement("DELETE FROM historial_ubicaciones WHERE nombreusuario = ? AND nombreubicacion = ?;");
 			statement.setString(1, nombre);
 			statement.setString(2, toponimo);
-			statement.execute();
-			addUbicacionUsuario(nombre, getAddedUbicacionPorToponimo(toponimo));
+			if (statement.executeUpdate() > 0) addUbicacionUsuario(nombre, getAddedUbicacionPorToponimo(toponimo));
+			else return false;
 		} catch (SQLException | AlreadyHasPlaceException e) {
 			e.printStackTrace();
 			return false;
