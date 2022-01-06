@@ -19,14 +19,14 @@ public class TestIntegracion_H_5_2 {
 
 
     @BeforeEach
-    private void iniciarVariables() throws SQLException {
+    private void iniciarVariables() {
         usuario = new Usuario();
         usuario.setNombre("usuarioIS");
         mockedDataBaseFunctions = Mockito.mock(DataBaseFunctions.class);
     }
 
     @Test
-    public void iniciarSesion_E5_2_1_inicioCorrecto() throws SQLException, CoordenadasExcepcion {
+    public void iniciarSesion_E5_2_1_inicioCorrecto() throws SQLException {
         //Arrange
         usuario.setContrasena("pwd");
         //Act
@@ -38,7 +38,7 @@ public class TestIntegracion_H_5_2 {
     }
 
     @Test
-    public void iniciarSesion_E5_1_2_inicioIncorrecto() throws SQLException {
+    public void iniciarSesion_E5_2_3_inicioIncorrecto() throws SQLException {
         //Arrange
         usuario.setContrasena("pwd");
         //Act
