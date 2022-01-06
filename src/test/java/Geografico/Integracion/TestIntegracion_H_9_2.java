@@ -66,7 +66,7 @@ public class TestIntegracion_H_9_2 {
         assertThrows(NullPointerException.class,
                 ()-> {
                     List<Ciudad> ciudades = mockedAPIOpenDataSoft.getCapitalesCV();
-                });
+        });
         //Act
         //Assert
     }

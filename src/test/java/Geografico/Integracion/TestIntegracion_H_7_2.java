@@ -33,8 +33,8 @@ public class TestIntegracion_H_7_2 {
         //Arrange
         List<Ubicacion> aux = new ArrayList<>();
         aux.add(new Ubicacion("Castellon"));
-        when(mockedDataBaseFunctions.listarUbicacionesUsuario(usuario.getNombre())).thenReturn(aux);
-        List<Ubicacion> listaUbicaciones = mockedDataBaseFunctions.listarUbicacionesUsuario(usuario.getNombre());
+        when(mockedDataBaseFunctions.getUbicacionesFavoritas(usuario.getNombre())).thenReturn(aux);
+        List<Ubicacion> listaUbicaciones = mockedDataBaseFunctions.getUbicacionesFavoritas(usuario.getNombre());
         Ubicacion castellon = listaUbicaciones.get(0);
 
         //Act
@@ -49,8 +49,8 @@ public class TestIntegracion_H_7_2 {
         //Arrange
         List<Ubicacion> aux = new ArrayList<>();
         aux.add(new Ubicacion("Castellon"));
-        when(mockedDataBaseFunctions.listarUbicacionesUsuario(usuario.getNombre())).thenReturn(aux);
-        List<Ubicacion> listaUbicaciones = mockedDataBaseFunctions.listarUbicacionesUsuario(usuario.getNombre());
+        when(mockedDataBaseFunctions.getUbicacionesFavoritas(usuario.getNombre())).thenReturn(aux);
+        List<Ubicacion> listaUbicaciones = mockedDataBaseFunctions.getUbicacionesFavoritas(usuario.getNombre());
         Ubicacion castellon = listaUbicaciones.get(0);
         //Act
         when(mockedDataBaseFunctions.desactivarUbicacionFavorita(usuario.getNombre(),castellon.getNombre())).thenReturn(false);

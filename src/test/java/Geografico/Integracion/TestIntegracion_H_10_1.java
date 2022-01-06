@@ -47,13 +47,9 @@ public class TestIntegracion_H_10_1 {
     public void verCalidadAireUbiActual_E10_1_2_Incorrecta() throws SQLException, JSONException, FileNotFoundException {
         //Arrange
         when(mockedAPIAirVisual.getPolucionCiudadCercana()).thenReturn(null);
-        mockedAPIAirVisual = null;
-        assertThrows(NullPointerException.class,
-                ()-> {
-                    Polucion p = mockedAPIAirVisual.getPolucionCiudadCercana();
-                });
+        Polucion p = mockedAPIAirVisual.getPolucionCiudadCercana();
         //Act
-
+        assertEquals(null, p);
         //Assert
     }
 }
