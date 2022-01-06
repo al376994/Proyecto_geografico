@@ -17,10 +17,12 @@
         <div class="formLogin1">
             <form class="pt-4" action="update" method="post">
                 <h4 class="py-2">Contraseña: <input type="password" name="password" id="password"/></h4>
+                <input hidden="hidden" name="username" th:value="${user.getNombre()}"/>
                 <div class="boto">
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
+
         </div>
     </div>
 </div>

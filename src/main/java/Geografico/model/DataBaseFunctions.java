@@ -803,9 +803,9 @@ public class DataBaseFunctions {
 	}
 
 	public void actualizarContrasena(String username, String password) {
+		System.out.println(password);
 		try {
-			System.out.println(password);
-			PreparedStatement statement = conn.prepareStatement("UPDATE usuario SET contraseña = ? WHERE nombre = ?;");
+			PreparedStatement statement = conn.prepareStatement("UPDATE usuario SET contrase¤a = ? WHERE nombre = ?;");
 			statement.setString(1, password);
 			statement.setString(2, username);
 			statement.executeUpdate();

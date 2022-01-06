@@ -169,6 +169,9 @@ public class Usuario {
     }
 
 	public boolean reactivarUbicacionDelHistorial(String toponimo) {
+		if (toponimo.equals(null) || toponimo.equals("")) {
+			return false;
+		}
 		return dataBaseFunctions.reactivarUbicacion(this.nombre, toponimo);
 	}
 

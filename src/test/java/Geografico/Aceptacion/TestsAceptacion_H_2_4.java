@@ -55,7 +55,6 @@ public class TestsAceptacion_H_2_4 {
         //Assert
         assertEquals(ubicacionAComprovar.getLatitud(), latitudRecivida);
         usuario.getWeather().get(ubicacion.getNombre()).gettActual();
-
     }
 
     @Test
