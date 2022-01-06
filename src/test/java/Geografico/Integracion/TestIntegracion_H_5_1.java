@@ -13,8 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TestIntegracion_H_5_1 {
@@ -23,14 +22,14 @@ public class TestIntegracion_H_5_1 {
 
 
     @BeforeEach
-    private void iniciarVariables() throws SQLException {
+    private void iniciarVariables() {
         usuario = new Usuario();
         usuario.setNombre("nuevoUsuario");
         mockedDataBaseFunctions = Mockito.mock(DataBaseFunctions.class);
     }
 
     @Test
-    public void registrarUsuario_E5_1_1_registroCorrecto() throws SQLException, CoordenadasExcepcion {
+    public void registrarUsuario_E5_1_1_registroCorrecto() throws SQLException {
         //Arrange
         ArrayList<String> mockedUsuarios = new ArrayList<>();
         mockedUsuarios.add("nuevoUsuario");
@@ -40,18 +39,16 @@ public class TestIntegracion_H_5_1 {
         mockedDataBaseFunctions.addUsuario(usuario);
         List<String> usuarios = mockedDataBaseFunctions.listarUsuarios();
         //Assert
-        assertEquals(true, usuarios.contains("nuevoUsuario"));
+        assertTrue(usuarios.contains("nuevoUsuario"));
     }
 
     @Test
-    public void registrarUsuario_E5_1_2_registroIncorrecto() throws SQLException {
+    public void registrarUsuario_E5_1_4_registroIncorrecto() throws SQLException {
         //Arrange
         usuario.setContrasena("");
         //Act
         doThrow(new IllegalArgumentException()).when(mockedDataBaseFunctions).addUsuario(usuario);
         assertThrows(IllegalArgumentException.class,
-                ()->{
-                    mockedDataBaseFunctions.addUsuario(usuario);
-                });
+                ()-> mockedDataBaseFunctions.addUsuario(usuario));
     }
 }

@@ -52,7 +52,7 @@ public class TestsAceptacion_H_2_5 {
     }
 
     @Test
-    public void reactivarUbicacionActivaDelHistorial_E2_5_3_SeNotificaQueEsaYaEstabaActivada() throws AlreadyHasPlaceException {
+    public void reactivarUbicacionActivaDelHistorial_E2_5_4_SeNotificaQueEsaYaEstabaActivada() throws AlreadyHasPlaceException {
         //Arrange
         Ubicacion ubicacionABorrar = usuario.altaUbicacionToponimo("Castellón");
         //Act

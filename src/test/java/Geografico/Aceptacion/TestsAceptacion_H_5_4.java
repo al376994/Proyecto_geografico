@@ -47,7 +47,7 @@ public class TestsAceptacion_H_5_4 {
     }
 
     @Test
-    public void modificarPerfil_E5_4_2_modificadoIncorrecto() throws SQLException {
+    public void modificarPerfil_E5_4_3_modificadoIncorrecto() throws SQLException {
         //Arrange
         usuario.setContrasena("pwd");
         //Act

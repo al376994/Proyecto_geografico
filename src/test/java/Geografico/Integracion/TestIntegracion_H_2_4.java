@@ -67,7 +67,7 @@ public class TestIntegracion_H_2_4 {
     }
 
     @Test
-    public void consultarInformacionUbicacionesActivasPorSeparado_E2_4_1_SeNotificaQueLaAPINoEstaDisponible() throws AlreadyHasPlaceException {
+    public void consultarInformacionUbicacionesActivasPorSeparado_E2_4_2_SeNotificaQueLaAPINoEstaDisponible() throws AlreadyHasPlaceException {
         //Arrange
         Ubicacion castellonWhen = new Ubicacion(39.97990, -0.03304, "Castellón");
         when(mockedUsuario.altaUbicacionToponimo("Castellón")).thenReturn(castellonWhen);
@@ -94,8 +94,8 @@ public class TestIntegracion_H_2_4 {
         assertEquals(valeciaOriginal.getLatitud(), latitudValenciaRecivida);
 
         assertThrows(NullPointerException.class,
-                ()-> mockedUsuario.getWeather().get(castellonRecivido.getNombre()).gettActual());
+                ()-> {String tiempo = mockedUsuario.getWeather().get(castellonRecivido.getNombre()).gettActual();});
         assertThrows(NullPointerException.class,
-                ()-> mockedUsuario.getWeather().get(valenciaRecivido.getNombre()).gettActual());
+                ()-> {String tiempo = mockedUsuario.getWeather().get(valenciaRecivido.getNombre()).gettActual();});
     }
 }

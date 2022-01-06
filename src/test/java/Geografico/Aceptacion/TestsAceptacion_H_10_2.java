@@ -15,8 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestsAceptacion_H_10_2 {
     private Usuario usuario;
@@ -26,7 +25,7 @@ public class TestsAceptacion_H_10_2 {
 
 
     @BeforeEach
-    private void iniciarVariables() throws SQLException {
+    private void iniciarVariables() {
         usuario = new Usuario();
         usuario.setNombre("usuarioFt");
         APIAirVisual = new APIAirVisual();
@@ -35,25 +34,23 @@ public class TestsAceptacion_H_10_2 {
     }
 
     @Test
-    public void verTiempoUbiActual_E10_1_1_Correcta() throws SQLException, CoordenadasExcepcion, JSONException, FileNotFoundException {
+    public void verTiempoUbiActual_E10_2_1_Correcta() throws JSONException {
         //Arrange
         Ciudad ciudadCercana = APIAirVisual.getCiudadCercana();
         Ciudad aux = apiOpenDataSoft.cambiarParaOpenWeather(ciudadCercana);
         //Act
         TiempoActual p = APIOpenWeather.getTiempoActual(aux);
         //Assert
-        assertEquals(true, p.gettActual()!=null);
+        assertNotNull(p.gettActual());
     }
 
     @Test
-    public void verTiempoUbiActual_E10_2_2_Incorrecta() throws SQLException, JSONException, FileNotFoundException {
+    public void verTiempoUbiActual_E10_2_2_Incorrecta() {
         //Arrange
         Ciudad ciudadCercana = null;
         //Act
         assertThrows(NullPointerException.class,
-                ()-> {
-                    TiempoActual p = APIOpenWeather.getTiempoActual(ciudadCercana);
-        });
+                ()-> APIOpenWeather.getTiempoActual(ciudadCercana));
         //Assert
     }
 }

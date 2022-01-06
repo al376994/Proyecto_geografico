@@ -31,7 +31,7 @@ public class TestIntegracion_H_2_5 {
     }
 
     @Test
-    public void reactivarUbicacionActivaDelHistoail_E2_5_3_SeNotificaQueEsaYaEstabaActivada() {
+    public void reactivarUbicacionActivaDelHistoail_E2_5_4_SeNotificaQueEsaYaEstabaActivada() {
         //Arrange
         mockedUsuario = Mockito.mock(Usuario.class);
         Ubicacion ubicacion = new Ubicacion(39.97990, -0.03304, "Castellón");

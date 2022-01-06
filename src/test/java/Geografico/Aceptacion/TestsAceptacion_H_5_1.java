@@ -48,7 +48,7 @@ public class TestsAceptacion_H_5_1 {
     }
 
     @Test
-    public void registrarUsuario_E5_1_2_registroIncorrecto() {
+    public void registrarUsuario_E5_1_4_registroIncorrecto() {
         //Arrange
         usuario.setContrasena("");
         //Act

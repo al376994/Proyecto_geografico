@@ -48,7 +48,7 @@ public class TestsAceptacion_H_5_2 {
 	}
 
 	@Test
-	public void iniciarSesion_E5_1_2_inicioIncorrecto() throws SQLException {
+	public void iniciarSesion_E5_2_3_inicioIncorrecto() throws SQLException {
 		//Arrange
 		usuario.setContrasena("pwd");
 		//Act

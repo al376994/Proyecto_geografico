@@ -12,12 +12,12 @@ import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestIntegracion_H_10_2 {
     private Usuario usuario;
@@ -26,7 +26,7 @@ public class TestIntegracion_H_10_2 {
 
 
     @BeforeEach
-    private void iniciarVariables() throws SQLException {
+    private void iniciarVariables() {
         usuario = new Usuario();
         usuario.setNombre("usuarioFt");
         mockedAPIAirVisual = Mockito.mock(APIAirVisual.class);
@@ -34,7 +34,7 @@ public class TestIntegracion_H_10_2 {
     }
 
     @Test
-    public void verTiempoUbiActual_E10_1_1_Correcta() throws SQLException, CoordenadasExcepcion, JSONException, FileNotFoundException {
+    public void verTiempoUbiActual_E10_2_1_Correcta() throws JSONException {
         //Arrange
         Ciudad aux1 = new Ciudad("Valencia","valencia"
                 ,"valencia","valencia");
@@ -45,17 +45,17 @@ public class TestIntegracion_H_10_2 {
         //Act
         TiempoActual p = mockedAPIOpenWeather.getTiempoActual(ciudadCercana);
         //Assert
-        assertEquals(true, p.gettActual()!=null);
+        assertNotNull(p.gettActual());
     }
 
     @Test
-    public void verTiempoUbiActual_E10_2_2_Incorrecta() throws SQLException, JSONException, FileNotFoundException {
+    public void verTiempoUbiActual_E10_2_2_Incorrecta() throws JSONException {
         //Arrange
         Ciudad ciudadCercana = null;
         when(mockedAPIOpenWeather.getTiempoActual(ciudadCercana)).thenReturn(null);
         //Act
         TiempoActual p = mockedAPIOpenWeather.getTiempoActual(ciudadCercana);
         //Assert
-        assertEquals(null, p);
+        assertNull(p);
     }
 }

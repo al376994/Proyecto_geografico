@@ -54,11 +54,11 @@ public class TestsAceptacion_H_2_4 {
         double latitudRecivida = ubicacion.getLatitud();
         //Assert
         assertEquals(ubicacionAComprovar.getLatitud(), latitudRecivida);
-        usuario.getWeather().get(ubicacion.getNombre()).gettActual();
+        String timepo = usuario.getWeather().get(ubicacion.getNombre()).gettActual();
     }
 
     @Test
-    public void consultarInformacionUbicacionesActivasPorSeparado_E2_4_1_SeNotificaQueLaAPINoEstaDisponible() throws AlreadyHasPlaceException {
+    public void consultarInformacionUbicacionesActivasPorSeparado_E2_4_2_SeNotificaQueLaAPINoEstaDisponible() throws AlreadyHasPlaceException {
         //Arrange
         usuario.altaUbicacionToponimo("Castellón");
         Ubicacion ubicacionAComprovar = usuario.altaUbicacionToponimo("Valencia");
@@ -72,6 +72,6 @@ public class TestsAceptacion_H_2_4 {
         //Assert
         assertEquals(ubicacionAComprovar.getLatitud(), latitudRecivida);
         assertThrows(NullPointerException.class,
-                ()-> usuario.getWeather().get(ubicacion.getNombre()).gettActual());
+                ()-> {String tiempo = usuario.getWeather().get(ubicacion.getNombre()).gettActual();});
     }
 }
