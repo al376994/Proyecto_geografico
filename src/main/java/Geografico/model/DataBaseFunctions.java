@@ -128,12 +128,11 @@ public class DataBaseFunctions {
 			statement.setString(1, nombre);
 			ResultSet resultSetUsuario = statement.executeQuery();
 			if (!resultSetUsuario.next()) return null;
-			Usuario usuario = new Usuario(resultSetUsuario.getString(1), resultSetUsuario.getString(2));
 			// Aqui se añadiran todos los otros datos que falten en usuario (ej: usuario.setEmail("email")),
 			// de momento la BBDD solo guarda nombre y contraseña
 			// Tambien falta la comprovación de la contraseña
 			// (ej: if( !contraseña.equals(resultSet.getString(2)) ) throw new ContraseñaIncorrectaException(); )
-			return usuario;
+			return new Usuario(resultSetUsuario.getString(1), resultSetUsuario.getString(2));
 		}catch (SQLException e2){
 			e2.printStackTrace();
 		}
@@ -508,15 +507,17 @@ public class DataBaseFunctions {
 		return APIsDisponibles;
 	}
 
-	public void activarServicioAPIUsuario(String usuario, String servicio) {
+	public boolean activarServicioAPIUsuario(String usuario, String servicio) {
 		try {
 			PreparedStatement statement = conn.prepareStatement("INSERT INTO usuario_servicios VALUES(?,?);");
 			statement.setString(1, usuario);
 			statement.setString(2, servicio);
 			statement.execute();
 		} catch (SQLException e) {
+			if (e.getSQLState().equals("23503")) return false;
 			e.printStackTrace();
 		}
+		return true;
 	}
 
 	public void desactivarServicioAPIUsuario(String usuario, String servicio) {

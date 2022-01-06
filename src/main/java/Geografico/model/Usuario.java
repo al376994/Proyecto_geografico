@@ -117,7 +117,7 @@ public class Usuario {
 		return dataBaseFunctions.getUbicacionesActivas(this.nombre);
 	}
 
-	public List<Ubicacion> getUbicacionesDesactivadas() throws SQLException {
+	public List<Ubicacion> getUbicacionesDesactivadas() {
 		return dataBaseFunctions.getUbicacionesDesactivadasUsuario(this.nombre);
 	}
 
@@ -150,8 +150,7 @@ public class Usuario {
 	}
 
 	public String obtenerToponimoCercanoCoordenadas(double lat, double lon) throws CoordenadasExcepcion {
-		String toponimo = apiGeocode.getUbicacionCoordenadas(lat, lon).getNombre();
-		return toponimo;
+		return apiGeocode.getUbicacionCoordenadas(lat, lon).getNombre();
 	}
 
 	public boolean asignarAliasUbicacion(String ubicacion, String alias){
@@ -166,8 +165,7 @@ public class Usuario {
 	}
 
     public List<Ubicacion> getHistorialUbicaciones() {
-		List<Ubicacion> historialUbicaciones = dataBaseFunctions.getHistorialUbicaciones(this.nombre);
-		return historialUbicaciones;
+		return dataBaseFunctions.getHistorialUbicaciones(this.nombre);
     }
 
 	public boolean reactivarUbicacionDelHistorial(String toponimo) {
@@ -175,18 +173,16 @@ public class Usuario {
 	}
 
 	public List<String> getServiciosAPIDisponibles() {
-		List<String> APIsDisponibles = dataBaseFunctions.getAPIsDisponibles();
-		return APIsDisponibles;
+		return dataBaseFunctions.getAPIsDisponibles();
 	}
 
 	public boolean activarServicioAPI(String servicio) {
 		try {
-			dataBaseFunctions.activarServicioAPIUsuario(this.nombre, servicio);
+			return dataBaseFunctions.activarServicioAPIUsuario(this.nombre, servicio);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		return true;
 	}
 
 	public boolean desactivarServicioAPI(String servicio) {
