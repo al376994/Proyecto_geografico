@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Test;
 import java.sql.SQLException;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestsAceptacion_H_4_2 {
     private Usuario usuario;
@@ -44,8 +45,13 @@ public class TestsAceptacion_H_4_2 {
         List<Ubicacion> ubicacionesActivas = dataBaseFunctions.listarUbicacionesUsuario(usuario.getNombre());
         String nombreUbicacion1 = ubicacionesActivas.get(0).getNombre();
         dataBaseFunctions = null;
+        String nombreUbicacion2;
+        try {
+            nombreUbicacion2 = dataBaseFunctions.listarUbicacionesUsuario(usuario.getNombre()).get(0).getNombre();
+        } catch (NullPointerException e) {
+            nombreUbicacion2 = null;
+        }
         //Assert
-        //comprobación absurda, pero no hay otra
-        assertEquals(null, dataBaseFunctions);
+        assertNull(nombreUbicacion2);
     }
 }
