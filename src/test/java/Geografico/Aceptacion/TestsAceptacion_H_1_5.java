@@ -41,6 +41,7 @@ public class TestsAceptacion_H_1_5 {
     @Test
     public void activarUbicacionDisponible_E1_5_1_QuedaActiva(){
         //Arrange
+        usuario.desactivarUbicacion(ubicacion);
         //Act
         Boolean activada = usuario.activarUbicacion(ubicacion);
         //Assert
