@@ -56,14 +56,11 @@ public class TestsAceptacion_H_1_7 {
 
     @Test
     public void obtenerToponimoCercanoCoordenadas_E1_7_2_toponimoInvalido(){
-        //https://stackoverflow.com/questions/40268446/junit-5-how-to-assert-an-exception-is-thrown
         //Arrange
         usuario.addAPIGeocode(apiGeocode);
         //Act
 
         assertThrows(CoordenadasExcepcion.class,
-                ()->{
-                    Ubicacion ubicacion = apiGeocode.getUbicacionCoordenadas(100,-100);
-        });
+                ()-> apiGeocode.getUbicacionCoordenadas(100,-100));
     }
 }
