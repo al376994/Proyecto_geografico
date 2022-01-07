@@ -51,7 +51,7 @@ public class TestIntegracion_H_1_2 {
 	}
 
 	@Test
-	public void altaUbicacionToponimo_E1_2_2_listaUbicacionesVacia() throws SQLException, CoordenadasExcepcion, AlreadyHasPlaceException {
+	public void altaUbicacionCoordenadas_E1_2_3_listaUbicacionesVacia() throws SQLException, CoordenadasExcepcion, AlreadyHasPlaceException {
 		//Arrange
 		usuario.addAPIGeocode(mockedApiGeocode);
 		//Act
