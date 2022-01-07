@@ -15,7 +15,6 @@ import java.util.Map;
 
 public class Usuario {
 	private String nombre;
-	private String email;
 	private String contrasena;
 
 	private final List<APIGeocodeInterface> listAPIGeocode = new ArrayList<>();
@@ -46,14 +45,6 @@ public class Usuario {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getContrasena() {
