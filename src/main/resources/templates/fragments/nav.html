@@ -8,13 +8,13 @@
 		</ul>
 		<div class="loggeduser" th:object="${session}" xmlns:th="http://www.w3.org/1999/xhtml">
 			<ul class="navbar-nav me-auto">
-				<li class="nav-item">
+				<li class="nav-item" style="padding: 4px">
 					Autenticado como <span th:text="*{user.getNombre()}"></span>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item" style="padding: 4px">
 					<a href="/logout" th:href="@{/logout}">Salir</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item" style="padding: 4px">
 					<a href="/configurar" th:href="@{/configurar}">Configurar</a>
 				</li>
 			</ul>
