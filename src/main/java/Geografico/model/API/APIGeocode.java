@@ -6,8 +6,6 @@ import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -143,9 +141,8 @@ public class APIGeocode implements APIGeocodeInterface{
 		return l;
 	}
 
-	public Ubicacion getUbicacionCercana() throws UnknownHostException {
-		//TODO
-		InetAddress.getLocalHost().getHostAddress();
-		return null;
+
+	public String getNombre(){
+		return "GeoCode";
 	}
 }

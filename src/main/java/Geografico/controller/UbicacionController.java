@@ -40,6 +40,8 @@ public class UbicacionController {
 		model.addAttribute("coordenadasValidas", session.getAttribute("coordenadasValidas"));
 		model.addAttribute("toponimoValido", session.getAttribute("toponimoValido"));
 
+		List<String> serviciosActivos = usuario.getServiciosAPI();
+		model.addAttribute("serviciosActivos", serviciosActivos);
 		model.addAttribute("weather", usuario.getWeather());
 		model.addAttribute("airPolution", usuario.getAirPolution());
 		return "principal/ubicaciones";
@@ -97,6 +99,8 @@ public class UbicacionController {
 		Usuario usuario = (Usuario)session.getAttribute("user");
 		Ubicacion ubicacion = usuario.getUbicacion(toponimo);
 		model.addAttribute("ubicacion", ubicacion);
+		List<String> serviciosActivos = usuario.getServiciosAPI();
+		model.addAttribute("serviciosActivos", serviciosActivos);
 		model.addAttribute("weather", usuario.getWeather());
 		model.addAttribute("airPolution", usuario.getAirPolution());
 		return "principal/ubicacion";
@@ -110,6 +114,8 @@ public class UbicacionController {
 
 		List<Ubicacion> ubicaciones = usuario.getUbicacionesDesactivadas();
 		model.addAttribute("ubicaciones", ubicaciones);
+		List<String> serviciosActivos = usuario.getServiciosAPI();
+		model.addAttribute("serviciosActivos", serviciosActivos);
 		model.addAttribute("weather", usuario.getWeather());
 		model.addAttribute("airPolution", usuario.getAirPolution());
 		return "principal/ubicacionesDesactivadas";

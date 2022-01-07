@@ -78,12 +78,18 @@
 		<div class="col-md-1"></div>
 		<div class="col-md-4">
 			<div th:if="${weather.get(ubicacion.getNombre()) != null}">
-				<div class="ms-2 mb-2 bg-white border-box-with-shadow text-black" th:object="${weather.get(ubicacion.getNombre())}">
+				<div class="ms-2 mb-2 bg-white border-box-with-shadow text-black"
+					 th:if="${serviciosActivos.contains('OpenWeather')}"
+					 th:object="${weather.get(ubicacion.getNombre())}">
 					<div th:replace="fragments/weatherInsideCard"></div>
+				</div>
+				<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black"
+					 th:unless="${serviciosActivos.contains('OpenWeather')}">
+					<h5 class="ms-2 my-4">Servicio desactivado para el usuario, activalo desde el menu servicios del menu prinicpal</h5>
 				</div>
 			</div>
 			<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black" th:unless="${weather.get(ubicacion.getNombre()) != null}">
-				<h5 class="ms-2">Servicio desactivado para esta ubicacion</h5>
+				<h5 class="ms-2 py-4">Servicio desactivado para esta ubicacion</h5>
 			</div>
 		</div>
 
@@ -91,20 +97,21 @@
 
 		<div class="col-md-4">
 			<div th:if="${airPolution.get(ubicacion.getNombre()) != null}">
-				<div class="mb-2 bg-white border-box-with-shadow text-black" th:object="${airPolution.get(ubicacion.getNombre())}">
+				<div class="mb-2 bg-white border-box-with-shadow text-black"
+					 th:if="${serviciosActivos.contains('AirVisual')}"
+					 th:object="${airPolution.get(ubicacion.getNombre())}">
 					<div th:replace="fragments/airPolutionInsideCard"></div>
+				</div>
+				<div class="ms-4 mb-2 bg-white border-box-with-shadow text-black"
+					 th:unless="${serviciosActivos.contains('AirVisual')}">
+					<h5 class="ms-2 py-4">Servicio desactivado para el usuario, activalo desde el menu servicios del menu prinicpal</h5>
 				</div>
 			</div>
 			<div class="mb-2 bg-white border-box-with-shadow text-black" th:unless="${airPolution.get(ubicacion.getNombre()) != null}">
-				<h5 class="ms-2">Servicio desactivado para esta ubicacion</h5>
+				<h5 class="ms-2 py-4">Servicio desactivado para esta ubicacion</h5>
 			</div>
 		</div>
 		<div class="col-md-1"></div>
-		<!--
-		<div class="col-md-4">
-			<h5 class="me-4">Contenido Deporte</h5>
-		</div>
-		-->
 	</div>
 
 

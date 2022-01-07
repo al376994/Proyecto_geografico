@@ -37,6 +37,8 @@ public class HomeController {
 		Usuario usuario = (Usuario)session.getAttribute("user");
 		List<Ubicacion> ubicaciones = usuario.getUbicacionesFavoritas();
 		model.addAttribute("ubicaciones", ubicaciones);
+		List<String> serviciosActivos = usuario.getServiciosAPI();
+		model.addAttribute("serviciosActivos", serviciosActivos);
 		model.addAttribute("weather", usuario.getWeather());
 		model.addAttribute("airPolution", usuario.getAirPolution());
 
