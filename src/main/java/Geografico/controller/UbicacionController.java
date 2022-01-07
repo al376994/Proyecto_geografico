@@ -111,6 +111,7 @@ public class UbicacionController {
 		List<Ubicacion> ubicaciones = usuario.getUbicacionesDesactivadas();
 		model.addAttribute("ubicaciones", ubicaciones);
 		model.addAttribute("weather", usuario.getWeather());
+		model.addAttribute("airPolution", usuario.getAirPolution());
 		return "principal/ubicacionesDesactivadas";
 	}
 
