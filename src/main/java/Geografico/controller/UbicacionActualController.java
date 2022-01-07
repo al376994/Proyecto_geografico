@@ -22,7 +22,8 @@ public class UbicacionActualController {
     private final APIOpenDataSoft apiOpenDataSoft = new APIOpenDataSoft();
 
     @RequestMapping(value="/servicios")
-    public String redirigirServicio(Model model, HttpSession session) throws SQLException, JSONException {
+    public String redirigirServicio(Model model, HttpSession session) throws JSONException {
+        if(ControllerFunctions.checkIsLogged(model, session, "/ubicacionActual/servicios")) return "redirect:/login";
         Ciudad ciudad = apiAirVisual.getCiudadCercana();
         Ciudad aux = apiOpenDataSoft.cambiarParaOpenWeather(ciudad);
         Polucion polucion = apiAirVisual.getPolucionCiudadCercana();
