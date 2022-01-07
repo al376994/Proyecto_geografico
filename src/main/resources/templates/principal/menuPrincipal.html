@@ -8,22 +8,24 @@
 </head>
 <body>
 <div th:replace="fragments/nav"></div>
-<div class="row">
-	<div class="col-md-3 type-button">
-		<a th:href="@{/ubicaciones/lista}" role="button" class="btn btn-primary">Ubicaciones</a>
+<div class="row boto py-3">
+	<div class="col-md-1"></div>
+	<div class="col-md-2 type-button">
+		<a th:href="@{/ubicaciones/lista}" role="button" class="btn btn-primary w-75">Ubicaciones</a>
 	</div>
-	<div class="col-md-3">
-		<a th:href="@{/servicios}" role="button" class="btn btn-primary">Servicios</a>
+	<div class="col-md-2">
+		<a th:href="@{/servicios}" role="button" class="btn btn-primary w-75">Servicios</a>
 	</div>
-	<div class="col-md-3 type-button">
-		<a th:href="@{/tiempo/elegirTiempo}" role="button" class="btn btn-primary">Tiempo provincias</a>
+	<div class="col-md-2 type-button">
+		<a th:href="@{/tiempo/elegirTiempo}" role="button" class="btn btn-primary w-75">Tiempo provincias</a>
 	</div>
-	<div class="col-md-3 type-button">
-		<a th:href="@{/deportes/elegirLiga}" role="button" class="btn btn-primary">Deportes</a>
+	<div class="col-md-2 type-button">
+		<a th:href="@{/deportes/elegirLiga}" role="button" class="btn btn-primary w-75">Deportes</a>
 	</div>
-	<div class="col-md-3 type-button">
-		<a th:href="@{/ubicacionActual/servicios}" role="button" class="btn btn-primary">Ubicación actual</a>
+	<div class="col-md-2 type-button">
+		<a th:href="@{/ubicacionActual/servicios}" role="button" class="btn btn-primary w-75">Ubicación actual</a>
 	</div>
+	<div class="col-md-1"></div>
 </div>
 <div class="row">
 	<h1>Ubicaciones favoritas</h1>
