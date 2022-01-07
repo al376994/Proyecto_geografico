@@ -46,6 +46,7 @@ public class APIAirVisual implements APIAirVisualInterface{
     }
 
     public Polucion getPolucionCiudadCercana() throws JSONException {
+        //InetAddress.getLocalHost()
         String raw = APIHelper.getBody("http://api.airvisual.com/v2/nearest_city?key="+key);
         JSONObject obj = new JSONObject(raw);
         JSONObject data = obj.getJSONObject("data");
@@ -70,6 +71,11 @@ public class APIAirVisual implements APIAirVisualInterface{
                 throw new AirPolutionAPIRequestsLimitReachedException(
                         "Se han alcanzado el número máximo de solicitudes a la API, recarga la página ahora o " +
                         "dentro de un minuto para solucionar el problema."
+                );
+            else if (data.getString("message").equals("call_per_day_limit_reached"))
+                throw new AirPolutionAPIRequestsLimitReachedException(
+                        "Se han alcanzado el número máximo de solicitudes a la API diarias, hasta el proximo dia " +
+                                "no se podrá obtener esta informacion."
                 );
         }
         JSONObject current = data.getJSONObject("current");
