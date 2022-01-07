@@ -6,6 +6,8 @@ import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -96,7 +98,7 @@ public class APIGeocode implements APIGeocodeInterface{
 		}
 		if (!validarCoordenadas(lat, lon)) {
 			throw new CoordenadasExcepcion(3);
-		};
+		}
 		// Hacemos esto porque al buscar por coordenadas y darte una ubicacion, las coordenadas que de la API son las
 		// más cercanas a las coordenadas dadas dentro del área de la ubicacion en vez de las coordenadas centrales de
 		// la ubicacion, que es lo que da buscar por toponimo, por lo tanto para evitar tener una ubicacion con
@@ -141,8 +143,9 @@ public class APIGeocode implements APIGeocodeInterface{
 		return l;
 	}
 
-
-	public String getNombre(){
-		return "GeoCode";
+	public Ubicacion getUbicacionCercana() throws UnknownHostException {
+		//TODO
+		InetAddress.getLocalHost().getHostAddress();
+		return null;
 	}
 }
