@@ -611,7 +611,7 @@ public class DataBaseFunctions {
 		try {
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones_servicios " +
 					"JOIN usuario_ubicaciones USING(ubicacion) " +
-					"WHERE usuario=? AND servicioapi=? AND nombre='u'");
+					"WHERE usuario=? AND servicioapi=?");
 			statement.setString(1, usuario);
 			statement.setString(2, servicio);
 			ResultSet resultSetUbicaciones = statement.executeQuery();
