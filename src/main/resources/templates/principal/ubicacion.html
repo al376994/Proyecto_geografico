@@ -19,7 +19,7 @@
 		</div>
 	</div>
 
-	<form action="#" th:action="@{/cambiarAlias}" th:object="${ubicacion}" method="post">
+	<form action="#" th:action="@{/ubicaciones/cambiarAlias}" th:object="${ubicacion}" method="post">
 		<div class="row mx-2">
 			<div class="col-md-1 h5">Ubicacion:</div>
 			<div class="col-md-3 h5" th:text="*{getNombre()}"></div>
@@ -27,6 +27,7 @@
 
 			<div class="col-md-1 h5">Alias:</div>
 			<div class="col-md-3 h5">
+				<input class="form-control" hidden="hidden" type="text" th:field="*{nombre}" maxlength="50">
 				<input class="form-control" type="text" th:field="*{alias}" maxlength="50">
 			</div>
 			<div class="col-md-2">

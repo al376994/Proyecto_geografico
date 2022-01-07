@@ -103,7 +103,7 @@ public class UbicacionController {
 	}
 
 	@RequestMapping(value = "/lista/desactivadas")
-	public String listaUbicacionesDesactivadas(Model model, HttpSession session) throws SQLException {
+	public String listaUbicacionesDesactivadas(Model model, HttpSession session) {
 		if(ControllerFunctions.checkIsLogged(model, session, "/ubicaciones/lista/desactivadas")) return "redirect:/login";
 
 		Usuario usuario = (Usuario)session.getAttribute("user");
@@ -116,7 +116,7 @@ public class UbicacionController {
 	}
 
 	@RequestMapping(value = "/lista/historial")
-	public String historialUbicaciones(Model model, HttpSession session) throws SQLException {
+	public String historialUbicaciones(Model model, HttpSession session) {
 		if(ControllerFunctions.checkIsLogged(model, session, "/ubicaciones/lista/historial")) return "redirect:/login";
 
 		Usuario usuario = (Usuario)session.getAttribute("user");
@@ -182,9 +182,9 @@ public class UbicacionController {
 		return "redirect:/ubicaciones/lista";
 	}
 
-	@RequestMapping(value = "/cambiarAlias")
+	@RequestMapping(value = "/cambiarAlias", method = RequestMethod.POST)
 	public String cambiarAliasUbicacion(@SessionAttribute("user") Usuario usuario, @ModelAttribute("ubicacion") Ubicacion ubicacion) {
 		usuario.asignarAliasUbicacion(ubicacion.getNombre(), ubicacion.getAlias());
-		return "redirect:ubicaciones/ubicacion/" + ubicacion.getNombre();
+		return "redirect:/ubicaciones/ubicacion/" + ubicacion.getNombre();
 	}
 }

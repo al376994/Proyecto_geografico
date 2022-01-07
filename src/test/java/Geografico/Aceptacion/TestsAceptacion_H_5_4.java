@@ -40,7 +40,7 @@ public class TestsAceptacion_H_5_4 {
         usuario.setContrasena("pwd");
         //Act
         dataBaseFunctions.addUsuario(usuario);
-        int i = dataBaseFunctions.actualizarContraseña(usuario.getNombre(), usuario.getContrasena(),
+        int i = dataBaseFunctions.actualizarContrasena(usuario.getNombre(), usuario.getContrasena(),
                 "nuevaPwd");
         //Assert
         assertEquals(1, i);
@@ -52,7 +52,7 @@ public class TestsAceptacion_H_5_4 {
         usuario.setContrasena("pwd");
         //Act
         dataBaseFunctions.addUsuario(usuario);
-        int i = dataBaseFunctions.actualizarContraseña(usuario.getNombre(), usuario.getContrasena(),
+        int i = dataBaseFunctions.actualizarContrasena(usuario.getNombre(), usuario.getContrasena(),
                 "");
         //Assert
         assertEquals(3, i);

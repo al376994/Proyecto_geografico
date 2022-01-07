@@ -122,7 +122,7 @@ public class DataBaseFunctions {
 		}
 	}
 
-	public Usuario getUsuario(String nombre, String contraseña) throws SQLException {
+	public Usuario getUsuario(String nombre, String contrasena) throws SQLException {
 		try{
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario WHERE nombre=?");
 			statement.setString(1, nombre);
@@ -139,7 +139,7 @@ public class DataBaseFunctions {
 		return null;
 	}
 
-	public void deleteUsuario(String nombre, String contraseña) throws SQLException {
+	public void deleteUsuario(String nombre, String contrasena) throws SQLException {
 		try{
 			PreparedStatement statement = conn.prepareStatement("DELETE FROM usuario_ubicaciones WHERE nombre=?");
 			statement.setString(1, nombre);
@@ -234,10 +234,10 @@ public class DataBaseFunctions {
 	}
 
 
-	public List<Ubicacion> getUbicacionesActivas(String nombre) throws SQLException {
+	public List<Ubicacion> getUbicacionesActivas(String nombre) {
 		List<Ubicacion> ubicacionesActivas = new ArrayList<>();
 		try {
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones WHERE nombre = ? AND activo = 't';");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones WHERE nombre = ? AND activo = 't' ORDER BY alias;");
 			statement.setString(1, nombre);
 			ResultSet resultSetUbicaciones = statement.executeQuery();
 			while(resultSetUbicaciones.next()) {
@@ -286,8 +286,7 @@ public class DataBaseFunctions {
 	}
 
 	public Boolean isLocationActive(String nombre, Ubicacion ubicacion) {
-		//FIXME
-		Boolean active = true;
+		boolean active = true;
 		try {
 			PreparedStatement statement = conn.prepareStatement("SELECT activo FROM usuario_ubicaciones WHERE nombre = ? AND ubicacion = ?;");
 			statement.setString(1, nombre);
@@ -350,8 +349,8 @@ public class DataBaseFunctions {
 	//1 si se cambia la contraseña
 	//2 por defecto
 	//3 si la nueva contraseña no es válida
-	public int actualizarContraseña(String usuario, String viejaContraseña, String nuevaContraseña){
-		if (nuevaContraseña.equals("")){
+	public int actualizarContrasena(String usuario, String viejaContrasena, String nuevaContrasena){
+		if (nuevaContrasena.equals("")){
 			return 3;
 		}
 		String pwd = "";
@@ -363,13 +362,13 @@ public class DataBaseFunctions {
 			while(result.next()){
 				pwd = result.getString(1);
 			}
-			if (!pwd.equals(viejaContraseña)){
+			if (!pwd.equals(viejaContrasena)){
 				return 0;
 			}
 			else{
 				PreparedStatement statement1 = conn.prepareStatement("UPDATE usuario SET contrase¤a = ? WHERE " +
 						"nombre = ?;");
-				statement1.setString(1, nuevaContraseña);
+				statement1.setString(1, nuevaContrasena);
 				statement1.setString(2, usuario);
 				statement1.executeUpdate();
 				return 1;
@@ -380,7 +379,7 @@ public class DataBaseFunctions {
 		return 2;
 	}
 
-	public boolean anadirUbicacionFavorita(String usuario, String ubicacion) throws SQLException {
+	public boolean anadirUbicacionFavorita(String usuario, String ubicacion) {
 		if (getUbicacionUsuario(usuario, ubicacion) == null){
 			return false;
 		}
@@ -401,7 +400,7 @@ public class DataBaseFunctions {
 		List<Ubicacion> ubicacionesFavoritas = new ArrayList<>();
 		try{
 			PreparedStatement statement = conn.prepareStatement("select * from usuario_ubicaciones " +
-					"where nombre = ? and favorito=true and activo=true;");
+					"where nombre = ? and favorito=true and activo=true ORDER BY alias;");
 			statement.setString(1, usuario);
 			ResultSet result = statement.executeQuery();
 			while(result.next()){
@@ -415,7 +414,7 @@ public class DataBaseFunctions {
 		return ubicacionesFavoritas;
 	}
 
-	public boolean desactivarUbicacionFavorita(String usuario, String ubicacion) throws SQLException {
+	public boolean desactivarUbicacionFavorita(String usuario, String ubicacion) {
 		if (!getUbicacionUsuario(usuario, ubicacion).isFavorito()){
 			return false;
 		}
@@ -494,7 +493,7 @@ public class DataBaseFunctions {
 	}
 
 	public List<String> getAPIsDisponibles() {
-		List<String> APIsDisponibles = new ArrayList<String>();
+		List<String> APIsDisponibles = new ArrayList<>();
 		try {
 			PreparedStatement statement = conn.prepareCall("SELECT * FROM servicios_api;");
 			ResultSet result = statement.executeQuery();
@@ -611,7 +610,7 @@ public class DataBaseFunctions {
 		try {
 			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones_servicios " +
 					"JOIN usuario_ubicaciones USING(ubicacion) " +
-					"WHERE usuario=? AND servicioapi=?");
+					"WHERE usuario=? AND servicioapi=? ORDER BY alias");
 			statement.setString(1, usuario);
 			statement.setString(2, servicio);
 			ResultSet resultSetUbicaciones = statement.executeQuery();

@@ -1,8 +1,6 @@
 package Geografico.Integracion;
-import Geografico.model.DataBaseConnector;
 import Geografico.model.DataBaseFunctions;
 import Geografico.model.Usuario;
-import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -30,10 +28,10 @@ public class TestIntegracion_H_5_4 {
         //Arrange
         usuario.setContrasena("pwd");
         //Act
-        when(mockedDataBaseFunctions.actualizarContraseña(usuario.getNombre(), usuario.getContrasena(),
+        when(mockedDataBaseFunctions.actualizarContrasena(usuario.getNombre(), usuario.getContrasena(),
                 "nuevaPwd")).thenReturn(1);
         mockedDataBaseFunctions.addUsuario(usuario);
-        int i = mockedDataBaseFunctions.actualizarContraseña(usuario.getNombre(), usuario.getContrasena(),
+        int i = mockedDataBaseFunctions.actualizarContrasena(usuario.getNombre(), usuario.getContrasena(),
                 "nuevaPwd");
         //Assert
         assertEquals(1, i);
@@ -44,10 +42,10 @@ public class TestIntegracion_H_5_4 {
         //Arrange
         usuario.setContrasena("pwd");
         //Act
-        when(mockedDataBaseFunctions.actualizarContraseña(usuario.getNombre(), usuario.getContrasena(),
+        when(mockedDataBaseFunctions.actualizarContrasena(usuario.getNombre(), usuario.getContrasena(),
                 "")).thenReturn(3);
         mockedDataBaseFunctions.addUsuario(usuario);
-        int i = mockedDataBaseFunctions.actualizarContraseña(usuario.getNombre(), usuario.getContrasena(),
+        int i = mockedDataBaseFunctions.actualizarContrasena(usuario.getNombre(), usuario.getContrasena(),
                 "");
         //Assert
         assertEquals(3, i);
