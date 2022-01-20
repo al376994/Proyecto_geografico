@@ -29,16 +29,9 @@ public class DeporteController {
     @RequestMapping("/formularioLigaClas/{liga}")
     public String formularioLigaClasificacion(Model model, @PathVariable String liga, HttpSession session) throws JSONException {
         session.setAttribute("liga", liga);
-//        List<EquipoClasificacion> equipos = APISportsData.getClasificacionUsuario(liga);
-        List<EquipoClasificacion> equipos = null;
-        if (liga.compareTo("La Liga Española") == 0){
-            equipos = dataBaseFunctions.getClasificacionLiga();
-        }else{
-            equipos = dataBaseFunctions.getClasificacionBundesliga();
-        }
+        List<EquipoClasificacion> equipos = APISportsData.getClasificacionUsuario(liga);
         model.addAttribute("equipos", equipos);
         EquipoClasificacion e1 = equipos.get(1);
-//        System.out.println(e1.getLogo());
         return "principal/clasificacion";
     }
 

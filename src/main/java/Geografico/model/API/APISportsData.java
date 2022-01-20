@@ -72,9 +72,9 @@ public class APISportsData implements APISportsDataInterface{
     public List<EquipoClasificacion> getClasificacionUsuario(String liga) throws JSONException {
         switch (liga){
             case "La Liga Española":
-                return getClasificacionLaLiga("2029");
+                return dataBaseFunctions.getClasificacionLiga();
             default:
-                return getClasificacionLaLiga("2020");
+                return dataBaseFunctions.getClasificacionBundesliga();
         }
     }
 

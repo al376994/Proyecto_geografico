@@ -7,6 +7,7 @@ import Geografico.model.Partido;
 import Geografico.model.Usuario;
 import Geografico.model.excepciones.CoordenadasExcepcion;
 import org.json.JSONException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,12 @@ public class TestsAceptacion_H_8_2 {
         usuario = new Usuario();
         usuario.setNombre("usuarioFt");
         APISportsData = new APISportsData();
+    }
+
+    @AfterEach
+    private void limpiarBaseDeDatos() throws SQLException {
+        iniciarVariables();
+        APISportsData.quitarLiga(usuario.getNombre(), APISportsData.getLigas().get(0));
     }
 
     @Test
