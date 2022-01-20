@@ -5,6 +5,7 @@ import Geografico.model.ListaUsuario;
 import Geografico.model.Ubicacion;
 import Geografico.model.Usuario;
 import Geografico.model.excepciones.AlreadyHasPlaceException;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,17 +15,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class TestsAceptacion_H_4_1 {
     private Usuario usuario;
     private ListaUsuario listaUsuario;
     private Ubicacion ubicacion;
-
-    @BeforeEach
-    public void setUp2() {
-        usuario = new Usuario();
-        usuario.setNombre("usuarioVersionAnterior");
-    }
 
     @BeforeEach
     public void setUp() throws SQLException, AlreadyHasPlaceException {
@@ -60,9 +54,10 @@ public class TestsAceptacion_H_4_1 {
     @Test
     public void recuperarContenido_E4_1_2_noSeRecupera() throws SQLException {
         //Arrange
-        usuario.setNombre("usuarioNoGuardado");
+        Usuario usuarioNoGuardado = new Usuario();
+        usuarioNoGuardado.setNombre("usuarioNoGuardado");
         //Act
-        List<Ubicacion> ubicacionesActivas = usuario.getUbicaciones();
+        List<Ubicacion> ubicacionesActivas = usuarioNoGuardado.getUbicaciones();
         //Assert
         assertEquals(0, ubicacionesActivas.size());
     }
