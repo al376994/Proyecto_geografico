@@ -35,9 +35,11 @@ public class ServicioController {
 
 		model.addAttribute("ubicacionesWeather", usuario.getUbicacionesConServicioAPI(APIHelper.WEATHERAPI));
 		model.addAttribute("weather", usuario.getWeather());
+		model.addAttribute("weatherAuto", usuario.getAdicionAutomaticaAPI(APIHelper.WEATHERAPI));
 
 		model.addAttribute("ubicacionesAirPolution", usuario.getUbicacionesConServicioAPI(APIHelper.AIRPOLUTIONAPI));
 		model.addAttribute("airPolution", usuario.getAirPolution());
+		model.addAttribute("airPolutionAuto", usuario.getAdicionAutomaticaAPI(APIHelper.AIRPOLUTIONAPI));
 
 		//descripción de los servicios
 		List<Object> serv = new ArrayList<>();
@@ -59,6 +61,18 @@ public class ServicioController {
 		return "redirect:/servicios";
 	}
 
+	@RequestMapping(value="activarAdicionAutomatica/WEATHERAPI")
+	public String activarAdicionAutomaticaWeather(@SessionAttribute("user") Usuario usuario) {
+		usuario.activarAdicionAutomaticaAPI(APIHelper.WEATHERAPI);
+		return "redirect:/servicios";
+	}
+
+	@RequestMapping(value="desactivarAdicionAutomatica/WEATHERAPI")
+	public String desactivarAdicionAutomaticaWeather(@SessionAttribute("user") Usuario usuario) {
+		usuario.desactivarAdicionAutomaticaAPI(APIHelper.WEATHERAPI);
+		return "redirect:/servicios";
+	}
+
 	@RequestMapping(value="activar/AIRPOLUTIONAPI")
 	public String activarServicioAirPolution(@SessionAttribute("user") Usuario usuario) {
 		usuario.activarServicioAPI(APIHelper.AIRPOLUTIONAPI);
@@ -68,6 +82,18 @@ public class ServicioController {
 	@RequestMapping(value="desactivar/AIRPOLUTIONAPI")
 	public String desactivarServicioAirPolution(@SessionAttribute("user") Usuario usuario) {
 		usuario.desactivarServicioAPI(APIHelper.AIRPOLUTIONAPI);
+		return "redirect:/servicios";
+	}
+
+	@RequestMapping(value="activarAdicionAutomatica/AIRPOLUTIONAPI")
+	public String activarAdicionAutomaticaAirPolution(@SessionAttribute("user") Usuario usuario) {
+		usuario.activarAdicionAutomaticaAPI(APIHelper.AIRPOLUTIONAPI);
+		return "redirect:/servicios";
+	}
+
+	@RequestMapping(value="desactivarAdicionAutomatica/AIRPOLUTIONAPI")
+	public String desactivarAdicionAutomaticaAirPolution(@SessionAttribute("user") Usuario usuario) {
+		usuario.desactivarAdicionAutomaticaAPI(APIHelper.AIRPOLUTIONAPI);
 		return "redirect:/servicios";
 	}
 }

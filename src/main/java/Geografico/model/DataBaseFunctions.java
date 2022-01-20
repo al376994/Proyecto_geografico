@@ -82,12 +82,14 @@ public class DataBaseFunctions {
 			}
 
 			for (String servicio: getServiciosAPIUsuario(usuario)) {
-				PreparedStatement statement = conn.prepareStatement(
-						"INSERT INTO usuario_ubicaciones_servicios values(?,?,?)");
-				statement.setString(1, usuario);
-				statement.setString(2, ubicacion.getNombre());
-				statement.setString(3, servicio);
-				statement.executeUpdate();
+				if (getAdicionAutomaticaAPIUsuario(usuario, servicio)) {
+					PreparedStatement statement = conn.prepareStatement(
+							"INSERT INTO usuario_ubicaciones_servicios values(?,?,?)");
+					statement.setString(1, usuario);
+					statement.setString(2, ubicacion.getNombre());
+					statement.setString(3, servicio);
+					statement.executeUpdate();
+				}
 			}
 
 		}catch (SQLException e){
@@ -539,6 +541,47 @@ public class DataBaseFunctions {
 			statement.setString(1, usuario);
 			statement.setString(2, servicio);
 			return statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean activarAdicionAutomaticaAPIUsuario(String usuario, String servicio) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("UPDATE usuario_servicios " +
+					"SET adicion_automatica = true WHERE usuario=? AND servicioapi=?");
+			statement.setString(1, usuario);
+			statement.setString(2, servicio);
+			return statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	public boolean desactivarAdicionAutomaticaAPIUsuario(String usuario, String servicio) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("UPDATE usuario_servicios " +
+					"SET adicion_automatica = false WHERE usuario=? AND servicioapi=?");
+			statement.setString(1, usuario);
+			statement.setString(2, servicio);
+			return statement.executeUpdate() > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean getAdicionAutomaticaAPIUsuario(String usuario, String servicio) {
+		try {
+			PreparedStatement statement = conn.prepareStatement("SELECT adicion_automatica FROM usuario_servicios " +
+					"WHERE usuario=? AND servicioapi=?");
+			statement.setString(1, usuario);
+			statement.setString(2, servicio);
+			ResultSet resultSetServicios = statement.executeQuery();
+			resultSetServicios.next();
+			return resultSetServicios.getBoolean(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

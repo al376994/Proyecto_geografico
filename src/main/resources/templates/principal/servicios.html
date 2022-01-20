@@ -46,7 +46,36 @@
 			   th:href="@{/servicios/activar/AIRPOLUTIONAPI}"
 			   role="button" class="btn btn-primary w-100 ms-2 me-4">Activar</a>
 		</div>
+	</div>
 
+	<div class="row mb-4">
+		<div class="col-md-3">
+			<h4 class="text-md-center" th:if="${weatherAuto}">Adicion automatica activada</h4>
+			<h4 class="text-md-center" th:unless="${weatherAuto}">Adicion automatica desactivada</h4>
+		</div>
+		<div class="col-md-2">
+			<a th:if="${weatherAuto}"
+			   th:href="@{/servicios/desactivarAdicionAutomatica/WEATHERAPI}"
+			   role="button" class="btn btn-primary w-100 ms-2 me-4">Desactivar</a>
+			<a th:unless="${weatherAuto}"
+			   th:href="@{/servicios/activarAdicionAutomatica/WEATHERAPI}"
+			   role="button" class="btn btn-primary w-100 ms-2 me-4">Activar</a>
+		</div>
+		<div class="col-md-1 bar-r"></div>
+
+		<div class="col-md-3">
+			<h4 class="text-md-center" th:if="${airPolutionAuto}">Adicion automatica activada</h4>
+			<h4 class="text-md-center" th:unless="${airPolutionAuto}">Adicion automatica desactivada</h4>
+		</div>
+		<div class="col-md-2">
+			<a th:if="${airPolutionAuto}"
+			   th:href="@{/servicios/desactivarAdicionAutomatica/AIRPOLUTIONAPI}"
+			   role="button" class="btn btn-primary w-100 ms-2 me-4">Desactivar</a>
+			<a th:unless="${airPolutionAuto}"
+			   th:href="@{/servicios/activarAdicionAutomatica/AIRPOLUTIONAPI}"
+			   role="button" class="btn btn-primary w-100 ms-2 me-4">Activar</a>
+		</div>
+		<div class="col-md-1"></div>
 	</div>
 
 	<div class="row">

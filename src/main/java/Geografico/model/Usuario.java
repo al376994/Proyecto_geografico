@@ -188,6 +188,33 @@ public class Usuario {
 		}
 	}
 
+	public boolean activarAdicionAutomaticaAPI(String servicio) {
+		try {
+			return dataBaseFunctions.activarAdicionAutomaticaAPIUsuario(this.nombre, servicio);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean desactivarAdicionAutomaticaAPI(String servicio) {
+		try {
+			return dataBaseFunctions.desactivarAdicionAutomaticaAPIUsuario(this.nombre, servicio);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean getAdicionAutomaticaAPI(String servicio) {
+		try {
+			return dataBaseFunctions.getAdicionAutomaticaAPIUsuario(this.nombre, servicio);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	public List<String> getServiciosAPI() {
 		return dataBaseFunctions.getServiciosAPIUsuario(this.nombre);
 	}
