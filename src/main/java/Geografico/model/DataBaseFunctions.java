@@ -608,8 +608,8 @@ public class DataBaseFunctions {
 	public List<Ubicacion> getUbicacionesConServicioUsuario(String usuario, String servicio) {
 		List<Ubicacion> ubicacionesConServicio = new ArrayList<>();
 		try {
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones_servicios " +
-					"JOIN usuario_ubicaciones USING(ubicacion) " +
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM usuario_ubicaciones_servicios AS uus " +
+					"JOIN usuario_ubicaciones AS uu ON uus.usuario=uu.nombre AND uus.ubicacion=uu.ubicacion " +
 					"WHERE usuario=? AND servicioapi=? ORDER BY alias");
 			statement.setString(1, usuario);
 			statement.setString(2, servicio);

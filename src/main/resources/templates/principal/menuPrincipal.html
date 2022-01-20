@@ -31,7 +31,11 @@
 	<h1>Ubicaciones favoritas</h1>
 	<div class="container container-xxxl pt-2 card bg-light h-auto">
 		<div class="table-responsive grey-background">
+			<div th:if="${ubicaciones.size()}==0">
+				<h2>No hay ninguna ubicacion favorita, accede al menu UBICACIONES para hacer una ubicacion favorita.</h2>
+			</div>
 			<div style="width: 99%;" th:each="ubicacion: ${ubicaciones}">
+
 
 				<div th:replace="fragments/ubicacionCard"></div>
 
