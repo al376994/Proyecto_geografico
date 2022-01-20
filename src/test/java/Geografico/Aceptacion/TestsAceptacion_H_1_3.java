@@ -12,12 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class TestsAceptacion_H_1_3 {
-	//private APIAirVisualInterface apiAirVisual;
 	private APIGeocodeInterface apiGeocode;
 
 	@BeforeEach
 	public void iniciarVariables(){
-		//apiAirVisual = new APIAirVisual();
 		apiGeocode = new APIGeocode();
 	}
 
@@ -26,9 +24,6 @@ public class TestsAceptacion_H_1_3 {
 		//Arrange
 		//Act
 		boolean valido = apiGeocode.validarToponimo("Castellón");
-		//Boolean valido = apiAirVisual.validarToponimo("Castellón");
-		//esto de aqui debajo lo hace valido si se descomenta y tecnicamente funciona como debería
-		//valido = apiAirVisual.validarToponimoExaustivo("Castello%20de%20la%20Plana", "Valencia", "Spain");
 		//Assert
 		assertTrue(valido);
 	}
@@ -38,9 +33,7 @@ public class TestsAceptacion_H_1_3 {
 		//Arrange
 		//Act
 		boolean valido = apiGeocode.validarToponimo(";");
-		//Boolean valido = apiAirVisual.validarToponimo(";");
 		//Assert
-		//salta excepcion
 		assertFalse(valido);
 	}
 }
