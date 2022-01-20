@@ -742,7 +742,8 @@ public class DataBaseFunctions {
 	public List<Partido> getPartidos(){
 		List<Partido> partidos = new ArrayList<>();
 		try {
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM partidos");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM partidos " +
+					"WHERE TO_DATE(fecha,'YYYY-MM-DD') >= CURRENT_DATE ORDER BY TO_DATE(fecha,'YYYY-MM-DD')");
 			ResultSet result = statement.executeQuery();
 			while(result.next()) {
 				Equipo equipo1 = new Equipo();
@@ -756,14 +757,15 @@ public class DataBaseFunctions {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		List<Partido> menosPartidos = partidos.subList(0,50);
+		List<Partido> menosPartidos = partidos.subList(0,Math.min(partidos.size(), 50));
 		return menosPartidos;
 	}
 
 	public List<Partido> getPartidosBundesliga(){
 		List<Partido> partidos = new ArrayList<>();
 		try {
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM partidosbundesliga");
+			PreparedStatement statement = conn.prepareStatement("SELECT * FROM partidosbundesliga " +
+					"WHERE TO_DATE(fecha,'YYYY-MM-DD') >= CURRENT_DATE ORDER BY TO_DATE(fecha,'YYYY-MM-DD')");
 			ResultSet result = statement.executeQuery();
 			while(result.next()) {
 				Equipo equipo1 = new Equipo();
@@ -777,7 +779,7 @@ public class DataBaseFunctions {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		List<Partido> menosPartidos = partidos.subList(0,50);
+		List<Partido> menosPartidos = partidos.subList(0,Math.min(partidos.size(), 50));
 		return menosPartidos;
 	}
 

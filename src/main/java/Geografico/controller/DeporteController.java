@@ -45,13 +45,7 @@ public class DeporteController {
     @RequestMapping("/formularioLigaPart/{liga}")
     public String formularioLigaPartidos(Model model, @PathVariable String liga, HttpSession session) throws JSONException {
         session.setAttribute("liga", liga);
-//        List<Partido> partidos = APISportsData.getPartidosUsuario(liga);
-        List<Partido> partidos = null;
-        if (liga.compareTo("La Liga Española") == 0) {
-            partidos = dataBaseFunctions.getPartidos();
-        }else{
-            partidos = dataBaseFunctions.getPartidosBundesliga();
-        }
+        List<Partido> partidos = APISportsData.getPartidosUsuario(liga);
         model.addAttribute("partidos",partidos);
         return "principal/partidos";
     }
