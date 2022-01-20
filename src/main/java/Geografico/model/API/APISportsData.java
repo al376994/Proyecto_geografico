@@ -42,6 +42,11 @@ public class APISportsData implements APISportsDataInterface{
         return dataBaseFunctions.anadirLigaUsuario(usuario, liga);
     }
 
+    @Override
+    public boolean quitarLiga(String usuario, String liga) {
+        return dataBaseFunctions.eliminarLigaUsuario(usuario, liga);
+    }
+
     //Le proporcionas el id del equipo y te devuelve un objeto Equipo con todo sus atributos
     @Override
     public Equipo getEquipo(String id) throws JSONException {
@@ -58,9 +63,9 @@ public class APISportsData implements APISportsDataInterface{
     public List<Partido> getPartidosUsuario(String liga) throws JSONException {
         switch (liga){
             case "La Liga Española":
-                return getPartidosLiga("2029");
+                return dataBaseFunctions.getPartidos();
             default:
-                return getPartidosLiga("2020");
+                return dataBaseFunctions.getPartidosBundesliga();
         }
     }
 

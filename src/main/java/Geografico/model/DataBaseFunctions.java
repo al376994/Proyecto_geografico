@@ -437,7 +437,7 @@ public class DataBaseFunctions {
 					"values(?,?)");
 			statement.setString(1, usuario);
 			statement.setString(2, liga);
-			statement.executeQuery();
+			statement.executeUpdate();
 			return true;
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -452,6 +452,20 @@ public class DataBaseFunctions {
 				e1.printStackTrace();
 				return false;
 			}
+		}
+	}
+
+	public boolean eliminarLigaUsuario(String usuario, String liga){
+		try {
+			PreparedStatement statement = conn.prepareStatement("delete from usuario_liga " +
+			"where liga = ? and usuario = ?");
+			statement.setString(1, liga);
+			statement.setString(2, usuario);
+			statement.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 
