@@ -38,7 +38,15 @@ public class DeporteController {
     @RequestMapping("/formularioLigaPart/{liga}")
     public String formularioLigaPartidos(Model model, @PathVariable String liga, HttpSession session) throws JSONException {
         session.setAttribute("liga", liga);
-        List<Partido> partidos = APISportsData.getPartidosUsuario(liga);
+        List<Partido> partidos = APISportsData.getPartidosUsuario(liga, false);
+        model.addAttribute("partidos",partidos);
+        return "principal/partidos";
+    }
+
+    @RequestMapping("/formularioLigaPartPas/{liga}")
+    public String formularioLigaPartidosPasados(Model model, @PathVariable String liga, HttpSession session) throws JSONException {
+        session.setAttribute("liga", liga);
+        List<Partido> partidos = APISportsData.getPartidosUsuario(liga, true);
         model.addAttribute("partidos",partidos);
         return "principal/partidos";
     }

@@ -40,7 +40,7 @@ public class TestsAceptacion_H_8_1 {
         System.out.println(ligasDisponibles);
         //Act
         Boolean elegida = APISportsData.elegirLiga(usuario.getNombre(),ligasDisponibles.get(0));
-        List<Partido> partidos = APISportsData.getPartidosUsuario(ligasDisponibles.get(0));
+        List<Partido> partidos = APISportsData.getPartidosUsuario(ligasDisponibles.get(0), false);
         //Assert
         assertEquals(true, partidos.size()>1);
     }

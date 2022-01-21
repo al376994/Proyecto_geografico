@@ -27,6 +27,7 @@
             <td th:text="${liga}"></td>
             <td>Temporada 21-22</td>
             <td> <a th:href="@{/deportes/formularioLigaClas/{liga}(liga=${liga})}" class="btn btn-primary" role="button">Clasificación</a></td>
+            <td> <a th:href="@{/deportes/formularioLigaPartPas/{liga}(liga=${liga})}" class="btn btn-primary" role="button">Anteriores partidos</a></td>
             <td> <a th:href="@{/deportes/formularioLigaPart/{liga}(liga=${liga})}" class="btn btn-primary" role="button">Próximos partidos</a></td>
         </tr>
         </tbody>

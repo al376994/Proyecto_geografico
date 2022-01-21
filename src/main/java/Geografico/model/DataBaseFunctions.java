@@ -782,11 +782,17 @@ public class DataBaseFunctions {
 		}
 	}
 
-	public List<Partido> getPartidos(){
+	public List<Partido> getPartidos(boolean pasados){
 		List<Partido> partidos = new ArrayList<>();
 		try {
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM partidos " +
-					"WHERE TO_DATE(fecha,'YYYY-MM-DD') >= CURRENT_DATE ORDER BY TO_DATE(fecha,'YYYY-MM-DD')");
+			PreparedStatement statement;
+			if (pasados) {
+				statement = conn.prepareStatement("SELECT * FROM partidos " +
+						"WHERE TO_DATE(fecha,'YYYY-MM-DD') < CURRENT_DATE ORDER BY TO_DATE(fecha,'YYYY-MM-DD')");
+			} else {
+				statement = conn.prepareStatement("SELECT * FROM partidos " +
+						"WHERE TO_DATE(fecha,'YYYY-MM-DD') >= CURRENT_DATE ORDER BY TO_DATE(fecha,'YYYY-MM-DD')");
+			}
 			ResultSet result = statement.executeQuery();
 			while(result.next()) {
 				Equipo equipo1 = new Equipo();
@@ -804,11 +810,18 @@ public class DataBaseFunctions {
 		return menosPartidos;
 	}
 
-	public List<Partido> getPartidosBundesliga(){
+	public List<Partido> getPartidosBundesliga(boolean pasados){
 		List<Partido> partidos = new ArrayList<>();
 		try {
-			PreparedStatement statement = conn.prepareStatement("SELECT * FROM partidosbundesliga " +
-					"WHERE TO_DATE(fecha,'YYYY-MM-DD') >= CURRENT_DATE ORDER BY TO_DATE(fecha,'YYYY-MM-DD')");
+			PreparedStatement statement;
+			if (pasados) {
+				statement = conn.prepareStatement("SELECT * FROM partidosbundesliga " +
+						"WHERE TO_DATE(fecha,'YYYY-MM-DD') < CURRENT_DATE ORDER BY TO_DATE(fecha,'YYYY-MM-DD')");
+			} else {
+				statement = conn.prepareStatement("SELECT * FROM partidosbundesliga " +
+						"WHERE TO_DATE(fecha,'YYYY-MM-DD') >= CURRENT_DATE ORDER BY TO_DATE(fecha,'YYYY-MM-DD')");
+			}
+
 			ResultSet result = statement.executeQuery();
 			while(result.next()) {
 				Equipo equipo1 = new Equipo();

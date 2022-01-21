@@ -45,9 +45,9 @@ public class TestIntegracion_H_8_1 {
         List<String> ligasDisponibles = mockedAPISportsData.getLigas();
         System.out.println(ligasDisponibles);
         //Act
-        when(mockedAPISportsData.getPartidosUsuario(ligasDisponibles.get(0))).thenReturn(partidos1);
+        when(mockedAPISportsData.getPartidosUsuario(ligasDisponibles.get(0), false)).thenReturn(partidos1);
         Boolean elegida = mockedAPISportsData.elegirLiga(usuario.getNombre(),ligasDisponibles.get(0));
-        List<Partido> partidos = mockedAPISportsData.getPartidosUsuario(ligasDisponibles.get(0));
+        List<Partido> partidos = mockedAPISportsData.getPartidosUsuario(ligasDisponibles.get(0), false);
         //Assert
         assertEquals(true, partidos.size()>1);
     }

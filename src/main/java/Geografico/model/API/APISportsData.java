@@ -60,12 +60,12 @@ public class APISportsData implements APISportsDataInterface{
         return new Equipo(data.get("name").toString(),country.get("name").toString(),id, logo);
     }
 
-    public List<Partido> getPartidosUsuario(String liga) throws JSONException {
+    public List<Partido> getPartidosUsuario(String liga, boolean pasados) throws JSONException {
         switch (liga){
             case "La Liga Española":
-                return dataBaseFunctions.getPartidos();
+                return dataBaseFunctions.getPartidos(pasados);
             default:
-                return dataBaseFunctions.getPartidosBundesliga();
+                return dataBaseFunctions.getPartidosBundesliga(pasados);
         }
     }
 
