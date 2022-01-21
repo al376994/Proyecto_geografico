@@ -9,7 +9,7 @@ import java.net.http.HttpResponse;
 public class APIHelper {
 	// Listado do keys para las APIs
 	static final String airVisualKey = "bf324fc3-3c44-4f50-bd19-836179b019b8";
-	static final String geoCodeKey = "154159569954867389941x33942";
+	static final String geoCodeKey = "43207336223852358737x84331";
 
 	public static final String WEATHERAPI = "OpenWeather";
 	public static final String AIRPOLUTIONAPI = "AirVisual";
